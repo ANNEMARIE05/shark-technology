@@ -4,10 +4,13 @@ import { ChevronLeft, Calendar, User, ArrowLeft } from 'lucide-react'
 import Button from '../components/ui/Button'
 import { getArticleBySlug, articles } from '../data/articles'
 
+const SAFE_SLUG_REGEX = /^[a-z0-9-]+$/
+
 const ArticleDetail = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
-    const article = getArticleBySlug(slug)
+    const safeSlug = typeof slug === 'string' && SAFE_SLUG_REGEX.test(slug) ? slug : null
+    const article = safeSlug ? getArticleBySlug(safeSlug) : null
 
     if (!article) {
         return (

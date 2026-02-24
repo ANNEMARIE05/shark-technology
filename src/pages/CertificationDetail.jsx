@@ -4,10 +4,13 @@ import { ChevronLeft, Clock, BookOpen, Target, ListChecks, Award } from 'lucide-
 import Button from '../components/ui/Button'
 import { getCertificationBySlug, certifications } from '../data/certifications'
 
+const SAFE_SLUG_REGEX = /^[a-z0-9-]+$/
+
 const CertificationDetail = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
-    const cert = getCertificationBySlug(slug)
+    const safeSlug = typeof slug === 'string' && SAFE_SLUG_REGEX.test(slug) ? slug : null
+    const cert = safeSlug ? getCertificationBySlug(safeSlug) : null
 
     if (!cert) {
         return (

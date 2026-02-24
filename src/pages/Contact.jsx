@@ -35,30 +35,41 @@ const Contact = () => {
                             </div>
                             <h2 className="text-xl font-bold font-sora text-slate-900">Envoyez-nous un message</h2>
                         </div>
-                        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                        <form className="space-y-5" onSubmit={(e) => e.preventDefault()} noValidate>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-2">Nom complet</label>
+                                    <label htmlFor="contact-name" className="block text-sm font-medium text-slate-700 mb-2">Nom complet</label>
                                     <input
+                                        id="contact-name"
                                         type="text"
+                                        name="name"
+                                        autoComplete="name"
                                         placeholder="Votre nom"
+                                        maxLength={200}
                                         className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/30 focus:border-shark-accent transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                                    <label htmlFor="contact-email" className="block text-sm font-medium text-slate-700 mb-2">Email</label>
                                     <input
+                                        id="contact-email"
                                         type="email"
+                                        name="email"
+                                        autoComplete="email"
                                         placeholder="votre@email.com"
+                                        maxLength={254}
                                         className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/30 focus:border-shark-accent transition-all"
                                     />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-2">Message</label>
+                                <label htmlFor="contact-message" className="block text-sm font-medium text-slate-700 mb-2">Message</label>
                                 <textarea
-                                    rows="4"
+                                    id="contact-message"
+                                    name="message"
+                                    rows={4}
                                     placeholder="Décrivez votre besoin ou posez votre question..."
+                                    maxLength={5000}
                                     className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/30 focus:border-shark-accent transition-all resize-none"
                                 />
                             </div>

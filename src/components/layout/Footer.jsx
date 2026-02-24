@@ -53,8 +53,8 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
                 <p>© Copyright © {new Date().getFullYear()} Shark Technologys. Tous Droits Réservés.</p>
                 <div className="flex gap-6">
-                    <a href="#" className="hover:text-shark-accent transition-colors">Confidentialité</a>
-                    <a href="#" className="hover:text-shark-accent transition-colors">Mentions Légales</a>
+                    <Link to="/contact" className="hover:text-shark-accent transition-colors">Confidentialité</Link>
+                    <Link to="/contact" className="hover:text-shark-accent transition-colors">Mentions Légales</Link>
                 </div>
             </div>
         </footer>
