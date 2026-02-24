@@ -329,13 +329,13 @@ const Home = () => {
                         </div>
                         <div className="flex gap-4">
                             <button
-                                onClick={() => setActiveTestimonial((prev) => (prev > 0 ? prev - 1 : testimonials.length - 2))}
+                                onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
                                 className="w-16 h-16 rounded-2xl border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-all group text-slate-700"
                             >
                                 <ChevronRight size={24} className="rotate-180 group-hover:-translate-x-1 transition-transform" />
                             </button>
                             <button
-                                onClick={() => setActiveTestimonial((prev) => (prev < testimonials.length - 2 ? prev + 1 : 0))}
+                                onClick={() => setActiveTestimonial((prev) => (prev + 1) % testimonials.length)}
                                 className="w-16 h-16 rounded-2xl bg-shark-accent text-white flex items-center justify-center hover:scale-105 transition-all shadow-xl shadow-shark-accent/20 group"
                             >
                                 <ChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
@@ -343,6 +343,7 @@ const Home = () => {
                         </div>
                     </div>
 
+                    {/* Mobile : 1 témoignage à la fois | Desktop : 2 côte à côte */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
                         <AnimatePresence mode="wait">
                             {[0, 1].map((offset) => {
@@ -355,7 +356,7 @@ const Home = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -30 }}
                                         transition={{ duration: 0.6, delay: offset * 0.1 }}
-                                        className="glass-card p-12 rounded-3xl relative overflow-hidden flex flex-col h-full border border-slate-200 hover:border-shark-accent/30 transition-all duration-500 group"
+                                        className={`glass-card p-12 rounded-3xl relative overflow-hidden flex flex-col h-full border border-slate-200 hover:border-shark-accent/30 transition-all duration-500 group ${offset === 1 ? 'hidden lg:flex' : ''}`}
                                     >
                                         {/* Figure chic - barre verticale accent */}
                                         <div className="absolute left-0 top-12 bottom-12 w-1 bg-gradient-to-b from-transparent via-shark-accent/40 to-transparent rounded-r group-hover:via-shark-accent/70 transition-colors duration-500" />

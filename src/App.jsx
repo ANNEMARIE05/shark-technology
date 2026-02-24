@@ -7,7 +7,9 @@ import Footer from './components/layout/Footer'
 import ScrollToTop from './components/ui/ScrollToTop'
 import Home from './pages/Home'
 import Courses from './pages/Courses'
+import CertificationDetail from './pages/CertificationDetail'
 import Blog from './pages/Blog'
+import ArticleDetail from './pages/ArticleDetail'
 import Contact from './pages/Contact'
 
 function App() {
@@ -55,7 +57,9 @@ function App() {
                             <Routes location={location} key={location.pathname}>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/formations" element={<Courses />} />
+                                <Route path="/formations/:slug" element={<CertificationDetail />} />
                                 <Route path="/blog" element={<Blog />} />
+                                <Route path="/blog/:slug" element={<ArticleDetail />} />
                                 <Route path="/contact" element={<Contact />} />
                             </Routes>
                         </main>
