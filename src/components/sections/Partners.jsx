@@ -35,7 +35,7 @@ const Partners = () => {
     ]
 
     return (
-        <section className="py-24 relative overflow-hidden bg-slate-50 border-y border-slate-200">
+        <section className="py-24 relative overflow-hidden bg-slate-50 dark:bg-slate-800/60 border-y border-slate-200 dark:border-slate-700">
             <div className="absolute inset-0 bg-gradient-to-r from-shark-accent/3 via-transparent to-premium-neon/3 pointer-events-none" />
 
             {/* Header */}

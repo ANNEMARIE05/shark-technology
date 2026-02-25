@@ -9,7 +9,7 @@ const Contact = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-screen bg-slate-50"
+            className="min-h-screen bg-shark-deep dark:bg-slate-900"
         >
             {/* Header avec image comme les autres pages */}
             <div className="max-w-7xl mx-auto px-6 pt-28 pb-12">
@@ -17,7 +17,7 @@ const Contact = () => {
                     tag="Entrons en contact"
                     title="Parlons de votre"
                     subtitle="Avenir."
-                    image="https://images.unsplash.com/photo-1516387933901-824c251b48bc?auto=format&fit=crop&q=80&w=800"
+                    image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
                 />
             </div>
 
@@ -87,7 +87,7 @@ const Contact = () => {
                     >
                         <div className="sticky top-28 rounded-3xl overflow-hidden border border-slate-200 shadow-lg shadow-slate-200/50">
                             <img
-                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
+                                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800"
                                 alt="Équipe Shark Technologys - Contact"
                                 className="w-full h-[420px] object-cover"
                             />
@@ -102,7 +102,7 @@ const Contact = () => {
                 {/* Carte en fond */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=1600"
+                        src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1600"
                         alt="Carte Abidjan - Localisation Shark Technologys"
                         className="w-full h-full object-cover"
                     />

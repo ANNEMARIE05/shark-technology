@@ -19,7 +19,7 @@ const PageHeader = ({ title, subtitle, tag, image }) => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: "circOut" }}
-                            className="text-5xl md:text-8xl font-black font-sora leading-tight text-slate-900"
+                            className="text-5xl md:text-8xl font-black font-sora leading-tight text-slate-900 dark:text-white"
                         >
                             {title} <br />
                             <span className="fluid-text">{subtitle}</span>
@@ -35,17 +35,34 @@ const PageHeader = ({ title, subtitle, tag, image }) => {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9, x: 20 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
-                        className="relative hidden lg:block"
+                        className="relative hidden lg:block w-[450px] h-[300px]"
                     >
-                        <div className="w-[450px] h-[300px] rounded-[40px] overflow-hidden border border-slate-200 relative group">
-                            <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
-                            <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent" />
-                            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/25 to-transparent" />
+                        {/* Carte décorative : bordure bleue plus épaisse + inclinaison + animation légère */}
+                        <motion.div
+                            className="absolute inset-0 rounded-2xl border-4 border-shark-accent bg-transparent shadow-[0_0_24px_rgba(37,99,235,0.12)] -rotate-12"
+                            aria-hidden
+                            animate={{
+                                boxShadow: [
+                                    '0 0 24px rgba(37,99,235,0.12)',
+                                    '0 0 32px rgba(37,99,235,0.18)',
+                                    '0 0 24px rgba(37,99,235,0.12)',
+                                ],
+                            }}
+                            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                        />
 
-                            {/* Cyber elements */}
-                            <div className="absolute top-4 right-4 w-12 h-12 border-t border-r border-shark-accent/30" />
-                            <div className="absolute bottom-4 left-4 w-12 h-12 border-b border-l border-shark-accent/30" />
-                        </div>
+                        {/* Carte image : pas de bordure, plus penchée */}
+                        <motion.div
+                            className="absolute inset-0 rotate-[5deg] group/card"
+                            whileHover={{ rotate: 7, scale: 1.02 }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                        >
+                            <div className="w-full h-full rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 shadow-xl page-header-image">
+                                <img src={image} alt={title} className="w-full h-full object-cover group-hover/card:scale-105 transition-all duration-700" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent" />
+                                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/25 to-transparent" />
+                            </div>
+                        </motion.div>
 
                         {/* Decorative glow */}
                         <div className="absolute -inset-4 bg-shark-accent/5 blur-3xl -z-10" />

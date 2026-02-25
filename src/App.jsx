@@ -11,6 +11,7 @@ import CertificationDetail from './pages/CertificationDetail'
 import Blog from './pages/Blog'
 import ArticleDetail from './pages/ArticleDetail'
 import Contact from './pages/Contact'
+import Assistance from './pages/Assistance'
 
 function App() {
     const location = useLocation()
@@ -31,7 +32,7 @@ function App() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col selection:bg-shark-accent selection:text-white bg-slate-50">
+        <div className="min-h-screen flex flex-col selection:bg-shark-accent selection:text-white bg-shark-deep dark:bg-slate-900">
             {/* Navbar toujours visible, en dehors des animations de page */}
             <AnimatePresence>
                 {isLoaded && <Navbar />}
@@ -61,6 +62,7 @@ function App() {
                                 <Route path="/blog" element={<Blog />} />
                                 <Route path="/blog/:slug" element={<ArticleDetail />} />
                                 <Route path="/contact" element={<Contact />} />
+                                <Route path="/assistance" element={<Assistance />} />
                             </Routes>
                         </main>
                         <Footer />

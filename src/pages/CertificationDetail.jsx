@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { ChevronLeft, Clock, BookOpen, Target, ListChecks, Award } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronLeft, Clock, BookOpen, Target, ListChecks, Award, Briefcase, FileCheck, Globe, TrendingUp, X } from 'lucide-react'
 import Button from '../components/ui/Button'
 import { getCertificationBySlug, certifications } from '../data/certifications'
 
@@ -14,21 +15,27 @@ const CertificationDetail = () => {
 
     if (!cert) {
         return (
-            <div className="pt-32 pb-24 min-h-screen flex flex-col items-center justify-center bg-slate-50">
-                <h1 className="text-2xl font-bold text-slate-800 mb-4">Certification introuvable</h1>
+            <div className="pt-32 pb-24 min-h-screen flex flex-col items-center justify-center bg-shark-deep dark:bg-slate-900">
+                <h1 className="text-2xl font-bold text-slate-800 dark:text-white mb-4">Certification introuvable</h1>
                 <Button onClick={() => navigate('/formations')}>Retour aux formations</Button>
             </div>
         )
     }
 
     const Icon = cert.icon
+    const gallery = cert.gallery || []
+    const stats = cert.stats || {}
+    const aSavoir = cert.aSavoir || "Les sessions sont limitées en nombre de places pour garantir un suivi personnalisé. Inscription possible tout au long de l'année."
+    const debouches = cert.debouches || []
+    const modalite = cert.modalite || "Présentiel • Supports fournis"
+    const [lightboxIndex, setLightboxIndex] = useState(null)
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="pt-0 pb-24 bg-slate-50 min-h-screen"
+            className="pt-0 pb-24 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
             {/* Header grand : hero pleine hauteur, disposition soignée */}
             <motion.header
@@ -123,8 +130,8 @@ const CertificationDetail = () => {
                     className="mb-16 mt-8 md:mt-12"
                 >
                     <div className="flex items-center gap-3 mb-6">
-                        <Target className="text-shark-accent" size={28} />
-                        <h2 className="text-2xl font-black font-sora text-slate-900">Objectifs</h2>
+                        <Target className="text-shark-accent dark:text-sky-400" size={28} />
+                        <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">Objectifs</h2>
                     </div>
                     <ul className="space-y-3">
                         {cert.objectives.map((obj, i) => (
@@ -133,7 +140,7 @@ const CertificationDetail = () => {
                                 initial={{ opacity: 0, x: -12 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.35 + i * 0.06 }}
-                                className="flex items-start gap-3 text-slate-600"
+                                className="flex items-start gap-3 text-slate-600 dark:text-slate-300"
                             >
                                 <span className="w-2 h-2 rounded-full bg-shark-accent mt-2 shrink-0" />
                                 <span>{obj}</span>
@@ -142,53 +149,147 @@ const CertificationDetail = () => {
                     </ul>
                 </motion.section>
 
-                {/* Bloc images + infos */}
+                {/* Stats rapides */}
                 <motion.section
-                    initial={{ opacity: 0, y: 24 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5 }}
+                    viewport={{ once: true }}
                     className="mb-16"
                 >
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {typeof stats.paysReconnus === 'number' && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-6 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
+                            >
+                                <div className="w-12 h-12 rounded-xl bg-shark-accent/10 dark:bg-sky-400/20 flex items-center justify-center">
+                                    <Globe className="text-shark-accent dark:text-sky-400" size={24} />
+                                </div>
+                                <div>
+                                    <p className="text-2xl font-black font-sora text-slate-900 dark:text-white">{stats.paysReconnus}+</p>
+                                    <p className="text-sm text-slate-600 dark:text-slate-400">pays reconnaissent cette certification</p>
+                                </div>
+                            </motion.div>
+                        )}
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.05 }}
+                            className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-6 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
+                        >
+                            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                                <TrendingUp className="text-emerald-600 dark:text-emerald-400" size={24} />
+                            </div>
+                            <div>
+                                <p className="text-2xl font-black font-sora text-slate-900 dark:text-white">{stats.tauxReussite}</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-400">taux de réussite (nos stagiaires)</p>
+                            </div>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm"
+                            className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-6 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
                         >
-                            <img
-                                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600"
-                                alt="Formation pratique"
-                                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-500"
-                            />
-                            <p className="p-4 text-sm text-slate-600 bg-white">Travaux pratiques en conditions réelles</p>
+                            <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                                <FileCheck className="text-amber-600 dark:text-amber-400" size={24} />
+                            </div>
+                            <div>
+                                <p className="text-lg font-black font-sora text-slate-900 dark:text-white">{stats.anneesValide}</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-400">validité certification</p>
+                            </div>
                         </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                            className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm"
-                        >
-                            <img
-                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600"
-                                alt="Travail en groupe"
-                                className="w-full h-48 object-cover hover:scale-105 transition-transform duration-500"
-                            />
-                            <p className="p-4 text-sm text-slate-600 bg-white">Échanges et entraide en groupe</p>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
-                            className="rounded-2xl overflow-hidden border border-slate-200 bg-gradient-to-br from-shark-accent/5 to-blue-50 p-6 flex flex-col justify-center"
-                        >
-                            <p className="text-4xl font-black font-sora text-shark-accent mb-1">180+</p>
-                            <p className="text-slate-600 text-sm font-medium">pays reconnaissent cette certification</p>
-                        </motion.div>
+                    </div>
+                </motion.section>
+
+                {/* Galerie d'images */}
+                {gallery.length > 0 && (
+                    <motion.section
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.5 }}
+                        className="mb-16"
+                    >
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-xl bg-shark-accent/10 dark:bg-sky-400/20 flex items-center justify-center">
+                                <Target className="text-shark-accent dark:text-sky-400" size={20} />
+                            </div>
+                            <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">En images</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {gallery.map((img, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 16 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.08 }}
+                                    className="group rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-600 shadow-sm cursor-pointer"
+                                    onClick={() => setLightboxIndex(i)}
+                                >
+                                    <div className="aspect-[4/3] overflow-hidden">
+                                        <img
+                                            src={img.src}
+                                            alt={img.alt}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    </div>
+                                    <p className="p-4 text-sm text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 font-medium">{img.caption}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                        {/* Lightbox */}
+                        <AnimatePresence>
+                            {lightboxIndex !== null && gallery[lightboxIndex] && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-4"
+                                    onClick={() => setLightboxIndex(null)}
+                                >
+                                    <button
+                                        type="button"
+                                        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                                        onClick={() => setLightboxIndex(null)}
+                                        aria-label="Fermer"
+                                    >
+                                        <X size={24} />
+                                    </button>
+                                    <motion.img
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        exit={{ scale: 0.9, opacity: 0 }}
+                                        src={gallery[lightboxIndex].src}
+                                        alt={gallery[lightboxIndex].alt}
+                                        className="max-w-full max-h-[85vh] object-contain rounded-lg"
+                                        onClick={(e) => e.stopPropagation()}
+                                    />
+                                    <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/90 text-sm">{gallery[lightboxIndex].caption}</p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.section>
+                )}
+
+                {/* Modalités */}
+                <motion.section
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-16"
+                >
+                    <div className="rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-600 p-6 flex items-start gap-4">
+                        <FileCheck className="text-shark-accent dark:text-sky-400 shrink-0 mt-0.5" size={24} />
+                        <div>
+                            <h3 className="font-bold font-sora text-slate-900 dark:text-white mb-2">Modalités</h3>
+                            <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{modalite}</p>
+                        </div>
                     </div>
                 </motion.section>
 
@@ -200,8 +301,8 @@ const CertificationDetail = () => {
                     className="mb-16"
                 >
                     <div className="flex items-center gap-3 mb-6">
-                        <ListChecks className="text-shark-accent" size={28} />
-                        <h2 className="text-2xl font-black font-sora text-slate-900">Programme</h2>
+                        <ListChecks className="text-shark-accent dark:text-sky-400" size={28} />
+                        <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">Programme</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {cert.programme.map((item, i) => (
@@ -212,28 +313,58 @@ const CertificationDetail = () => {
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.05 }}
                                 whileHover={{ x: 4 }}
-                                className="flex items-center gap-3 p-4 rounded-xl bg-white border border-slate-200 hover:border-shark-accent/30 transition-colors"
+                                className="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-colors"
                             >
-                                <span className="w-8 h-8 rounded-lg bg-shark-accent/10 text-shark-accent font-bold text-sm flex items-center justify-center">
+                                <span className="w-8 h-8 rounded-lg bg-shark-accent/10 dark:bg-sky-400/20 text-shark-accent dark:text-sky-400 font-bold text-sm flex items-center justify-center">
                                     {i + 1}
                                 </span>
-                                <span className="text-slate-700 font-medium">{item}</span>
+                                <span className="text-slate-700 dark:text-slate-200 font-medium">{item}</span>
                             </motion.div>
                         ))}
                     </div>
                 </motion.section>
+
+                {/* Débouchés */}
+                {debouches.length > 0 && (
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="mb-16"
+                    >
+                        <div className="flex items-center gap-3 mb-6">
+                            <Briefcase className="text-shark-accent dark:text-sky-400" size={28} />
+                            <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">Débouchés professionnels</h2>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                            {debouches.map((job, i) => (
+                                <motion.span
+                                    key={i}
+                                    initial={{ opacity: 0, y: 8 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.05 }}
+                                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-medium text-sm shadow-sm hover:border-shark-accent/40 dark:hover:border-sky-400/40 hover:shadow-md transition-all"
+                                >
+                                    <span className="w-2 h-2 rounded-full bg-shark-accent dark:bg-sky-400" />
+                                    {job}
+                                </motion.span>
+                            ))}
+                        </div>
+                    </motion.section>
+                )}
 
                 {/* À savoir */}
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-10 p-5 rounded-2xl bg-slate-100 border border-slate-200 flex items-start gap-4"
+                    className="mb-10 p-5 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 flex items-start gap-4"
                 >
-                    <span className="text-2xl">💡</span>
+                    <span className="text-2xl shrink-0">💡</span>
                     <div>
-                        <p className="font-bold font-sora text-slate-900 mb-1">À savoir</p>
-                        <p className="text-slate-600 text-sm">Les sessions sont limitées en nombre de places pour garantir un suivi personnalisé. Inscription possible tout au long de l'année.</p>
+                        <p className="font-bold font-sora text-slate-900 dark:text-white mb-1">À savoir</p>
+                        <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{aSavoir}</p>
                     </div>
                 </motion.div>
 
@@ -242,29 +373,40 @@ const CertificationDetail = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="rounded-[40px] p-10 md:p-14 bg-gradient-to-br from-shark-accent to-blue-700 text-white text-center border border-shark-accent/20 shadow-xl"
+                    className="relative rounded-[40px] p-10 md:p-14 text-white text-center border border-shark-accent/20 shadow-xl overflow-hidden"
                 >
-                    <Award className="mx-auto mb-4 text-white/90" size={48} />
-                    <h2 className="text-2xl md:text-3xl font-black font-sora mb-3">
-                        Prêt à passer cette certification ?
-                    </h2>
-                    <p className="text-blue-100 mb-8 max-w-xl mx-auto">
-                        Réservez un entretien pour discuter de votre projet et rejoindre la prochaine cohorte.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-4">
-                        <Button
-                            onClick={() => navigate('/contact')}
-                            className="!bg-white !text-shark-accent hover:!bg-slate-100"
-                        >
-                            Réserver un entretien
-                        </Button>
-                        <Button
-                            variant="outline"
-                            onClick={() => navigate('/formations')}
-                            className="!border-white !text-white hover:!bg-white/10"
-                        >
-                            Voir les autres formations
-                        </Button>
+                    {/* Image de fond Unsplash */}
+                    <div className="absolute inset-0 z-0">
+                        <img
+                            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200"
+                            alt=""
+                            className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-shark-accent/95 via-blue-700/90 to-blue-800/95" />
+                    </div>
+                    <div className="relative z-10">
+                        <Award className="mx-auto mb-4 text-white/90" size={48} />
+                        <h2 className="text-2xl md:text-3xl font-black font-sora mb-3">
+                            Prêt à passer cette certification ?
+                        </h2>
+                        <p className="text-blue-100 mb-8 max-w-xl mx-auto">
+                            Réservez un entretien pour discuter de votre projet et rejoindre la prochaine cohorte.
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <Button
+                                onClick={() => navigate('/contact')}
+                                className="!bg-white !text-shark-accent hover:!bg-slate-100"
+                            >
+                                Réserver un entretien
+                            </Button>
+                            <Button
+                                variant="outline"
+                                onClick={() => navigate('/formations')}
+                                className="!border-white !text-white hover:!bg-white/10"
+                            >
+                                Voir les autres formations
+                            </Button>
+                        </div>
                     </div>
                 </motion.section>
 

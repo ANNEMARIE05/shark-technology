@@ -16,7 +16,7 @@ const Blog = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="pt-32 pb-28 bg-slate-50 min-h-screen"
+            className="pt-32 pb-28 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
             <div className="max-w-7xl mx-auto px-6">
                 <PageHeader
@@ -35,7 +35,7 @@ const Blog = () => {
                 >
                     <div className="flex items-center gap-6">
                         <Minus className="text-shark-accent shrink-0" strokeWidth={2} size={32} />
-                        <p className="text-slate-600 text-lg max-w-xl leading-relaxed">
+                        <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl leading-relaxed">
                             Actualités, tutoriels et retours d'expérience sur la cybersécurité, les réseaux et l'IT.
                         </p>
                     </div>
@@ -45,14 +45,14 @@ const Blog = () => {
                             <input
                                 type="text"
                                 placeholder="Rechercher..."
-                                className="w-full bg-white border border-slate-200 rounded-full pl-12 pr-5 py-3.5 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/20 focus:border-shark-accent transition-all font-outfit"
+                                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full pl-12 pr-5 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/20 focus:border-shark-accent transition-all font-outfit"
                             />
                         </div>
                         <div className="flex flex-wrap gap-2">
                             {categories.map((cat) => (
                                 <button
                                     key={cat}
-                                    className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all font-outfit ${cat === "Tous" ? "bg-shark-accent text-white shadow-[0_4px_14px_rgba(37,99,235,0.35)]" : "bg-white border border-slate-200 text-slate-600 hover:border-shark-accent/40 hover:text-shark-accent"}`}
+                                    className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all font-outfit ${cat === "Tous" ? "bg-shark-accent text-white shadow-[0_4px_14px_rgba(37,99,235,0.35)]" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-shark-accent/40 hover:text-shark-accent"}`}
                                 >
                                     {cat}
                                 </button>
@@ -75,7 +75,7 @@ const Blog = () => {
                             tabIndex={0}
                             onClick={() => navigate(`/blog/${featured.slug}`)}
                             onKeyDown={(e) => e.key === 'Enter' && navigate(`/blog/${featured.slug}`)}
-                            className="group relative rounded-[32px] overflow-hidden border border-slate-200 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 cursor-pointer"
+                            className="group relative rounded-[32px] overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 cursor-pointer"
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[420px] lg:min-h-[480px]">
                                 <div className="relative h-72 lg:h-full min-h-[320px] overflow-hidden">
@@ -95,10 +95,10 @@ const Blog = () => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col justify-center p-10 lg:p-14">
-                                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-black font-sora text-slate-900 mb-4 leading-tight">
+                                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-black font-sora text-slate-900 dark:text-white mb-4 leading-tight">
                                         {featured.title}
                                     </h2>
-                                    <p className="text-slate-600 text-base lg:text-lg leading-relaxed mb-8">
+                                    <p className="text-slate-600 dark:text-slate-300 text-base lg:text-lg leading-relaxed mb-8">
                                         {featured.excerpt}
                                     </p>
                                     <span className="inline-flex items-center gap-2 text-shark-accent font-bold text-sm uppercase tracking-wider group-hover:gap-3 transition-all font-outfit">
@@ -118,12 +118,12 @@ const Blog = () => {
                     viewport={{ once: true }}
                     className="flex items-center gap-6 mb-14"
                 >
-                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-600 to-transparent" />
                     <div className="flex items-center gap-2 text-slate-400">
                         <BookOpen size={20} className="text-shark-accent" />
                         <span className="text-xs font-bold uppercase tracking-[0.25em] font-outfit">Dernières publications</span>
                     </div>
-                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-600 to-transparent" />
                 </motion.div>
 
                 {/* Grille articles : cartes chic */}
@@ -139,7 +139,7 @@ const Blog = () => {
                             whileInView={{ y: 0, opacity: 1 }}
                             viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                            className="group group/card h-full flex flex-col bg-white rounded-[24px] overflow-hidden border border-slate-200 hover:border-shark-accent/25 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-400 cursor-pointer"
+                            className="group group/card h-full flex flex-col bg-white dark:bg-slate-800 rounded-[24px] overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-shark-accent/25 dark:hover:border-shark-accent/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-400 cursor-pointer"
                         >
                             <div className="relative h-56 overflow-hidden">
                                 <img
@@ -149,20 +149,20 @@ const Blog = () => {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-400" />
                                 <div className="absolute top-4 left-4">
-                                    <span className="bg-white/95 backdrop-blur text-slate-800 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest font-outfit shadow-sm border border-slate-100">
+                                    <span className="bg-shark-accent text-white px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest font-outfit shadow-md">
                                         {post.category}
                                     </span>
                                 </div>
                             </div>
                             <div className="p-6 lg:p-7 flex flex-col flex-grow">
-                                <div className="flex items-center gap-4 text-slate-500 text-xs mb-4 font-outfit">
+                                <div className="flex items-center gap-4 text-slate-500 dark:text-slate-400 text-xs mb-4 font-outfit">
                                     <span className="flex items-center gap-1.5"><Calendar size={12} /> {post.date}</span>
                                     <span className="flex items-center gap-1.5"><User size={12} /> Shark Tech</span>
                                 </div>
-                                <h3 className="text-xl font-bold font-sora text-slate-900 mb-3 leading-snug group-hover/card:text-shark-accent transition-colors line-clamp-2">
+                                <h3 className="text-xl font-bold font-sora text-slate-900 dark:text-white mb-3 leading-snug group-hover/card:text-shark-accent transition-colors line-clamp-2">
                                     {post.title}
                                 </h3>
-                                <p className="text-slate-600 text-sm leading-relaxed mb-5 line-clamp-2 flex-grow">
+                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-5 line-clamp-2 flex-grow">
                                     {post.excerpt}
                                 </p>
                                 <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-shark-accent group-hover/card:gap-3 transition-all font-outfit mt-auto">
@@ -178,9 +178,9 @@ const Blog = () => {
                     initial={{ y: 20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    className="mt-24 pt-16 border-t border-slate-200 text-center"
+                    className="mt-24 pt-16 border-t border-slate-200 dark:border-slate-700 text-center"
                 >
-                    <p className="text-slate-500 text-sm font-outfit max-w-lg mx-auto">
+                    <p className="text-slate-500 dark:text-slate-400 text-sm font-outfit max-w-lg mx-auto">
                         Restez à jour avec les derniers articles de l'équipe Shark. Nouveaux contenus chaque semaine.
                     </p>
                 </motion.div>

@@ -14,8 +14,8 @@ const ArticleDetail = () => {
 
     if (!article) {
         return (
-            <div className="pt-32 pb-24 min-h-screen flex flex-col items-center justify-center bg-slate-50">
-                <h1 className="text-2xl font-bold text-slate-800 mb-4">Article introuvable</h1>
+            <div className="pt-28 pb-20 min-h-screen flex flex-col items-center justify-center bg-shark-deep dark:bg-slate-900">
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Article introuvable</h1>
                 <Button onClick={() => navigate('/blog')}>Retour au blog</Button>
             </div>
         )
@@ -28,54 +28,58 @@ const ArticleDetail = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="pt-28 pb-24 bg-slate-50 min-h-screen"
+            className="pt-24 pb-20 md:pt-28 md:pb-24 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
-            <article className="max-w-3xl mx-auto px-6">
-                {/* Retour */}
-                <motion.button
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    onClick={() => navigate('/blog')}
-                    className="flex items-center gap-2 text-slate-600 hover:text-shark-accent font-medium mb-8 transition-colors"
-                >
-                    <ChevronLeft size={20} />
-                    Retour au blog
-                </motion.button>
-
-                {/* En-tête */}
+            <article className="w-full max-w-6xl xl:max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+                {/* Barre supérieure : Retour + métadonnées */}
                 <motion.header
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="mb-10"
+                    transition={{ delay: 0.06 }}
+                    className="mb-6"
                 >
-                    <span className="inline-block bg-shark-accent text-white px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest font-outfit mb-4">
-                        {article.category}
-                    </span>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-sora text-slate-900 leading-tight mb-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <motion.button
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            onClick={() => navigate('/blog')}
+                            className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-shark-accent font-medium transition-colors text-sm w-fit"
+                        >
+                            <ChevronLeft size={18} />
+                            Retour au blog
+                        </motion.button>
+                        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                            <span className="bg-shark-accent text-white px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest font-outfit">
+                                {article.category}
+                            </span>
+                            <span className="hidden sm:inline text-slate-300 dark:text-slate-600">|</span>
+                            <span className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
+                                <Calendar size={15} className="shrink-0 opacity-80" />
+                                {article.date}
+                            </span>
+                            <span className="text-slate-300 dark:text-slate-600">|</span>
+                            <span className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
+                                <User size={15} className="shrink-0 opacity-80" />
+                                {article.author}
+                            </span>
+                        </div>
+                    </div>
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black font-sora text-slate-900 dark:text-white leading-[1.2] tracking-tight mt-5">
                         {article.title}
                     </h1>
-                    <div className="flex flex-wrap items-center gap-4 text-slate-500 text-sm">
-                        <span className="flex items-center gap-1.5">
-                            <Calendar size={16} /> {article.date}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                            <User size={16} /> {article.author}
-                        </span>
-                    </div>
                 </motion.header>
 
                 {/* Image principale */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 }}
-                    className="rounded-2xl overflow-hidden border border-slate-200 mb-10 shadow-lg"
+                    transition={{ delay: 0.12 }}
+                    className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 mb-8 shadow-xl"
                 >
                     <img
                         src={article.image}
                         alt={article.title}
-                        className="w-full h-64 sm:h-80 object-cover hover:scale-105 transition-transform duration-700"
+                        className="w-full h-72 sm:h-96 md:h-[28rem] object-cover hover:scale-[1.02] transition-transform duration-500"
                     />
                 </motion.div>
 
@@ -83,28 +87,28 @@ const ArticleDetail = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="prose prose-slate prose-lg max-w-none font-outfit text-slate-700 leading-relaxed whitespace-pre-line"
+                    transition={{ delay: 0.16 }}
+                    className="prose prose-slate dark:prose-invert prose-lg md:prose-xl max-w-none font-outfit text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line prose-headings:font-sora prose-headings:text-slate-900 dark:prose-headings:text-white prose-p:leading-[1.75] prose-p:my-4"
                 >
                     {article.content}
                 </motion.div>
 
                 {/* Encadré + image secondaire */}
                 <motion.div
-                    initial={{ opacity: 0, y: 24 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"
                 >
-                    <div className="p-6 rounded-2xl bg-shark-accent/5 border border-shark-accent/20">
-                        <p className="text-xs font-bold uppercase tracking-wider text-shark-accent font-sora mb-2">Point clé</p>
-                        <p className="text-slate-700 text-sm leading-relaxed">Retrouvez chaque semaine de nouveaux contenus sur le blog Shark pour rester à jour sur la cybersécurité et les réseaux.</p>
+                    <div className="p-6 rounded-2xl bg-shark-accent/5 dark:bg-shark-accent/10 border border-shark-accent/20 dark:border-shark-accent/30 shadow-sm">
+                        <p className="text-xs font-bold uppercase tracking-wider text-shark-accent font-sora mb-3">Point clé</p>
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">Retrouvez chaque semaine de nouveaux contenus sur le blog Shark pour rester à jour sur la cybersécurité et les réseaux.</p>
                     </div>
-                    <div className="rounded-2xl overflow-hidden border border-slate-200">
+                    <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md">
                         <img
                             src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600"
                             alt="Shark Technology"
-                            className="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
+                            className="w-full h-44 md:h-52 object-cover hover:scale-[1.02] transition-transform duration-500"
                         />
                     </div>
                 </motion.div>
@@ -114,34 +118,36 @@ const ArticleDetail = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-16 pt-12 border-t border-slate-200"
+                    className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-700"
                 >
                     <Button
                         variant="outline"
                         onClick={() => navigate('/blog')}
-                        className="mb-10"
+                        className="mb-8"
                     >
                         <span className="flex items-center gap-2">
-                            <ArrowLeft size={18} /> Tous les articles
+                            <ArrowLeft size={20} /> Tous les articles
                         </span>
                     </Button>
                     {others.length > 0 && (
                         <div>
-                            <h2 className="text-lg font-bold font-sora text-slate-900 mb-4">Autres articles</h2>
-                            <ul className="space-y-2">
+                            <h2 className="text-xl font-bold font-sora text-slate-900 dark:text-white mb-5">Autres articles</h2>
+                            <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                                 {others.map((a, i) => (
                                     <motion.li
                                         key={a.slug}
-                                        initial={{ opacity: 0, x: -10 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: i * 0.08 }}
                                     >
                                         <button
                                             onClick={() => navigate(`/blog/${a.slug}`)}
-                                            className="text-slate-600 hover:text-shark-accent font-medium text-left transition-colors"
+                                            className="w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 hover:border-shark-accent/40 hover:bg-shark-accent/5 dark:hover:bg-shark-accent/10 transition-all duration-200 group"
                                         >
-                                            {a.title}
+                                            <span className="text-slate-700 dark:text-slate-300 group-hover:text-shark-accent font-medium line-clamp-2 transition-colors">
+                                                {a.title}
+                                            </span>
                                         </button>
                                     </motion.li>
                                 ))}

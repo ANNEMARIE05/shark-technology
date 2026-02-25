@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShieldAlert } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import logoImg from '../../assets/img/logo.png'
 
 const Preloader = ({ onComplete }) => {
     const [loading, setLoading] = useState(true)
@@ -46,7 +46,7 @@ const Preloader = ({ onComplete }) => {
                                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                                 className="w-24 h-24 rounded-3xl bg-gradient-to-tr from-shark-accent to-premium-neon flex items-center justify-center shadow-[0_0_50px_rgba(37,99,235,0.2)]"
                             >
-                                <ShieldAlert size={48} className="text-white" />
+                                <img src={logoImg} alt="" className="w-12 h-12 object-contain" />
                             </motion.div>
 
                             {/* Orbital Ring */}

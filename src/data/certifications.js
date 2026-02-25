@@ -1,4 +1,9 @@
-import { Shield, Network, Server, Lock, Cpu, Database } from 'lucide-react'
+import { Network, Server, Lock, Cpu, Database } from 'lucide-react'
+import logoImg from '../assets/img/logo.png'
+
+const LogoIcon = ({ className, size = 32 }) => (
+  <img src={logoImg} alt="" className={className} style={{ width: size, height: size, objectFit: 'contain' }} />
+)
 
 export const certifications = [
     {
@@ -28,13 +33,22 @@ export const certifications = [
         ],
         duration: "~40 heures",
         prerequis: "Bases en informatique, familiarité avec un OS.",
+        aSavoir: "Les sessions sont limitées en nombre de places pour garantir un suivi personnalisé. Inscription possible tout au long de l'année. L'examen LPIC-1 est composé de deux épreuves (101 et 102) passables séparément.",
+        debouches: ["Administrateur système Linux", "Technicien support infrastructure", "DevOps junior", "Ingénieur cloud (bases)"],
+        modalite: "Présentiel ou hybride • Supports fournis • Lab virtuel inclus",
+        stats: { paysReconnus: 180, tauxReussite: "92%", anneesValide: "Illimité" },
+        gallery: [
+            { src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600", alt: "Travaux pratiques en ligne de commande", caption: "TP en conditions réelles" },
+            { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=600", alt: "Environnement Linux", caption: "Environnement de lab" },
+            { src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600", alt: "Travail en groupe", caption: "Échanges et entraide" },
+        ],
     },
     {
         id: "CERT-02",
         slug: "comptia-security-plus",
         title: "CompTIA Security+ SYO-601",
         subtitle: "La référence mondiale en cybersécurité",
-        icon: Shield,
+        icon: LogoIcon,
         color: "from-cyan-500/20 to-premium-neon/20",
         level: "Avancé",
         levelColor: "bg-cyan-500/20 text-premium-neon border-premium-neon/30",
@@ -56,6 +70,15 @@ export const certifications = [
         ],
         duration: "~50 heures",
         prerequis: "CompTIA Network+ ou équivalent recommandé.",
+        aSavoir: "CompTIA Security+ est souvent exigée pour les postes en cybersécurité (DoD US, ANSSI). La certification est valide 3 ans ; renouvellement possible via CE (Continuing Education). Nos sessions préparent au syllabus SYO-601.",
+        debouches: ["Analyste SOC", "Administrateur sécurité", "Consultant cybersécurité", "Auditeur technique"],
+        modalite: "Présentiel • Exam blanc inclus • Accès plateforme CompTIA",
+        stats: { paysReconnus: 147, tauxReussite: "88%", anneesValide: "3 ans (renouvelable)" },
+        gallery: [
+            { src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600", alt: "Sécurité et conformité", caption: "Conformité et bonnes pratiques" },
+            { src: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=600", alt: "Laboratoire sécurité", caption: "Lab sécurité" },
+            { src: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=600", alt: "Analyse des menaces", caption: "Détection des menaces" },
+        ],
     },
     {
         id: "CERT-03",
@@ -66,7 +89,7 @@ export const certifications = [
         color: "from-blue-600/20 to-shark-fluid/20",
         level: "Intermédiaire",
         levelColor: "bg-blue-600/20 text-shark-accent border-shark-accent/30",
-        image: "https://images.unsplash.com/photo-1551708501-137bc3947477?auto=format&fit=crop&q=80&w=800",
+        image: "https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2lzY298ZW58MHx8MHx8fDA%3D",
         description: "La certification CCNA prouve que vous maîtrisez les fondamentaux du réseautage : IP, switching, routage, VLANs, et bases de la sécurité réseau avec l'écosystème Cisco.",
         objectives: [
             "Concevoir et déployer des réseaux LAN/WAN",
@@ -84,6 +107,15 @@ export const certifications = [
         ],
         duration: "~60 heures",
         prerequis: "Bases en réseaux (équivalent N+ recommandé).",
+        aSavoir: "L'examen CCNA 200-301 est un QCM unique ; notre formation inclut des travaux pratiques sur équipements réels ou Packet Tracer. Reconnaissance mondiale des recruteurs Cisco et partenaires.",
+        debouches: ["Technicien réseau", "Ingénieur réseau junior", "Administrateur infrastructure", "Support N2/N3"],
+        modalite: "Présentiel • Lab Cisco / Packet Tracer • Exam blanc",
+        stats: { paysReconnus: 180, tauxReussite: "85%", anneesValide: "3 ans" },
+        gallery: [
+            { src: "https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&q=80&w=600", alt: "Réseau Cisco", caption: "Infrastructure réseau" },
+            { src: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=600", alt: "Câblage et switch", caption: "Switching et routage" },
+            { src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600", alt: "Data center", caption: "Environnement pro" },
+        ],
     },
     {
         id: "CERT-04",
@@ -112,6 +144,15 @@ export const certifications = [
         ],
         duration: "~35 heures",
         prerequis: "Aucun prérequis technique obligatoire.",
+        aSavoir: "Idéal pour une reconversion ou un premier pas dans l'IT. Les supports sont fournis et les TP se font sur des équipements ou simulateurs. Pas d'examen externe : validation par contrôle continu et projet.",
+        debouches: ["Technicien support", "Administrateur réseau junior", "Poursuite N+ / Security+"],
+        modalite: "Présentiel • Supports fournis • Pas d'examen externe",
+        stats: { paysReconnus: "—", tauxReussite: "95%", anneesValide: "Attestation Shark Technologys" },
+        gallery: [
+            { src: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=600", alt: "Réseaux et câblage", caption: "Topologies et câblage" },
+            { src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600", alt: "Formation pratique", caption: "TP et mise en situation" },
+            { src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600", alt: "Travail en équipe", caption: "Travail en groupe" },
+        ],
     },
     {
         id: "CERT-05",
@@ -140,6 +181,15 @@ export const certifications = [
         ],
         duration: "~70 heures",
         prerequis: "Bases solides en réseaux, systèmes et sécurité (Security+ ou équivalent).",
+        aSavoir: "Formation à caractère sensible : cadre légal et éthique strict. Utilisation d'environnements dédiés (lab isolé). Les techniques enseignées ne doivent être utilisées que dans un cadre autorisé (pentest, audit).",
+        debouches: ["Pentester", "Consultant en tests d'intrusion", "Analyste red team", "Auditeur sécurité"],
+        modalite: "Présentiel • Lab dédié (Kali, cibles légales) • Rapport type livré",
+        stats: { paysReconnus: "—", tauxReussite: "90%", anneesValide: "Reconnaissance employeurs" },
+        gallery: [
+            { src: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=600", alt: "Tests d'intrusion", caption: "Lab ethical hacking" },
+            { src: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=600", alt: "Analyse de vulnérabilités", caption: "Scan et analyse" },
+            { src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600", alt: "Sécurité offensive", caption: "Méthodologie OWASP" },
+        ],
     },
     {
         id: "CERT-06",
@@ -168,6 +218,15 @@ export const certifications = [
         ],
         duration: "~45 heures",
         prerequis: "Bonne connaissance des réseaux et de la sécurité (niveau Security+ ou CCNA).",
+        aSavoir: "L'examen NSE 4 est proposé par Pearson VUE. Notre formation couvre le programme officiel Fortinet et inclut des TP sur FortiGate (virtuel ou physique). Très demandé par les intégrateurs et MSSP.",
+        debouches: ["Ingénieur firewall", "Administrateur FortiGate", "Consultant sécurité périmètre", "SOC / NOC"],
+        modalite: "Présentiel • Lab FortiGate • Préparation examen Pearson VUE",
+        stats: { paysReconnus: 120, tauxReussite: "87%", anneesValide: "2 ans" },
+        gallery: [
+            { src: "https://images.unsplash.com/photo-1562408590-e32931084e23?auto=format&fit=crop&q=80&w=600", alt: "Pare-feu FortiGate", caption: "Architecture FortiGate" },
+            { src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600", alt: "Politiques de sécurité", caption: "Politiques et VPN" },
+            { src: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=600", alt: "Réseau sécurisé", caption: "Haute disponibilité" },
+        ],
     },
 ]
 

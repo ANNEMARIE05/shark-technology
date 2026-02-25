@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 const Button = ({ children, onClick, variant = 'primary', className = '' }) => {
     const variants = {
         primary: 'bg-shark-accent text-white hover:bg-blue-700 shadow-[0_0_15px_rgba(37,99,235,0.3)]',
-        outline: 'border border-shark-accent text-shark-accent hover:bg-shark-accent/10',
+        outline: 'border border-shark-accent text-shark-accent hover:bg-shark-accent/10 dark:border-sky-400/80 dark:text-sky-300 dark:hover:bg-sky-400/10',
         ghost: 'text-slate-700 hover:bg-black/5',
     }
 

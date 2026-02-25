@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useSpring, useInView, useTransform } from 'framer-motion'
-import { Shield, Cloud, Code, Users, Award, Zap, CheckCircle, ChevronRight } from 'lucide-react'
+import { Cloud, Code, Users, Award, Zap, CheckCircle, ChevronRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Partners from '../components/sections/Partners'
+import { useLanguage } from '../contexts/LanguageContext'
+import quiSommeNousImg from '../assets/img/qui somme nous.jpeg'
+import logoImg from '../assets/img/logo.png'
 
 // Composant compteur animé chic
 const AnimatedStat = ({ value, suffix }) => {
@@ -25,6 +28,7 @@ const AnimatedStat = ({ value, suffix }) => {
 
 const Home = () => {
     const navigate = useNavigate()
+    const { t } = useLanguage()
     const [activeTestimonial, setActiveTestimonial] = useState(0)
 
     useEffect(() => {
@@ -61,32 +65,32 @@ const Home = () => {
     const expertises = [
         {
             id: "01",
-            title: "Sécurité réseaux",
-            icon: <Shield className="text-shark-accent" size={32} />,
-            desc: "Protection des infrastructures critiques et audit de vulnérabilités.",
-            image: "https://images.unsplash.com/photo-1558494949-ef0109159d5e?auto=format&fit=crop&q=80&w=800"
+            titleKey: "home.networkSecurity",
+            descKey: "home.networkSecurityDesc",
+            icon: <img src={logoImg} alt="" className="h-8 w-8 object-contain" />,
+            image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&q=80&w=800"
         },
         {
             id: "02",
-            title: "Sécurité cloud",
+            titleKey: "home.cloudSecurity",
+            descKey: "home.cloudSecurityDesc",
             icon: <Cloud className="text-shark-accent" size={32} />,
-            desc: "Sécurisation des environnements hybrides et multi-cloud.",
             image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
         },
         {
             id: "03",
-            title: "Développement d'applications",
+            titleKey: "home.appDev",
+            descKey: "home.appDevDesc",
             icon: <Code className="text-shark-accent" size={32} />,
-            desc: "Conception de solutions robustes et sécurisées dès le premier code.",
             image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800"
         }
     ]
 
     const stats = [
-        { label: "Clients satisfaits", value: 30, suffix: "" },
-        { label: "Certifications internationales", value: 30, suffix: "" },
-        { label: "Experts", value: 30, suffix: "+" },
-        { label: "Projets effectués", value: 30, suffix: "" },
+        { labelKey: "home.statsClients", value: 30, suffix: "" },
+        { labelKey: "home.statsCerts", value: 30, suffix: "" },
+        { labelKey: "home.statsExperts", value: 30, suffix: "+" },
+        { labelKey: "home.statsProjects", value: 30, suffix: "" },
     ]
 
     return (
@@ -104,7 +108,7 @@ const Home = () => {
                         alt="Cyber Background"
                         className="w-full h-full object-cover opacity-45 grayscale-[0.15]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/45 to-white/55" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/45 to-white/55 dark:from-slate-900/75 dark:via-slate-900/65 dark:to-slate-900/80" />
                     <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-shark-accent/5 rounded-full blur-[120px] animate-pulse" />
                     <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-premium-neon/5 rounded-full blur-[120px] animate-pulse delay-700" />
                 </div>
@@ -117,18 +121,18 @@ const Home = () => {
                         className="relative"
                     >
                         <span className="inline-block py-1 px-4 rounded-full bg-white/90 border border-slate-200/80 text-shark-accent text-xs font-bold uppercase tracking-[0.2em] mb-6 shadow-sm">
-                            L'avenir numérique commence ici
+                            {t('home.heroBadge')}
                         </span>
                         <h1 className="text-5xl md:text-8xl font-black font-sora mb-8 leading-tight text-slate-900 drop-shadow-sm">
-                            Devenez un <span className="fluid-text">Expert</span> <br />
-                            en Cybersécurité
+                            {t('home.heroTitle')} <span className="fluid-text">{t('home.heroTitleExpert')}</span> <br />
+                            {t('home.heroTitleEnd')}
                         </h1>
                         <p className="text-slate-700 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-light drop-shadow-sm">
-                            Maîtrisez les technologies de pointe avec Shark Technologys. Des formations intensives pour propulser votre carrière au sommet du monde IT.
+                            {t('home.heroSubtitle')}
                         </p>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                            <Button onClick={() => navigate('/formations')}>Nos Formations</Button>
-                            <Button variant="outline" onClick={() => navigate('/contact')}>Nous Contacter</Button>
+                            <Button onClick={() => navigate('/formations')}>{t('home.ourFormations')}</Button>
+                            <Button variant="outline" onClick={() => navigate('/contact')}>{t('home.contactUs')}</Button>
                         </div>
                     </motion.div>
                 </div>
@@ -145,25 +149,25 @@ const Home = () => {
             </section>
 
             {/* Expertise Section */}
-            <section className="py-24 bg-white relative overflow-hidden">
+            <section className="py-24 bg-white dark:bg-slate-900 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-shark-accent/[0.03] rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                 <div className="max-w-7xl mx-auto px-6 relative">
                     <motion.h2
                         initial={{ y: 30, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         viewport={{ once: true, amount: 0.3 }}
-                        className="text-3xl md:text-4xl font-black font-sora text-slate-900 mb-4 text-center md:text-left"
+                        className="text-3xl md:text-4xl font-black font-sora text-slate-900 dark:text-white mb-4 text-center md:text-left"
                     >
-                        Nos expertises
+                        {t('home.ourExpertise')}
                     </motion.h2>
                     <motion.p
                         initial={{ y: 20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ delay: 0.1 }}
-                        className="text-slate-600 max-w-2xl mb-14 text-center md:text-left"
+                        className="text-slate-600 dark:text-slate-300 max-w-2xl mb-14 text-center md:text-left"
                     >
-                        Cybersécurité, cloud et développement : des parcours pour monter en compétences.
+                        {t('home.expertiseSubtitle')}
                     </motion.p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {expertises.map((item, index) => (
@@ -182,21 +186,21 @@ const Home = () => {
                                 <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-premium-neon/5 rounded-full blur-2xl group-hover:bg-shark-accent/10 transition-colors" />
 
                                 <div className="h-48 overflow-hidden relative shrink-0">
-                                    <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-white/50 to-transparent" />
-                                    <div className="absolute top-6 left-6 text-5xl font-black font-sora text-slate-200 pointer-events-none group-hover:text-shark-accent/20 transition-colors">
+                                    <img src={item.image} alt={t(item.titleKey)} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-white/50 to-transparent dark:from-slate-900/50 dark:to-transparent" />
+                                    <div className="absolute top-6 left-6 text-5xl font-black font-sora text-slate-200 dark:text-slate-500 pointer-events-none group-hover:text-shark-accent/20 dark:group-hover:text-sky-400/40 transition-colors">
                                         {item.id}
                                     </div>
                                 </div>
                                 <div className="p-8 flex-grow relative z-10">
-                                    <div className="mb-6 bg-shark-accent/10 w-14 h-14 rounded-xl flex items-center justify-center group-hover:bg-shark-accent/20 transition-all duration-500 text-shark-accent shadow-lg border border-slate-200 group-hover:scale-110 transform">
+                                    <div className="mb-6 bg-shark-accent/10 dark:bg-shark-accent/20 w-14 h-14 rounded-xl flex items-center justify-center group-hover:bg-shark-accent/20 dark:group-hover:bg-shark-accent/30 transition-all duration-500 text-shark-accent dark:text-sky-400 shadow-lg border border-slate-200 dark:border-slate-600 group-hover:scale-110 transform">
                                         {item.icon}
                                     </div>
-                                    <h3 className="text-xl font-bold font-sora mb-3 text-slate-900 group-hover:text-shark-accent transition-colors uppercase tracking-widest">{item.title}</h3>
-                                    <p className="text-slate-600 font-light leading-relaxed text-sm group-hover:text-slate-800 transition-colors">{item.desc}</p>
+                                    <h3 className="text-xl font-bold font-sora mb-3 text-slate-900 dark:text-white group-hover:text-shark-accent dark:group-hover:text-sky-400 transition-colors uppercase tracking-widest">{t(item.titleKey)}</h3>
+                                    <p className="text-slate-600 dark:text-slate-300 font-light leading-relaxed text-sm group-hover:text-slate-800 dark:group-hover:text-slate-100 transition-colors">{t(item.descKey)}</p>
 
                                     {/* Line Figure */}
-                                    <div className="mt-8 h-0.5 w-12 bg-slate-200 group-hover:w-full transition-all duration-700 bg-gradient-to-r from-shark-accent to-transparent" />
+                                    <div className="mt-8 h-0.5 w-12 bg-slate-200 dark:bg-slate-600 group-hover:w-full transition-all duration-700 bg-gradient-to-r from-shark-accent to-transparent dark:from-sky-400 dark:to-transparent" />
                                 </div>
                             </motion.div>
                         ))}
@@ -206,76 +210,108 @@ const Home = () => {
 
             <Partners />
 
-            {/* About Section */}
-            <section className="py-32 relative overflow-hidden bg-slate-50/30">
-                <div className="absolute left-0 top-1/2 w-64 h-64 bg-shark-accent/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2" />
-                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative">
+            {/* About Section — Design alternatif : image à gauche, contenu éditorial à droite */}
+            <section className="py-32 relative overflow-hidden bg-white dark:bg-slate-900">
+                <div className="absolute inset-0 bg-[linear-gradient(135deg,_#f8fafc_0%,_transparent_50%,_#f1f5f9_100%)] dark:bg-[linear-gradient(135deg,_#0f172a_0%,_#1e293b_50%,_#0f172a_100%)]" />
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-shark-accent/[0.04] dark:bg-shark-accent/[0.08] rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-premium-neon/[0.04] dark:bg-premium-neon/[0.06] rounded-full blur-[80px] -translate-x-1/2 translate-y-1/2" />
+
+                <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center relative">
+                    {/* Colonne gauche : image */}
                     <motion.div
-                        initial={{ x: -60, opacity: 0 }}
+                        initial={{ x: -50, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
-                        viewport={{ once: true, amount: 0.25 }}
+                        viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="relative order-2 lg:order-1"
                     >
-                        <h2 className="text-4xl md:text-6xl font-black font-sora mb-10 leading-tight text-slate-900">
-                            Qui sommes nous ? <br />
-                            <span className="text-shark-accent">Dévenez experts</span> grâce à nos formations
-                        </h2>
-
-                        <div className="space-y-10">
-                            <div className="flex gap-6">
-                                <div className="w-12 h-12 bg-shark-accent/10 rounded-xl flex items-center justify-center shrink-0">
-                                    <Award className="text-shark-accent" />
+                        <div className="relative">
+                            <div className="absolute -inset-4 bg-gradient-to-br from-shark-accent/10 to-premium-neon/10 rounded-[2rem] rotate-2" />
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-slate-200/80 dark:shadow-black/30">
+                                <img
+                                    src={quiSommeNousImg}
+                                    alt="Shark Technologys - Qui sommes nous"
+                                    className="w-full aspect-[4/5] object-cover grayscale-[0.3] hover:grayscale-0 hover:scale-[1.02] transition-all duration-700 dark:brightness-90"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                            </div>
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                whileInView={{ scale: 1, opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.4 }}
+                                className="absolute -right-4 lg:-right-6 bottom-1/4 bg-white dark:bg-slate-800 rounded-2xl shadow-xl dark:shadow-xl dark:shadow-black/20 border border-slate-200/80 dark:border-slate-600 p-5 flex items-center gap-4"
+                            >
+                                <div className="w-14 h-14 rounded-xl bg-shark-accent/10 dark:bg-shark-accent/20 flex items-center justify-center shrink-0">
+                                    <Zap className="text-shark-accent" size={28} />
                                 </div>
                                 <div>
-                                    <h4 className="text-xl font-bold font-sora mb-2 text-slate-900">Formateurs de qualité</h4>
-                                    <p className="text-slate-600 font-light">Formés aux plus hauts standards, nos experts en cybersécurité mettent leur expérience du terrain au service de votre apprentissage.</p>
+                                    <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">{t('home.expertiseLabel')}</span>
+                                    <span className="text-slate-900 dark:text-white font-bold font-sora">{t('home.fieldTraining')}</span>
                                 </div>
-                            </div>
-
-                            <div className="flex gap-6">
-                                <div className="w-12 h-12 bg-shark-accent/10 rounded-xl flex items-center justify-center shrink-0">
-                                    <Users className="text-shark-accent" />
-                                </div>
-                                <div>
-                                    <h4 className="text-xl font-bold font-sora mb-2 text-slate-900">Formateurs engagés</h4>
-                                    <p className="text-slate-600 font-light">Parce que votre réussite est notre priorité, nos formateurs s’impliquent à chaque étape de votre montée en compétences.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-12">
-                            <Button variant="outline" className="flex items-center gap-2 group" onClick={() => navigate('/contact')}>
-                                En savoir plus <ChevronRight className="group-hover:translate-x-1 transition-transform" />
-                            </Button>
+                            </motion.div>
                         </div>
                     </motion.div>
 
+                    {/* Colonne droite : contenu */}
                     <motion.div
-                        initial={{ x: 60, opacity: 0 }}
+                        initial={{ x: 50, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
-                        viewport={{ once: true, amount: 0.25 }}
-                        transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                        className="relative"
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                        className="order-1 lg:order-2"
                     >
-                        <div className="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-shark-accent/20 rounded-tr-3xl" />
-                        <div className="aspect-square bg-gradient-to-tr from-shark-accent/20 to-premium-neon/20 rounded-full blur-[100px] absolute inset-0 -z-10 animate-pulse" />
-                        <div className="glass-card rounded-[40px] p-2 overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-700 border border-slate-200/80">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" alt="Tech Expert" className="rounded-[38px] grayscale hover:grayscale-0 transition-all duration-700" />
+                        <span className="inline-block text-[10px] font-bold uppercase tracking-[0.35em] text-shark-accent dark:text-sky-400 mb-6">
+                            {t('home.ourDna')}
+                        </span>
+                        <h2 className="text-3xl md:text-5xl lg:text-[3.25rem] font-black font-sora leading-[1.1] text-slate-900 dark:text-white mb-8">
+                            {t('home.whoWeAre')}
+                        </h2>
+                        <p className="text-xl md:text-2xl font-bold text-shark-accent dark:text-sky-300 mb-12 max-w-lg">
+                            {t('home.becomeExpert')}
+                        </p>
+
+                        <div className="space-y-6 mb-12">
+                            <motion.div
+                                whileHover={{ x: 4 }}
+                                className="group flex gap-5 p-6 rounded-2xl bg-slate-50/80 dark:bg-slate-800/90 border-l-4 border-shark-accent dark:border-sky-500/80 hover:bg-slate-100/80 dark:hover:bg-slate-700/90 hover:border-shark-accent dark:hover:border-sky-400 transition-all duration-300"
+                            >
+                                <div className="w-14 h-14 rounded-xl bg-white dark:bg-slate-700/80 border border-slate-200 dark:border-slate-600 flex items-center justify-center shrink-0 group-hover:bg-shark-accent/10 dark:group-hover:bg-shark-accent/20 group-hover:border-shark-accent/30 dark:group-hover:border-shark-accent/40 transition-colors">
+                                    <Award className="text-shark-accent" size={26} />
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-bold font-sora text-slate-900 dark:text-white mb-1">{t('home.qualityTrainers')}</h4>
+                                    <p className="text-slate-600 dark:text-slate-300 font-light text-sm leading-relaxed">
+                                        {t('home.qualityTrainersDesc')}
+                                    </p>
+                                </div>
+                            </motion.div>
+                            <motion.div
+                                whileHover={{ x: 4 }}
+                                className="group flex gap-5 p-6 rounded-2xl bg-slate-50/80 dark:bg-slate-800/90 border-l-4 border-premium-neon dark:border-cyan-400/80 hover:bg-slate-100/80 dark:hover:bg-slate-700/90 hover:border-premium-neon dark:hover:border-cyan-400 transition-all duration-300"
+                            >
+                                <div className="w-14 h-14 rounded-xl bg-white dark:bg-slate-700/80 border border-slate-200 dark:border-slate-600 flex items-center justify-center shrink-0 group-hover:bg-premium-neon/10 dark:group-hover:bg-premium-neon/20 group-hover:border-premium-neon/30 dark:group-hover:border-cyan-400/40 transition-colors">
+                                    <Users className="text-premium-neon" size={26} />
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-bold font-sora text-slate-900 dark:text-white mb-1">{t('home.engagedTrainers')}</h4>
+                                    <p className="text-slate-600 dark:text-slate-300 font-light text-sm leading-relaxed">
+                                        {t('home.engagedTrainersDesc')}
+                                    </p>
+                                </div>
+                            </motion.div>
                         </div>
-                        <motion.div
-                            animate={{ y: [0, -6, 0] }}
-                            transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
-                            className="absolute -bottom-10 -left-10 glass-card p-8 rounded-3xl border border-slate-200/80"
-                        >
-                            <Zap className="text-premium-neon" size={32} />
-                        </motion.div>
+
+                        <Button variant="outline" className="flex items-center gap-2 group" onClick={() => navigate('/contact')}>
+                            {t('home.learnMore')} <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
+                        </Button>
                     </motion.div>
                 </div>
             </section>
 
             {/* Stats Section */}
-            <section className="py-24 border-y border-slate-200 bg-slate-50/50 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-shark-accent/5 via-transparent to-premium-neon/5 pointer-events-none" />
+            <section className="py-24 border-y border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/60 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-shark-accent/5 via-transparent to-premium-neon/5 dark:from-shark-accent/10 dark:to-premium-neon/10 pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
                         {stats.map((stat, index) => (
@@ -294,11 +330,11 @@ const Home = () => {
                                     transition={{ duration: 0.6, delay: index * 0.12 + 0.2 }}
                                     className="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-px bg-shark-accent origin-center"
                                 />
-                                <div className="text-5xl md:text-7xl font-black font-sora text-slate-900 mb-4 group-hover:text-shark-accent transition-colors duration-500 tabular-nums">
+                                <div className="text-5xl md:text-7xl font-black font-sora text-slate-900 dark:text-white mb-4 group-hover:text-shark-accent transition-colors duration-500 tabular-nums">
                                     <AnimatedStat value={stat.value} suffix={stat.suffix} />
                                 </div>
-                                <div className="text-slate-500 uppercase tracking-widest text-[10px] font-bold font-outfit">
-                                    {stat.label}
+                                <div className="text-slate-500 dark:text-slate-300 uppercase tracking-widest text-[10px] font-bold font-outfit">
+                                    {t(stat.labelKey)}
                                 </div>
                             </motion.div>
                         ))}
@@ -307,7 +343,7 @@ const Home = () => {
             </section>
 
             {/* Testimonials XXL Section */}
-            <section className="py-40 relative overflow-hidden bg-white">
+            <section className="py-40 relative overflow-hidden bg-white dark:bg-slate-900">
                 {/* Background Geometric Figures */}
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-shark-accent/5 rounded-full blur-[120px] -mr-96 -mt-96" />
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-premium-neon/5 rounded-full blur-[100px] -ml-48 -mb-48" />
@@ -320,11 +356,11 @@ const Home = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 className="text-shark-accent font-bold tracking-[0.4em] uppercase text-[10px] mb-6 block"
                             >
-                                Success Stories
+                                {t('home.testimonialsLabel')}
                             </motion.span>
                             <h2 className="text-5xl md:text-7xl font-black font-sora leading-tight text-slate-900">
-                                TÉMOIGNAGES <br />
-                                <span className="fluid-text text-3xl md:text-5xl uppercase opacity-90">Ce que nos clients disent de nous</span>
+                                {t('home.testimonialsTitle')} <br />
+                                <span className="fluid-text text-3xl md:text-5xl uppercase opacity-90">{t('home.testimonialsSubtitle')}</span>
                             </h2>
                         </div>
                         <div className="flex gap-4">

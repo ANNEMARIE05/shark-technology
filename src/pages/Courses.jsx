@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import PageHeader from '../components/ui/PageHeader'
 import { certifications } from '../data/certifications'
+import formationImg from '../assets/img/formation.jpeg'
 
 const Courses = () => {
     const navigate = useNavigate()
@@ -28,14 +29,14 @@ const Courses = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="pt-32 pb-24 bg-slate-50 min-h-screen"
+            className="pt-32 pb-24 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
             <div className="max-w-7xl mx-auto px-6">
                 <PageHeader
                     tag="Nos Formations"
                     title="Forgez votre"
                     subtitle="Expertise."
-                    image="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800"
+                    image={formationImg}
                 />
 
                 {/* Intro */}
@@ -45,7 +46,7 @@ const Courses = () => {
                     transition={{ delay: 0.2 }}
                     className="max-w-3xl mb-16"
                 >
-                    <p className="text-slate-600 text-lg md:text-xl leading-relaxed">
+                    <p className="text-slate-600 dark:text-slate-300 text-lg md:text-xl leading-relaxed">
                         Des formations intensives en cybersécurité, réseaux et systèmes pour tous les niveaux. 
                         Débutant ou déjà en poste, nos parcours certifiants vous permettent d'acquérir les compétences recherchées par les entreprises et d'évoluer dans l'IT.
                     </p>
@@ -66,10 +67,10 @@ const Courses = () => {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
                             whileHover={{ y: -4 }}
-                            className="text-center p-6 rounded-2xl bg-white border border-slate-200 hover:border-shark-accent/30 transition-colors"
+                            className="text-center p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-colors"
                         >
-                            <div className="text-3xl md:text-4xl font-black font-sora text-shark-accent mb-1">{item.value}</div>
-                            <div className="text-sm font-medium text-slate-600">{item.label}</div>
+                            <div className="text-3xl md:text-4xl font-black font-sora text-shark-accent dark:text-sky-400 mb-1">{item.value}</div>
+                            <div className="text-sm font-medium text-slate-600 dark:text-slate-300">{item.label}</div>
                         </motion.div>
                     ))}
                 </motion.div>
@@ -81,13 +82,13 @@ const Courses = () => {
                     viewport={{ once: true }}
                     className="mb-24"
                 >
-                    <h2 className="text-2xl md:text-3xl font-black font-sora text-slate-900 mb-4">Pourquoi choisir nos formations ?</h2>
-                    <p className="text-slate-600 mb-12 max-w-2xl">Une approche centrée sur la pratique et la certification pour une montée en compétences rapide et reconnue.</p>
+                    <h2 className="text-2xl md:text-3xl font-black font-sora text-slate-900 dark:text-white mb-4">Pourquoi choisir nos formations ?</h2>
+                    <p className="text-slate-600 dark:text-slate-300 mb-12 max-w-2xl">Une approche centrée sur la pratique et la certification pour une montée en compétences rapide et reconnue.</p>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-sm">
                             <img
-                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
-                                alt="Formation en groupe"
+                                src={formationImg}
+                                alt="Formations Shark Technologys - Cybersécurité et certifications"
                                 className="w-full h-72 md:h-80 object-cover hover:scale-105 transition-transform duration-700"
                             />
                         </div>
@@ -134,7 +135,7 @@ const Courses = () => {
                                     viewport={{ once: true }}
                                     whileHover={{ y: -6, scale: 1.02 }}
                                     transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                    className="glass-card rounded-[30px] overflow-hidden shrink-0 w-[300px] group border border-slate-200 hover:border-shark-accent/30 transition-all duration-500 cursor-pointer"
+                                    className="glass-card rounded-[30px] overflow-hidden shrink-0 w-[300px] group border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-all duration-500 cursor-pointer"
                                 >
                                     {/* Image compacte */}
                                     <div className="h-44 overflow-hidden relative">
@@ -157,13 +158,13 @@ const Courses = () => {
 
                                     {/* Contenu compact */}
                                     <div className="p-6">
-                                        <h3 className="text-base font-bold font-sora mb-2 leading-snug text-slate-900 group-hover:text-shark-accent transition-colors line-clamp-2">
+                                        <h3 className="text-base font-bold font-sora mb-2 leading-snug text-slate-900 dark:text-white group-hover:text-shark-accent dark:group-hover:text-sky-400 transition-colors line-clamp-2">
                                             {course.title}
                                         </h3>
-                                        <p className="text-slate-600 text-xs font-light mb-5 line-clamp-2">
+                                        <p className="text-slate-600 dark:text-slate-300 text-xs font-light mb-5 line-clamp-2">
                                             {course.subtitle}
                                         </p>
-                                        <span className="text-xs font-black uppercase tracking-widest text-slate-500 group-hover:text-shark-accent transition-colors flex items-center gap-2">
+                                        <span className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-shark-accent dark:group-hover:text-sky-400 transition-colors flex items-center gap-2">
                                             Consulter <ChevronRight size={13} className="group-hover:translate-x-1 transition-transform" />
                                         </span>
                                     </div>
@@ -173,7 +174,7 @@ const Courses = () => {
                     </motion.div>
 
                     {/* Navigation Hints : flèches pour indiquer le défilement */}
-                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3 text-slate-500 pointer-events-none">
+                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3 text-slate-500 dark:text-slate-400 pointer-events-none">
                         <motion.div
                             animate={{ x: [-4, 0, -4] }}
                             transition={{ repeat: Infinity, duration: 1.5 }}
@@ -195,16 +196,16 @@ const Courses = () => {
                     initial={{ y: 50, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    className="mt-32 glass-card p-12 md:p-20 rounded-[60px] text-center border border-slate-200 border-shark-accent/20 bg-gradient-to-b from-white to-slate-50/50 overflow-hidden relative"
+                    className="mt-32 glass-card p-12 md:p-20 rounded-[60px] text-center border border-slate-200 dark:border-slate-600 border-shark-accent/20 dark:border-sky-400/20 bg-gradient-to-b from-white to-slate-50/50 dark:from-slate-800/80 dark:to-slate-900/80 overflow-hidden relative"
                 >
                     <div className="absolute inset-0 opacity-[0.06] -z-10">
                         <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1200" alt="Cohort" className="w-full h-full object-cover" />
                     </div>
                     <div className="max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-black font-sora mb-8 leading-tight text-slate-900">
+                        <h2 className="text-3xl md:text-5xl font-black font-sora mb-8 leading-tight text-slate-900 dark:text-white">
                             Prêt à rejoindre la prochaine <span className="fluid-text">Cohorte ?</span>
                         </h2>
-                        <p className="text-slate-600 text-lg mb-12 font-light">
+                        <p className="text-slate-600 dark:text-slate-300 text-lg mb-12 font-light">
                             Nos sessions débutent chaque mois avec un nombre limité de places pour garantir un accompagnement personnalisé et une immersion totale.
                         </p>
                         <Button onClick={() => navigate('/contact')}>Réserver un entretien</Button>

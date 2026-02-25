@@ -5,16 +5,47 @@
   <meta charset="UTF-8" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <link rel="icon" type="image/svg+xml" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAfjtg1VIAg2vIUzwsiB3ICz_jMb2sLnGiBg&s" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SHARK TECHNOLOGYS</title>
+
+  <!-- Référencement SEO -->
+  <title>Shark Technologys – Formations Cybersécurité, Réseaux & Certifications | Côte d'Ivoire</title>
+  <meta name="description" content="Shark Technologys : formations en cybersécurité, réseaux et systèmes en Côte d'Ivoire. Certifications internationales (CompTIA, Cisco, Linux). Devenez expert IT avec nos formateurs reconnus." />
+  <meta name="keywords" content="formation cybersécurité, formation réseau, certification CompTIA, certification Cisco, formation informatique Côte d'Ivoire, Shark Technologys, ethical hacking, sécurité informatique, Abidjan" />
+  <meta name="author" content="Shark Technologys" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.sharktechnologys.com/" />
+
+  <!-- Open Graph (réseaux sociaux) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shark Technologys – Formations Cybersécurité & Certifications" />
+  <meta property="og:description" content="Formations intensives en cybersécurité, réseaux et systèmes. Certifications internationales. Devenez expert IT en Côte d'Ivoire." />
+  <meta property="og:image" content="https://www.sharktechnologys.com/assets/img/logo.png" />
+  <meta property="og:url" content="https://www.sharktechnologys.com/" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Shark Technologys" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Shark Technologys – Formations Cybersécurité & Certifications" />
+  <meta name="twitter:description" content="Formations intensives en cybersécurité, réseaux et systèmes. Certifications internationales. Devenez expert IT." />
+
+  <link rel="icon" type="image/png" href="/assets/img/logo.png" />
+  <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Sora:wght@100..800&display=swap"
     rel="stylesheet">
 </head>
 
-<body class="bg-[#0a0f18] text-white">
+<body>
+  <script>
+    (function() {
+      var saved = localStorage.getItem('shark-theme');
+      var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (dark) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    })();
+  </script>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

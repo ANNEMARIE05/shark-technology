@@ -6,6 +6,10 @@
   color-scheme: light;
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -18,12 +22,28 @@ body {
   background-color: #f8fafc;
   color: #0f172a;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark body,
+html.dark #root {
+  background: #0f172a;
+  color: #e2e8f0;
 }
 
 /* Thème clair global */
 body,
 #root {
   background: #f8fafc;
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+  color: #f1f5f9;
 }
 
 h1,
@@ -43,12 +63,42 @@ h6 {
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.06);
 }
 
+html.dark .glass-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Règles globales thème sombre pour composants existants */
+html.dark .text-slate-900 { color: #f1f5f9; }
+html.dark .text-slate-800 { color: #e2e8f0; }
+html.dark .text-slate-700 { color: #cbd5e1; }
+html.dark .text-slate-600 { color: #94a3b8; }
+html.dark .text-slate-500 { color: #64748b; }
+html.dark .bg-white { background-color: #1e293b; }
+html.dark .bg-slate-50 { background-color: #0f172a; }
+html.dark .bg-slate-100 { background-color: #1e293b; }
+html.dark .border-slate-200 { border-color: #334155; }
+html.dark .border-slate-100 { border-color: #334155; }
+
+/* Images moins éclatantes en mode nuit (page Formations, etc.) */
+html.dark .page-header-image img {
+  filter: brightness(0.85) contrast(1.02);
+}
+
 .fluid-text {
   background: linear-gradient(90deg, #2563eb, #0ea5e9, #06b6d4);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: fluid 5s linear infinite;
+}
+
+/* En mode nuit : gradient plus clair pour rester lisible sur fond sombre */
+html.dark .fluid-text {
+  background: linear-gradient(90deg, #93c5fd, #67e8f9, #a5f3fc);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .bg-gradient-radial {
