@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Lock, Mail, Shield, ArrowRight } from 'lucide-react'
+import { Lock, Mail, ArrowRight } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
+import logoPrincipale from '../assets/img/logo principale.png'
 
 // Motif hexagones cybersécurité (SVG)
 const HexagonPattern = () => (
@@ -84,14 +85,14 @@ const Login = () => {
                     <div className="absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
 
                     <div className="text-center mb-8">
-                        <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
+                        <motion.img
+                            src={logoPrincipale}
+                            alt="Shark Technologys"
+                            initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.15, duration: 0.4 }}
-                            className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-cyan-500/10 border border-cyan-400/20 mb-5"
-                        >
-                            <Shield className="w-7 h-7 text-cyan-400" strokeWidth={1.5} />
-                        </motion.div>
+                            className="h-14 w-auto object-contain mx-auto mb-5"
+                        />
                         <h1 className="text-xl md:text-2xl font-bold text-white font-sora tracking-tight">
                             Accès sécurisé
                         </h1>
