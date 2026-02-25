@@ -67,7 +67,7 @@ const Courses = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-10 md:mb-20"
+                    className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-10 md:mb-20"
                 >
                     {keyFigures.map((item, i) => (
                         <motion.div
@@ -77,10 +77,10 @@ const Courses = () => {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
                             whileHover={{ y: -4 }}
-                            className="text-center p-3 sm:p-4 md:p-6 rounded-xl md:rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-colors"
+                            className="text-center p-4 sm:p-4 md:p-6 rounded-xl md:rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-colors shadow-sm"
                         >
-                            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black font-sora text-shark-accent dark:text-sky-400 mb-0.5 md:mb-1">{item.value}</div>
-                            <div className="text-[10px] sm:text-xs md:text-sm font-medium text-slate-600 dark:text-slate-300 leading-tight">{t(item.labelKey)}</div>
+                            <div className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-black font-sora text-shark-accent dark:text-sky-400 mb-1 sm:mb-0.5 md:mb-1">{item.value}</div>
+                            <div className="text-xs sm:text-xs md:text-sm font-medium text-slate-600 dark:text-slate-300 leading-tight">{t(item.labelKey)}</div>
                         </motion.div>
                     ))}
                 </motion.div>

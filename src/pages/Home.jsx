@@ -104,7 +104,7 @@ const Home = () => {
                             {t('home.heroTitle')} <span className="fluid-text">{t('home.heroTitleExpert')}</span> <br />
                             {t('home.heroTitleEnd')}
                         </h1>
-                        <p className="text-slate-700 text-sm sm:text-base md:text-xl max-w-2xl mx-auto mb-6 md:mb-10 leading-relaxed font-light drop-shadow-sm">
+                        <p className="text-slate-800 dark:text-slate-100 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 md:mb-10 leading-relaxed font-medium [text-shadow:0_1px_2px_rgba(255,255,255,0.8)] dark:[text-shadow:0_2px_8px_rgba(0,0,0,0.4)]">
                             {t('home.heroSubtitle')}
                         </p>
                         <div className="flex flex-col md:flex-row items-center justify-center gap-6">
@@ -289,8 +289,8 @@ const Home = () => {
             {/* Stats Section */}
             <section className="py-12 md:py-24 border-y border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/60 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-shark-accent/5 via-transparent to-premium-neon/5 dark:from-shark-accent/10 dark:to-premium-neon/10 pointer-events-none" />
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 md:gap-12">
                         {stats.map((stat, index) => (
                             <motion.div
                                 key={index}
@@ -298,19 +298,19 @@ const Home = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0.3 }}
                                 transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                                className="text-center group relative"
+                                className="text-center group relative p-4 sm:p-5 md:p-0 rounded-xl md:rounded-none bg-white/80 dark:bg-slate-800/80 md:bg-transparent dark:md:bg-transparent border border-slate-200/80 dark:border-slate-600/80 md:border-0 shadow-sm md:shadow-none"
                             >
                                 <motion.div
                                     initial={{ scaleX: 0 }}
                                     whileInView={{ scaleX: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.6, delay: index * 0.12 + 0.2 }}
-                                    className="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-px bg-shark-accent origin-center"
+                                    className="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-px bg-shark-accent origin-center hidden md:block"
                                 />
-                                <div className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black font-sora text-slate-900 dark:text-white mb-2 md:mb-4 group-hover:text-shark-accent transition-colors duration-500 tabular-nums">
+                                <div className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-black font-sora text-slate-900 dark:text-white mb-1 sm:mb-2 md:mb-4 group-hover:text-shark-accent transition-colors duration-500 tabular-nums">
                                     <AnimatedStat value={stat.value} suffix={stat.suffix} />
                                 </div>
-                                <div className="text-slate-500 dark:text-slate-300 uppercase tracking-widest text-[9px] sm:text-[10px] font-bold font-outfit">
+                                <div className="text-slate-600 dark:text-slate-300 uppercase tracking-wider sm:tracking-widest text-xs sm:text-[10px] font-bold font-outfit leading-tight line-clamp-2">
                                     {t(stat.labelKey)}
                                 </div>
                             </motion.div>

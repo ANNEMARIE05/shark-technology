@@ -1,9 +1,4 @@
-import { Network, Server, Lock, Cpu, Database } from 'lucide-react'
-import logoImg from '../assets/img/logo.png'
-
-const LogoIcon = ({ className, size = 32 }) => (
-  <img src={logoImg} alt="" className={className} style={{ width: size, height: size, objectFit: 'contain' }} />
-)
+import { Network, Server, Lock, Cpu, Database, Shield } from 'lucide-react'
 
 export const certifications = [
     {
@@ -48,7 +43,7 @@ export const certifications = [
         slug: "comptia-security-plus",
         title: "CompTIA Security+ SYO-601",
         subtitle: "La référence mondiale en cybersécurité",
-        icon: LogoIcon,
+        icon: Shield,
         color: "from-cyan-500/20 to-premium-neon/20",
         level: "Avancé",
         levelColor: "bg-cyan-500/20 text-premium-neon border-premium-neon/30",
