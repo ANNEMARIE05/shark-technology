@@ -1,13 +1,18 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronRight, ChevronLeft, Award, Users, BookOpen, Briefcase } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import PageHeader from '../components/ui/PageHeader'
+import Pagination from '../components/ui/Pagination'
 import { certifications } from '../data/certifications.jsx'
 import formationImg from '../assets/img/formation.jpeg'
 
+const FORMATIONS_PER_PAGE = 6
+
 const Courses = () => {
     const navigate = useNavigate()
+    const [page, setPage] = useState(1)
 
     const whyUs = [
         { icon: <Award className="text-shark-accent" size={28} />, title: "Certifications reconnues", desc: "Préparation aux certifications internationales (CompTIA, Cisco, Linux, Fortinet) reconnues par les employeurs." },
@@ -23,6 +28,8 @@ const Courses = () => {
     ]
 
     const formations = certifications
+    const totalPages = Math.max(1, Math.ceil(formations.length / FORMATIONS_PER_PAGE))
+    const paginatedFormations = formations.slice((page - 1) * FORMATIONS_PER_PAGE, page * FORMATIONS_PER_PAGE)
 
     return (
         <motion.div
@@ -121,7 +128,7 @@ const Courses = () => {
                         drag="x"
                         dragConstraints={{ right: 0, left: -1000 }}
                     >
-                        {formations.map((course, index) => {
+                        {paginatedFormations.map((course, index) => {
                             const Icon = course.icon
                             return (
                                 <motion.div
@@ -191,6 +198,10 @@ const Courses = () => {
                     </div>
                 </div>
 
+                    {totalPages > 1 && (
+                        <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+                    )}
+
                 {/* CTA Section */}
                 <motion.div
                     initial={{ y: 50, opacity: 0 }}
@@ -208,7 +219,7 @@ const Courses = () => {
                         <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base md:text-lg mb-8 md:mb-12 font-light">
                             Nos sessions débutent chaque mois avec un nombre limité de places pour garantir un accompagnement personnalisé et une immersion totale.
                         </p>
-                        <Button onClick={() => navigate('/contact')}>Réserver un entretien</Button>
+                        <Button onClick={() => navigate('/reservation-entretien')}>Réserver un entretien</Button>
                     </div>
                 </motion.div>
             </div>

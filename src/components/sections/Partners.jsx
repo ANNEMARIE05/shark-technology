@@ -1,18 +1,9 @@
 import { motion } from 'framer-motion'
-import adviceLogo from '../../assets/img/partenaires/advice.png'
-import burgeapLogo from '../../assets/img/partenaires/burgeap.png'
-import gnaLogo from '../../assets/img/partenaires/gna.png'
-import nidLogo from '../../assets/img/partenaires/nid.png'
-import terraLogo from '../../assets/img/partenaires/terra.png'
+import { getPartners } from '../../data/partners'
+import logoPrincipal from '../../assets/img/logo principale.png'
 
 const Partners = () => {
-    const partners = [
-        { name: "Advice", desc: "Partenaire", logo: adviceLogo },
-        { name: "Burgeap", desc: "Partenaire", logo: burgeapLogo },
-        { name: "GNA", desc: "Partenaire", logo: gnaLogo },
-        { name: "NID", desc: "Partenaire", logo: nidLogo },
-        { name: "Terra", desc: "Partenaire", logo: terraLogo },
-    ]
+    const partners = getPartners()
 
     return (
         <section className="py-12 md:py-20 lg:py-24 relative overflow-hidden bg-slate-50 dark:bg-slate-800/60 border-y border-slate-200 dark:border-slate-700">
@@ -20,6 +11,18 @@ const Partners = () => {
 
             {/* Header */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8 md:mb-16 text-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="flex justify-center mb-4 md:mb-6"
+                >
+                    <img
+                        src={logoPrincipal}
+                        alt="Shark Technology"
+                        className="h-12 sm:h-14 md:h-16 w-auto object-contain"
+                    />
+                </motion.div>
                 <motion.span
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}

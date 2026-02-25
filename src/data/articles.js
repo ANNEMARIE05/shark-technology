@@ -61,4 +61,21 @@ Nous insistons sur l'importance du périmètre défini et de l'autorisation écr
     },
 ]
 
-export const getArticleBySlug = (slug) => articles.find((a) => a.slug === slug)
+const ARTICLES_KEY = 'shark_articles'
+
+function getStoredArticles() {
+    try {
+        const raw = localStorage.getItem(ARTICLES_KEY)
+        if (raw) {
+            const data = JSON.parse(raw)
+            if (Array.isArray(data) && data.length) return data
+        }
+    } catch (_) {}
+    return null
+}
+
+export function getArticles() {
+    return getStoredArticles() ?? articles
+}
+
+export const getArticleBySlug = (slug) => getArticles().find((a) => a.slug === slug)

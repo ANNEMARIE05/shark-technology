@@ -1,0 +1,303 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import {
+    Calendar,
+    Send,
+    User,
+    Mail,
+    MessageCircle,
+    CheckCircle,
+    Clock,
+    Video,
+    FileCheck,
+    ArrowRight,
+    Phone,
+} from 'lucide-react'
+import Button from '../components/ui/Button'
+import { addReservation } from '../data/reservations'
+import { certifications } from '../data/certifications'
+
+const benefits = [
+    {
+        icon: Clock,
+        title: 'Réponse sous 24–48 h',
+        text: 'Notre équipe vous recontacte rapidement pour fixer le créneau.',
+    },
+    {
+        icon: Video,
+        title: 'En présentiel ou à distance',
+        text: 'Choisissez la modalité qui vous convient le mieux.',
+    },
+    {
+        icon: FileCheck,
+        title: 'Conseil personnalisé',
+        text: 'Échange sur votre projet et les formations adaptées à votre profil.',
+    },
+]
+
+const ReservationEntretien = () => {
+    const [sent, setSent] = useState(false)
+    const [form, setForm] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        formation: '',
+        dateSouhaitee: '',
+        message: '',
+    })
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        addReservation({
+            name: form.name,
+            email: form.email,
+            phone: form.phone || undefined,
+            formation: form.formation || undefined,
+            dateSouhaitee: form.dateSouhaitee || undefined,
+            message: form.message || undefined,
+        })
+        setSent(true)
+    }
+
+    if (sent) {
+        return (
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="min-h-screen bg-shark-deep dark:bg-slate-900"
+            >
+                <div className="max-w-7xl mx-auto px-6 pt-28 pb-20">
+                    <motion.div
+                        initial={{ scale: 0.95, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+                        className="max-w-xl mx-auto text-center"
+                    >
+                        <div className="w-20 h-20 rounded-2xl bg-green-500/20 flex items-center justify-center mx-auto mb-8">
+                            <CheckCircle className="text-green-600 dark:text-green-400" size={48} />
+                        </div>
+                        <h1 className="text-2xl md:text-4xl font-black font-sora text-slate-900 dark:text-white mb-4">
+                            Demande envoyée
+                        </h1>
+                        <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg mb-10 leading-relaxed">
+                            Votre demande de réservation d&apos;entretien a bien été enregistrée. Notre équipe vous contactera sous 24 à 48 h pour convenir d&apos;un créneau.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Button onClick={() => setSent(false)} variant="outline" className="order-2 sm:order-1">
+                                Réserver un autre entretien
+                            </Button>
+                            <Link to="/formations" className="order-1 sm:order-2">
+                                <Button className="w-full sm:w-auto flex items-center justify-center gap-2">
+                                    Voir les formations <ArrowRight size={18} />
+                                </Button>
+                            </Link>
+                        </div>
+                    </motion.div>
+                </div>
+            </motion.div>
+        )
+    }
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="min-h-screen bg-shark-deep dark:bg-slate-900"
+        >
+            {/* Hero dédié à la réservation */}
+            <section className="relative overflow-hidden min-h-[38vh] md:min-h-[42vh] flex flex-col justify-end bg-slate-50 dark:bg-slate-800/80">
+                <div className="absolute inset-0 opacity-[0.07] dark:opacity-[0.08]">
+                    <img
+                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1600"
+                        alt=""
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+                <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-24 pb-14 md:pt-28 md:pb-20">
+                    <motion.div
+                        initial={{ y: 24, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                        className="max-w-3xl"
+                    >
+                        <div className="inline-flex items-center gap-2 bg-shark-accent/10 dark:bg-shark-accent/20 text-shark-accent dark:text-sky-400 px-4 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.2em] border border-shark-accent/20 dark:border-shark-accent/30 mb-6">
+                            <Calendar size={14} className="opacity-90" />
+                            Réservation d&apos;entretien
+                        </div>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black font-sora text-slate-900 dark:text-white leading-[1.1] tracking-tight mb-4">
+                            Réservez votre entretien personnalisé
+                        </h1>
+                        <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg max-w-2xl leading-relaxed">
+                            Discutez de votre projet avec notre équipe et trouvez la formation qui correspond à vos objectifs. Sans engagement.
+                        </p>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Avantages */}
+            <section className="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                    {benefits.map((item, i) => (
+                        <motion.div
+                            key={item.title}
+                            initial={{ y: 24, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.12 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                            className="group bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-7 border border-slate-200/80 dark:border-slate-700 shadow-lg hover:shadow-xl hover:border-shark-accent/25 dark:hover:border-shark-accent/30 transition-all duration-300 flex gap-5"
+                        >
+                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-shark-accent/20 to-shark-accent/10 flex items-center justify-center shrink-0 group-hover:from-shark-accent/25 group-hover:to-shark-accent/15 transition-colors duration-300">
+                                <item.icon className="text-shark-accent dark:text-sky-400" size={26} />
+                            </div>
+                            <div className="min-w-0">
+                                <h3 className="font-bold font-sora text-slate-900 dark:text-white mb-1.5 text-lg">{item.title}</h3>
+                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.text}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Formulaire dans une carte dédiée */}
+            <section className="max-w-7xl mx-auto px-6 py-14 md:py-24">
+                <motion.div
+                    initial={{ y: 32, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    className="max-w-2xl mx-auto"
+                >
+                    <div className="bg-white dark:bg-slate-800 rounded-[1.75rem] border border-slate-200 dark:border-slate-700 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] overflow-hidden">
+                        <div className="bg-gradient-to-r from-slate-50 to-slate-100/80 dark:from-slate-700/40 dark:to-slate-800/60 px-6 py-6 border-b border-slate-200 dark:border-slate-700">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-shark-accent/15 dark:bg-shark-accent/20 flex items-center justify-center shadow-sm">
+                                    <Calendar className="text-shark-accent dark:text-sky-400" size={24} />
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-bold font-sora text-slate-900 dark:text-white">
+                                        Formulaire de réservation
+                                    </h2>
+                                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                                        Remplissez les champs ci-dessous. Nous vous recontacterons pour confirmer le créneau.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form className="p-6 md:p-8 space-y-6" onSubmit={handleSubmit} noValidate>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label htmlFor="res-name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                        Nom complet *
+                                    </label>
+                                    <div className="relative">
+                                        <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                        <input
+                                            id="res-name"
+                                            type="text"
+                                            required
+                                            value={form.name}
+                                            onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                                            placeholder="Votre nom"
+                                            className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl pl-10 pr-4 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="res-email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                        Email *
+                                    </label>
+                                    <div className="relative">
+                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                        <input
+                                            id="res-email"
+                                            type="email"
+                                            required
+                                            value={form.email}
+                                            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                                            placeholder="votre@email.com"
+                                            className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl pl-10 pr-4 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="res-phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Téléphone
+                                </label>
+                                <div className="relative">
+                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                    <input
+                                        id="res-phone"
+                                        type="tel"
+                                        value={form.phone}
+                                        onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                                        placeholder="+225 07 00 00 00 00"
+                                        className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl pl-10 pr-4 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="res-formation" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Formation concernée
+                                </label>
+                                <select
+                                    id="res-formation"
+                                    value={form.formation}
+                                    onChange={(e) => setForm((f) => ({ ...f, formation: e.target.value }))}
+                                    className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl px-4 py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
+                                >
+                                    <option value="">— Choisir une formation —</option>
+                                    {certifications.map((c) => (
+                                        <option key={c.id} value={c.title}>{c.title}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label htmlFor="res-date" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Date souhaitée
+                                </label>
+                                <input
+                                    id="res-date"
+                                    type="date"
+                                    value={form.dateSouhaitee}
+                                    onChange={(e) => setForm((f) => ({ ...f, dateSouhaitee: e.target.value }))}
+                                    min={new Date().toISOString().slice(0, 10)}
+                                    className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl px-4 py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="res-message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Message
+                                </label>
+                                <div className="relative">
+                                    <MessageCircle className="absolute left-3 top-3 text-slate-400" size={18} />
+                                    <textarea
+                                        id="res-message"
+                                        value={form.message}
+                                        onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                                        rows={4}
+                                        placeholder="Précisez votre objectif, vos questions ou vos disponibilités..."
+                                        className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl pl-10 pr-4 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent resize-none transition-shadow"
+                                    />
+                                </div>
+                            </div>
+                            <div className="pt-2">
+                                <Button type="submit" className="w-full sm:w-auto px-10 py-4 flex items-center justify-center gap-2 shadow-lg shadow-shark-accent/25 hover:shadow-xl hover:shadow-shark-accent/30 transition-shadow">
+                                    Réserver mon entretien <Send size={18} />
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <p className="text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-8 max-w-md mx-auto leading-relaxed">
+                        En soumettant ce formulaire, vous acceptez d&apos;être recontacté par Shark Technologys concernant votre demande.
+                    </p>
+                </motion.div>
+            </section>
+        </motion.div>
+    )
+}
+
+export default ReservationEntretien

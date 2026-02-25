@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ChevronLeft, Calendar, User, ArrowLeft } from 'lucide-react'
 import Button from '../components/ui/Button'
-import { getArticleBySlug, articles } from '../data/articles'
+import { getArticleBySlug, getArticles } from '../data/articles'
 
 const SAFE_SLUG_REGEX = /^[a-z0-9-]+$/
 
@@ -21,7 +21,7 @@ const ArticleDetail = () => {
         )
     }
 
-    const others = articles.filter((a) => a.slug !== article.slug).slice(0, 3)
+    const others = getArticles().filter((a) => a.slug !== article.slug).slice(0, 3)
 
     return (
         <motion.div

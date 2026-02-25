@@ -1,15 +1,23 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { Calendar, User, ArrowUpRight, Search, BookOpen, Minus } from 'lucide-react'
 import PageHeader from '../components/ui/PageHeader'
-import { articles } from '../data/articles'
+import Pagination from '../components/ui/Pagination'
+import { getArticles } from '../data/articles'
+
+const ARTICLES_PER_PAGE = 9
 
 const Blog = () => {
     const navigate = useNavigate()
+    const [page, setPage] = useState(1)
+    const articles = getArticles()
 
     const categories = ["Tous", "Technologie", "Carrière", "Cloud", "Sécurité"]
     const featured = articles.find((a) => a.featured)
-    const rest = articles.filter((a) => !a.featured)
+    const restAll = articles.filter((a) => !a.featured)
+    const totalPages = Math.max(1, Math.ceil(restAll.length / ARTICLES_PER_PAGE))
+    const rest = restAll.slice((page - 1) * ARTICLES_PER_PAGE, page * ARTICLES_PER_PAGE)
 
     return (
         <motion.div
@@ -172,6 +180,10 @@ const Blog = () => {
                         </motion.article>
                     ))}
                 </div>
+
+                {totalPages > 1 && (
+                    <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+                )}
 
                 {/* Bas de page : invitation */}
                 <motion.div

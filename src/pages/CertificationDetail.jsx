@@ -394,7 +394,7 @@ const CertificationDetail = () => {
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <Button
-                                onClick={() => navigate('/contact')}
+                                onClick={() => navigate('/reservation-entretien')}
                                 className="!bg-white !text-shark-accent hover:!bg-slate-100"
                             >
                                 Réserver un entretien

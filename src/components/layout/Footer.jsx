@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { MapPin, Phone, Mail } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import logoImg from '../../assets/img/logo1.png'
+import logoPrincipal from '../../assets/img/logo principale.png'
 
 const Footer = () => {
     const { t } = useTranslation()
@@ -10,11 +10,8 @@ const Footer = () => {
         <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 pt-20 pb-10">
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div className="col-span-1 md:col-span-1">
-                    <div className="flex items-center gap-2 mb-6">
-                        <img src={logoImg} alt="" className="h-8 w-8 object-contain" />
-                        <span className="text-xl font-black font-sora text-slate-900 dark:text-white">
-                            SHARK <span className="font-light">TECH</span>
-                        </span>
+                    <div className="mb-6">
+                        <img src={logoPrincipal} alt="Shark Technology" className="h-10 sm:h-12 w-auto object-contain" />
                     </div>
                     <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
                         {t('footer.description')}
@@ -26,6 +23,7 @@ const Footer = () => {
                     <ul className="space-y-4 text-sm text-slate-600 dark:text-slate-400">
                         <li><Link to="/contact" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.contacts')}</Link></li>
                         <li><Link to="/formations" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.formations')}</Link></li>
+                        <li><Link to="/reservation-entretien" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">Réserver un entretien</Link></li>
                         <li><Link to="/assistance" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.assistance')}</Link></li>
                         <li><Link to="/blog" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.publications')}</Link></li>
                         <li><Link to="/" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.informations')}</Link></li>

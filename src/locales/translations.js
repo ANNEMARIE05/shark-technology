@@ -3,8 +3,8 @@ export const translations = {
         nav: {
             home: 'Accueil',
             formations: 'Formations',
-            assistance: 'Assistance',
             blog: 'Blog',
+            booking: 'Réserver un entretien',
             contact: 'Contacts',
             themeDay: 'Mode jour',
             themeNight: 'Mode nuit',
@@ -68,8 +68,8 @@ export const translations = {
         nav: {
             home: 'Home',
             formations: 'Courses',
-            assistance: 'FAQ & Help',
             blog: 'Blog',
+            booking: 'Book an interview',
             contact: 'Contact',
             themeDay: 'Light mode',
             themeNight: 'Dark mode',
