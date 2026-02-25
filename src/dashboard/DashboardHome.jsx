@@ -46,66 +46,65 @@ const DashboardHome = () => {
     const contentMax = Math.max(1, ...Object.values(counts))
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-4 sm:space-y-5 md:space-y-6">
             <div>
-                <h1 className="text-2xl font-black text-slate-900 dark:text-white font-sora mb-2">
+                <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-sora mb-1">
                     Tableau de bord
                 </h1>
-                <p className="text-slate-600 dark:text-slate-400">
-                    Vue d’ensemble et indicateurs clés.
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+                    Vue d'ensemble et indicateurs clés.
                 </p>
             </div>
 
-            {/* KPIs principaux */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* KPIs - espacement réduit sur mobile */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
                 <Link
                     to="/dashboard/reservations"
-                    className="rounded-xl p-5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-shark-accent/30 transition flex items-center gap-4 shadow-sm"
+                    className="rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-shark-accent/30 active:scale-[0.98] transition flex items-center gap-2 sm:gap-3 md:gap-4 shadow-sm min-w-0"
                 >
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                        <CalendarCheck className="w-6 h-6" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-blue-500/15 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                        <CalendarCheck className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                     </div>
-                    <div>
-                        <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Réservations</p>
-                        <p className="text-2xl font-black text-slate-900 dark:text-white">{totalResas}</p>
+                    <div className="min-w-0">
+                        <p className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 truncate">Réservations</p>
+                        <p className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white tabular-nums">{totalResas}</p>
                     </div>
                 </Link>
                 {cards.map(({ to, icon: Icon, label, key }) => (
                     <Link
                         key={to}
                         to={to}
-                        className="rounded-xl p-5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-shark-accent/30 transition flex items-center gap-4 shadow-sm"
+                        className="rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-shark-accent/30 active:scale-[0.98] transition flex items-center gap-2 sm:gap-3 md:gap-4 shadow-sm min-w-0"
                     >
-                        <div className="w-12 h-12 rounded-xl bg-shark-accent/15 flex items-center justify-center text-shark-accent">
-                            <Icon className="w-6 h-6" />
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-shark-accent/15 flex items-center justify-center text-shark-accent shrink-0">
+                            <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                         </div>
-                        <div>
-                            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p>
-                            <p className="text-2xl font-black text-slate-900 dark:text-white">{getCount(key)}</p>
+                        <div className="min-w-0">
+                            <p className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 truncate">{label}</p>
+                            <p className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white tabular-nums">{getCount(key)}</p>
                         </div>
                     </Link>
                 ))}
             </div>
 
-            {/* Graphiques */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Réservations par statut */}
-                <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm">
-                    <h2 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-shark-accent" />
+            {/* Graphiques - espacement réduit */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+                <div className="rounded-lg sm:rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 sm:p-5 md:p-6 shadow-sm">
+                    <h2 className="font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                        <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-shark-accent shrink-0" />
                         Réservations par statut
                     </h2>
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                         {['en_attente', 'confirme', 'annule'].map((status) => {
                             const n = byStatus[status] || 0
                             const barW = maxStatusCount ? (n / maxStatusCount) * 100 : 0
                             return (
                                 <div key={status}>
-                                    <div className="flex justify-between text-sm mb-1">
+                                    <div className="flex justify-between text-xs sm:text-sm mb-1">
                                         <span className="text-slate-600 dark:text-slate-400">{STATUS_LABELS[status]}</span>
-                                        <span className="font-semibold text-slate-900 dark:text-white">{n}</span>
+                                        <span className="font-semibold text-slate-900 dark:text-white tabular-nums">{n}</span>
                                     </div>
-                                    <div className="h-3 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
+                                    <div className="h-2.5 sm:h-3 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
                                         <div
                                             className={`h-full rounded-full ${STATUS_COLORS[status]} transition-all duration-500`}
                                             style={{ width: `${barW}%` }}
@@ -116,27 +115,26 @@ const DashboardHome = () => {
                         })}
                     </div>
                     {totalResas === 0 && (
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">Aucune réservation pour l’instant.</p>
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">Aucune réservation pour l'instant.</p>
                     )}
                 </div>
 
-                {/* Contenu du site */}
-                <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm">
-                    <h2 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-shark-accent" />
+                <div className="rounded-lg sm:rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 sm:p-5 md:p-6 shadow-sm">
+                    <h2 className="font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                        <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-shark-accent shrink-0" />
                         Contenu publié
                     </h2>
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                         {cards.map(({ key, label }) => {
                             const n = getCount(key)
                             const barW = contentMax ? (n / contentMax) * 100 : 0
                             return (
                                 <div key={key}>
-                                    <div className="flex justify-between text-sm mb-1">
-                                        <span className="text-slate-600 dark:text-slate-400">{label}</span>
-                                        <span className="font-semibold text-slate-900 dark:text-white">{n}</span>
+                                    <div className="flex justify-between text-xs sm:text-sm mb-1">
+                                        <span className="text-slate-600 dark:text-slate-400 truncate pr-2">{label}</span>
+                                        <span className="font-semibold text-slate-900 dark:text-white tabular-nums shrink-0">{n}</span>
                                     </div>
-                                    <div className="h-3 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
+                                    <div className="h-2.5 sm:h-3 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
                                         <div
                                             className="h-full rounded-full bg-shark-accent dark:bg-premium-neon/80 transition-all duration-500"
                                             style={{ width: `${barW}%` }}
@@ -146,7 +144,7 @@ const DashboardHome = () => {
                             )
                         })}
                     </div>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-3">
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 sm:mt-3">
                         Total : <span className="font-semibold text-slate-700 dark:text-slate-300">{contentTotal}</span> éléments
                     </p>
                 </div>
