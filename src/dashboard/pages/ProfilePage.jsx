@@ -1,8 +1,17 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../contexts/AuthContext'
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 
+const errorKeys = {
+    session_expired: 'login.errorSessionExpired',
+    invalid_session: 'login.errorInvalidSession',
+    not_connected: 'login.errorNotConnected',
+    wrong_password: 'login.errorWrongPassword',
+}
+
 const ProfilePage = () => {
+    const { t } = useTranslation()
     const { user, updateProfile } = useAuth()
     const [email, setEmail] = useState(user?.email ?? '')
     const [currentPassword, setCurrentPassword] = useState('')
@@ -17,11 +26,11 @@ const ProfilePage = () => {
         e.preventDefault()
         setMessage({ type: '', text: '' })
         if (newPassword && newPassword !== confirmPassword) {
-            setMessage({ type: 'error', text: 'Les deux mots de passe ne correspondent pas.' })
+            setMessage({ type: 'error', text: t('profile.passwordsMismatch') })
             return
         }
         if (newPassword && newPassword.length < 6) {
-            setMessage({ type: 'error', text: 'Le nouveau mot de passe doit faire au moins 6 caractères.' })
+            setMessage({ type: 'error', text: t('profile.passwordMinLength') })
             return
         }
         setLoading(true)
@@ -32,18 +41,19 @@ const ProfilePage = () => {
         })
         setLoading(false)
         if (result.ok) {
-            setMessage({ type: 'success', text: 'Profil mis à jour.' })
+            setMessage({ type: 'success', text: t('profile.updated') })
             setCurrentPassword('')
             setNewPassword('')
             setConfirmPassword('')
         } else {
-            setMessage({ type: 'error', text: result.error ?? 'Erreur lors de la mise à jour.' })
+            const errorKey = errorKeys[result.error]
+            setMessage({ type: 'error', text: errorKey ? t(errorKey) : t('login.errorUpdate') })
         }
     }
 
     return (
         <div>
-            <h1 className="text-2xl font-black text-slate-900 dark:text-white font-sora mb-6">Profil</h1>
+            <h1 className="text-2xl font-black text-slate-900 dark:text-white font-sora mb-6">{t('profile.title')}</h1>
             <form onSubmit={handleSubmit} className="max-w-md space-y-5">
                 {message.text && (
                     <div
@@ -55,7 +65,7 @@ const ProfilePage = () => {
 
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                        Email
+                        {t('profile.email')}
                     </label>
                     <div className="relative">
                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -71,7 +81,7 @@ const ProfilePage = () => {
 
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                        Mot de passe actuel (obligatoire pour changer le mot de passe)
+                        {t('profile.currentPassword')}
                     </label>
                     <div className="relative">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -95,7 +105,7 @@ const ProfilePage = () => {
 
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                        Nouveau mot de passe
+                        {t('profile.newPassword')}
                     </label>
                     <div className="relative">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -104,7 +114,7 @@ const ProfilePage = () => {
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             className="w-full pl-10 pr-12 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-shark-accent focus:border-transparent"
-                            placeholder="Laisser vide pour ne pas changer"
+                            placeholder={t('profile.placeholderNewPassword')}
                             autoComplete="new-password"
                         />
                         <button
@@ -119,7 +129,7 @@ const ProfilePage = () => {
 
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                        Confirmer le nouveau mot de passe
+                        {t('profile.confirmNewPassword')}
                     </label>
                     <div className="relative">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -140,7 +150,7 @@ const ProfilePage = () => {
                     className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-shark-accent text-white font-semibold hover:opacity-90 transition disabled:opacity-50"
                 >
                     <User className="w-4 h-4" />
-                    {loading ? 'Enregistrement…' : 'Enregistrer les modifications'}
+                    {loading ? t('profile.saving') : t('profile.saveChanges')}
                 </button>
             </form>
         </div>

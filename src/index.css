@@ -10,10 +10,6 @@ html.dark {
   color-scheme: dark;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   margin: 0;
   font-family: 'Outfit', sans-serif;

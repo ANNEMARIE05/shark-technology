@@ -14,30 +14,15 @@ import {
     ArrowRight,
     Phone,
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import Button from '../components/ui/Button'
 import { addReservation } from '../data/reservations'
 import { certifications } from '../data/certifications'
 
-const benefits = [
-    {
-        icon: Clock,
-        title: 'Réponse sous 24–48 h',
-        text: 'Notre équipe vous recontacte rapidement pour fixer le créneau.',
-    },
-    {
-        icon: Video,
-        title: 'En présentiel ou à distance',
-        text: 'Choisissez la modalité qui vous convient le mieux.',
-    },
-    {
-        icon: FileCheck,
-        title: 'Conseil personnalisé',
-        text: 'Échange sur votre projet et les formations adaptées à votre profil.',
-    },
-]
-
 const ReservationEntretien = () => {
+    const { t } = useTranslation()
     const [sent, setSent] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -47,17 +32,27 @@ const ReservationEntretien = () => {
         message: '',
     })
 
+    const benefits = [
+        { icon: Clock, titleKey: 'reservation.response24', textKey: 'reservation.response24Desc' },
+        { icon: Video, titleKey: 'reservation.inPersonOrRemote', textKey: 'reservation.inPersonOrRemoteDesc' },
+        { icon: FileCheck, titleKey: 'reservation.personalizedAdvice', textKey: 'reservation.personalizedAdviceDesc' },
+    ]
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        addReservation({
-            name: form.name,
-            email: form.email,
-            phone: form.phone || undefined,
-            formation: form.formation || undefined,
-            dateSouhaitee: form.dateSouhaitee || undefined,
-            message: form.message || undefined,
-        })
-        setSent(true)
+        setLoading(true)
+        setTimeout(() => {
+            addReservation({
+                name: form.name,
+                email: form.email,
+                phone: form.phone || undefined,
+                formation: form.formation || undefined,
+                dateSouhaitee: form.dateSouhaitee || undefined,
+                message: form.message || undefined,
+            })
+            setSent(true)
+            setLoading(false)
+        }, 800)
     }
 
     if (sent) {
@@ -78,18 +73,18 @@ const ReservationEntretien = () => {
                             <CheckCircle className="text-green-600 dark:text-green-400" size={48} />
                         </div>
                         <h1 className="text-2xl md:text-4xl font-black font-sora text-slate-900 dark:text-white mb-4">
-                            Demande envoyée
+                            {t('reservation.successTitle')}
                         </h1>
                         <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg mb-10 leading-relaxed">
-                            Votre demande de réservation d&apos;entretien a bien été enregistrée. Notre équipe vous contactera sous 24 à 48 h pour convenir d&apos;un créneau.
+                            {t('reservation.successDesc')}
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button onClick={() => setSent(false)} variant="outline" className="order-2 sm:order-1">
-                                Réserver un autre entretien
+                                {t('reservation.bookAnother')}
                             </Button>
                             <Link to="/formations" className="order-1 sm:order-2">
                                 <Button className="w-full sm:w-auto flex items-center justify-center gap-2">
-                                    Voir les formations <ArrowRight size={18} />
+                                    {t('common.viewCourses')} <ArrowRight size={18} />
                                 </Button>
                             </Link>
                         </div>
@@ -124,13 +119,13 @@ const ReservationEntretien = () => {
                     >
                         <div className="inline-flex items-center gap-2 bg-shark-accent/10 dark:bg-shark-accent/20 text-shark-accent dark:text-sky-400 px-4 py-2 rounded-full text-[11px] font-semibold uppercase tracking-[0.2em] border border-shark-accent/20 dark:border-shark-accent/30 mb-6">
                             <Calendar size={14} className="opacity-90" />
-                            Réservation d&apos;entretien
+                            {t('reservation.badge')}
                         </div>
                         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black font-sora text-slate-900 dark:text-white leading-[1.1] tracking-tight mb-4">
-                            Réservez votre entretien personnalisé
+                            {t('reservation.title')}
                         </h1>
                         <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg max-w-2xl leading-relaxed">
-                            Discutez de votre projet avec notre équipe et trouvez la formation qui correspond à vos objectifs. Sans engagement.
+                            {t('reservation.intro')}
                         </p>
                     </motion.div>
                 </div>
@@ -152,8 +147,8 @@ const ReservationEntretien = () => {
                                 <item.icon className="text-shark-accent dark:text-sky-400" size={26} />
                             </div>
                             <div className="min-w-0">
-                                <h3 className="font-bold font-sora text-slate-900 dark:text-white mb-1.5 text-lg">{item.title}</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.text}</p>
+                                <h3 className="font-bold font-sora text-slate-900 dark:text-white mb-1.5 text-lg">{t(item.titleKey)}</h3>
+                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{t(item.textKey)}</p>
                             </div>
                         </motion.div>
                     ))}
@@ -176,10 +171,10 @@ const ReservationEntretien = () => {
                                 </div>
                                 <div>
                                     <h2 className="text-xl font-bold font-sora text-slate-900 dark:text-white">
-                                        Formulaire de réservation
+                                        {t('reservation.formTitle')}
                                     </h2>
                                     <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
-                                        Remplissez les champs ci-dessous. Nous vous recontacterons pour confirmer le créneau.
+                                        {t('reservation.formDesc')}
                                     </p>
                                 </div>
                             </div>
@@ -189,7 +184,7 @@ const ReservationEntretien = () => {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
                                     <label htmlFor="res-name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                        Nom complet *
+                                        {t('reservation.fullName')}
                                     </label>
                                     <div className="relative">
                                         <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
@@ -199,14 +194,14 @@ const ReservationEntretien = () => {
                                             required
                                             value={form.name}
                                             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                                            placeholder="Votre nom"
+                                            placeholder={t('reservation.fullNamePlaceholder')}
                                             className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl pl-10 pr-4 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
                                         />
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor="res-email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                        Email *
+                                        {t('reservation.email')}
                                     </label>
                                     <div className="relative">
                                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
@@ -216,7 +211,7 @@ const ReservationEntretien = () => {
                                             required
                                             value={form.email}
                                             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                                            placeholder="votre@email.com"
+                                            placeholder={t('reservation.emailPlaceholder')}
                                             className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl pl-10 pr-4 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
                                         />
                                     </div>
@@ -224,7 +219,7 @@ const ReservationEntretien = () => {
                             </div>
                             <div>
                                 <label htmlFor="res-phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Téléphone
+                                    {t('reservation.phone')}
                                 </label>
                                 <div className="relative">
                                     <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
@@ -233,14 +228,14 @@ const ReservationEntretien = () => {
                                         type="tel"
                                         value={form.phone}
                                         onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                                        placeholder="+225 07 00 00 00 00"
+                                        placeholder={t('reservation.phonePlaceholder')}
                                         className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl pl-10 pr-4 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
                                     />
                                 </div>
                             </div>
                             <div>
                                 <label htmlFor="res-formation" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Formation concernée
+                                    {t('reservation.formationLabel')}
                                 </label>
                                 <select
                                     id="res-formation"
@@ -248,7 +243,7 @@ const ReservationEntretien = () => {
                                     onChange={(e) => setForm((f) => ({ ...f, formation: e.target.value }))}
                                     className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl px-4 py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent transition-shadow"
                                 >
-                                    <option value="">— Choisir une formation —</option>
+                                    <option value="">{t('reservation.chooseFormation')}</option>
                                     {certifications.map((c) => (
                                         <option key={c.id} value={c.title}>{c.title}</option>
                                     ))}
@@ -256,7 +251,7 @@ const ReservationEntretien = () => {
                             </div>
                             <div>
                                 <label htmlFor="res-date" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Date souhaitée
+                                    {t('reservation.desiredDate')}
                                 </label>
                                 <input
                                     id="res-date"
@@ -269,7 +264,7 @@ const ReservationEntretien = () => {
                             </div>
                             <div>
                                 <label htmlFor="res-message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                    Message
+                                    {t('reservation.message')}
                                 </label>
                                 <div className="relative">
                                     <MessageCircle className="absolute left-3 top-3 text-slate-400" size={18} />
@@ -278,21 +273,21 @@ const ReservationEntretien = () => {
                                         value={form.message}
                                         onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
                                         rows={4}
-                                        placeholder="Précisez votre objectif, vos questions ou vos disponibilités..."
+                                        placeholder={t('reservation.messagePlaceholder')}
                                         className="w-full bg-slate-50/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-600 rounded-xl pl-10 pr-4 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent resize-none transition-shadow"
                                     />
                                 </div>
                             </div>
                             <div className="pt-2">
-                                <Button type="submit" className="w-full sm:w-auto px-10 py-4 flex items-center justify-center gap-2 shadow-lg shadow-shark-accent/25 hover:shadow-xl hover:shadow-shark-accent/30 transition-shadow">
-                                    Réserver mon entretien <Send size={18} />
+                                <Button type="submit" loading={loading} className="w-full sm:w-auto px-10 py-4 flex items-center justify-center gap-2 shadow-lg shadow-shark-accent/25 hover:shadow-xl hover:shadow-shark-accent/30 transition-shadow">
+                                    {t('reservation.submit')} <Send size={18} />
                                 </Button>
                             </div>
                         </form>
                     </div>
 
                     <p className="text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-8 max-w-md mx-auto leading-relaxed">
-                        En soumettant ce formulaire, vous acceptez d&apos;être recontacté par Shark Technologys concernant votre demande.
+                        {t('reservation.disclaimer')}
                     </p>
                 </motion.div>
             </section>

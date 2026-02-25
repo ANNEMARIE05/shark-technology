@@ -7,8 +7,8 @@ import { useTheme } from '../../contexts/ThemeContext'
 import logoImg from '../../assets/img/logo.png'
 
 const LANGUAGES = [
-    { code: 'en', label: 'Anglais', flagImage: 'https://flagcdn.com/w40/gb.png' },
-    { code: 'fr', label: 'Français', flagImage: 'https://flagcdn.com/w40/fr.png' },
+    { code: 'en', labelKey: 'common.english', flagImage: 'https://flagcdn.com/w40/gb.png' },
+    { code: 'fr', labelKey: 'common.french', flagImage: 'https://flagcdn.com/w40/fr.png' },
 ]
 
 const Navbar = () => {
@@ -86,7 +86,7 @@ const Navbar = () => {
                                         role="presentation"
                                     />
                                     <span className="text-sm font-medium capitalize">
-                                        {language === 'fr' ? 'Français' : 'Anglais'}
+                                        {language === 'fr' ? t('common.french') : t('common.english')}
                                     </span>
                                 </span>
                                 <ChevronDown size={16} className={`text-slate-500 dark:text-slate-400 transition-transform ${langMenuOpen ? 'rotate-180' : ''}`} />
@@ -117,7 +117,7 @@ const Navbar = () => {
                                                         className="w-6 h-4 object-cover rounded-sm shrink-0"
                                                         role="presentation"
                                                     />
-                                                    {lang.label}
+                                                    {t(lang.labelKey)}
                                                 </button>
                                             ))}
                                         </motion.div>
@@ -146,7 +146,7 @@ const Navbar = () => {
                         type="button"
                         onClick={toggleTheme}
                         className="p-2 rounded-full text-slate-600 dark:text-amber-200/90 hover:text-shark-accent dark:hover:text-amber-100 transition-colors"
-                        aria-label={theme === 'dark' ? 'Mode jour' : 'Mode nuit'}
+                        aria-label={theme === 'dark' ? t('nav.themeDay') : t('nav.themeNight')}
                     >
                         {theme === 'dark' ? <Sun size={22} /> : <Moon size={22} />}
                     </button>
@@ -181,7 +181,7 @@ const Navbar = () => {
                                             className="w-5 h-[14px] object-cover rounded-sm shrink-0"
                                             role="presentation"
                                         />
-                                        {lang.label}
+                                        {t(lang.labelKey)}
                                     </button>
                                 ))}
                             </div>

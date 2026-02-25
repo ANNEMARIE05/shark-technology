@@ -2,22 +2,27 @@ import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, Clock, BookOpen, Target, ListChecks, Award, Briefcase, FileCheck, Globe, TrendingUp, X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import Button from '../components/ui/Button'
 import { getCertificationBySlug, certifications } from '../data/certifications.jsx'
+import { getCertificationBySlugEn, certificationsEn } from '../data/certificationsEn.jsx'
 
 const SAFE_SLUG_REGEX = /^[a-z0-9-]+$/
 
 const CertificationDetail = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
+    const { t, i18n } = useTranslation()
     const safeSlug = typeof slug === 'string' && SAFE_SLUG_REGEX.test(slug) ? slug : null
-    const cert = safeSlug ? getCertificationBySlug(safeSlug) : null
+    const certsList = i18n.language === 'en' ? certificationsEn : certifications
+    const getBySlug = i18n.language === 'en' ? getCertificationBySlugEn : getCertificationBySlug
+    const cert = safeSlug ? getBySlug(safeSlug) : null
 
     if (!cert) {
         return (
             <div className="pt-28 pb-24 min-h-screen flex flex-col items-center justify-center bg-shark-deep dark:bg-slate-900">
-                <h1 className="text-2xl font-bold text-slate-800 dark:text-white mb-4">Certification introuvable</h1>
-                <Button onClick={() => navigate('/formations')}>Retour aux formations</Button>
+                <h1 className="text-2xl font-bold text-slate-800 dark:text-white mb-4">{t('certDetail.notFound')}</h1>
+                <Button onClick={() => navigate('/formations')}>{t('certDetail.backToFormations')}</Button>
             </div>
         )
     }
@@ -25,9 +30,9 @@ const CertificationDetail = () => {
     const Icon = cert.icon
     const gallery = cert.gallery || []
     const stats = cert.stats || {}
-    const aSavoir = cert.aSavoir || "Les sessions sont limitées en nombre de places pour garantir un suivi personnalisé. Inscription possible tout au long de l'année."
+    const aSavoir = cert.aSavoir || t('certDetail.defaultSavoir')
     const debouches = cert.debouches || []
-    const modalite = cert.modalite || "Présentiel • Supports fournis"
+    const modalite = cert.modalite || t('certDetail.defaultModalite')
     const [lightboxIndex, setLightboxIndex] = useState(null)
 
     return (
@@ -70,7 +75,7 @@ const CertificationDetail = () => {
                         <span className="flex items-center justify-center w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/20 hover:bg-black/50 transition-colors">
                             <ChevronLeft size={16} />
                         </span>
-                        <span className="hidden sm:inline">Retour aux formations</span>
+                        <span className="hidden sm:inline">{t('certDetail.backToFormations')}</span>
                     </motion.button>
                     <span className="text-white/90 text-xs font-mono tracking-wider [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]">{cert.id}</span>
                 </div>
@@ -103,11 +108,11 @@ const CertificationDetail = () => {
                             <div className="flex flex-wrap items-center gap-4 mt-6 [text-shadow:0_1px_4px_rgba(0,0,0,0.8)]">
                                 <span className="inline-flex items-center gap-2 text-white text-sm">
                                     <Clock size={18} className="text-white shrink-0" />
-                                    <strong>Durée</strong> {cert.duration}
+                                    <strong>{t('certDetail.duration')}</strong> {cert.duration}
                                 </span>
                                 <span className="inline-flex items-center gap-2 text-white text-sm">
                                     <BookOpen size={18} className="text-white shrink-0" />
-                                    <strong>Prérequis</strong> {cert.prerequis}
+                                    <strong>{t('certDetail.prerequisites')}</strong> {cert.prerequis}
                                 </span>
                             </div>
                         </div>
@@ -131,7 +136,7 @@ const CertificationDetail = () => {
                 >
                     <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
                         <Target className="text-shark-accent dark:text-sky-400" size={24} />
-                        <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">Objectifs</h2>
+                        <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">{t('certDetail.objectives')}</h2>
                     </div>
                     <ul className="space-y-2 md:space-y-3">
                         {cert.objectives.map((obj, i) => (
@@ -169,7 +174,7 @@ const CertificationDetail = () => {
                                 </div>
                                 <div className="min-w-0">
                                     <p className="text-lg md:text-2xl font-black font-sora text-slate-900 dark:text-white">{stats.paysReconnus}+</p>
-                                    <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">pays reconnaissent cette certification</p>
+                                    <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">{t('certDetail.countriesRecognize')}</p>
                                 </div>
                             </motion.div>
                         )}
@@ -185,7 +190,7 @@ const CertificationDetail = () => {
                             </div>
                             <div className="min-w-0">
                                 <p className="text-lg md:text-2xl font-black font-sora text-slate-900 dark:text-white">{stats.tauxReussite}</p>
-                                <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">taux de réussite (nos stagiaires)</p>
+                                <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">{t('certDetail.successRate')}</p>
                             </div>
                         </motion.div>
                         <motion.div
@@ -200,7 +205,7 @@ const CertificationDetail = () => {
                             </div>
                             <div className="min-w-0">
                                 <p className="text-base md:text-lg font-black font-sora text-slate-900 dark:text-white">{stats.anneesValide}</p>
-                                <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">validité certification</p>
+                                <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">{t('certDetail.validity')}</p>
                             </div>
                         </motion.div>
                     </div>
@@ -219,7 +224,7 @@ const CertificationDetail = () => {
                             <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-shark-accent/10 dark:bg-sky-400/20 flex items-center justify-center">
                                 <Target className="text-shark-accent dark:text-sky-400" size={18} />
                             </div>
-                            <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">En images</h2>
+                            <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">{t('certDetail.inPictures')}</h2>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                             {gallery.map((img, i) => (
@@ -257,7 +262,7 @@ const CertificationDetail = () => {
                                         type="button"
                                         className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
                                         onClick={() => setLightboxIndex(null)}
-                                        aria-label="Fermer"
+                                        aria-label={t('certDetail.close')}
                                     >
                                         <X size={24} />
                                     </button>
@@ -287,7 +292,7 @@ const CertificationDetail = () => {
                     <div className="rounded-xl md:rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-600 p-4 md:p-6 flex items-start gap-3 md:gap-4">
                         <FileCheck className="text-shark-accent dark:text-sky-400 shrink-0 mt-0.5" size={20} />
                         <div className="min-w-0">
-                            <h3 className="font-bold font-sora text-slate-900 dark:text-white text-sm md:text-base mb-1 md:mb-2">Modalités</h3>
+                            <h3 className="font-bold font-sora text-slate-900 dark:text-white text-sm md:text-base mb-1 md:mb-2">{t('certDetail.modalities')}</h3>
                             <p className="text-slate-600 dark:text-slate-300 text-xs md:text-sm leading-relaxed">{modalite}</p>
                         </div>
                     </div>
@@ -302,7 +307,7 @@ const CertificationDetail = () => {
                 >
                     <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
                         <ListChecks className="text-shark-accent dark:text-sky-400" size={24} />
-                        <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">Programme</h2>
+                        <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">{t('certDetail.programme')}</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                         {cert.programme.map((item, i) => (
@@ -334,7 +339,7 @@ const CertificationDetail = () => {
                     >
                         <div className="flex items-center gap-3 mb-6">
                             <Briefcase className="text-shark-accent dark:text-sky-400" size={28} />
-                            <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">Débouchés professionnels</h2>
+                            <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">{t('certDetail.careerOutcomes')}</h2>
                         </div>
                         <div className="flex flex-wrap gap-3">
                             {debouches.map((job, i) => (
@@ -363,7 +368,7 @@ const CertificationDetail = () => {
                 >
                     <span className="text-2xl shrink-0">💡</span>
                     <div>
-                        <p className="font-bold font-sora text-slate-900 dark:text-white mb-1">À savoir</p>
+                        <p className="font-bold font-sora text-slate-900 dark:text-white mb-1">{t('certDetail.keyTakeaway')}</p>
                         <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{aSavoir}</p>
                     </div>
                 </motion.div>
@@ -387,24 +392,24 @@ const CertificationDetail = () => {
                     <div className="relative z-10">
                         <Award className="mx-auto mb-4 text-white/90" size={48} />
                         <h2 className="text-2xl md:text-3xl font-black font-sora mb-3">
-                            Prêt à passer cette certification ?
+                            {t('certDetail.ctaTitle')}
                         </h2>
                         <p className="text-blue-100 mb-8 max-w-xl mx-auto">
-                            Réservez un entretien pour discuter de votre projet et rejoindre la prochaine cohorte.
+                            {t('certDetail.ctaDesc')}
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <Button
                                 onClick={() => navigate('/reservation-entretien')}
                                 className="!bg-white !text-shark-accent hover:!bg-slate-100"
                             >
-                                Réserver un entretien
+                                {t('certDetail.ctaBook')}
                             </Button>
                             <Button
                                 variant="outline"
                                 onClick={() => navigate('/formations')}
                                 className="!border-white !text-white hover:!bg-white/10"
                             >
-                                Voir les autres formations
+                                {t('certDetail.ctaViewOther')}
                             </Button>
                         </div>
                     </div>
@@ -417,9 +422,9 @@ const CertificationDetail = () => {
                     viewport={{ once: true }}
                     className="mt-20"
                 >
-                    <h2 className="text-xl font-bold font-sora text-slate-900 mb-4">Autres certifications</h2>
+                    <h2 className="text-xl font-bold font-sora text-slate-900 dark:text-white mb-4">{t('certDetail.otherCerts')}</h2>
                     <div className="flex flex-wrap gap-3">
-                        {certifications
+                        {certsList
                             .filter((c) => c.slug !== cert.slug)
                             .map((c, i) => (
                                 <motion.button

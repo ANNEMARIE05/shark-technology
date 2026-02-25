@@ -2,8 +2,10 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, CreditCard, Award, HelpCircle, ChevronDown, MessageCircle, Headphones, Search, ArrowUp, FileQuestion } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import PageHeader from '../components/ui/PageHeader'
 import { faqCategories } from '../data/faq'
+import { faqCategoriesEn } from '../data/faqEn'
 
 const iconMap = {
     BookOpen,
@@ -12,7 +14,6 @@ const iconMap = {
     HelpCircle,
 }
 
-const totalQuestions = faqCategories.reduce((acc, cat) => acc + cat.questions.length, 0)
 
 const AccordionItem = ({ question, answer, isOpen, onToggle }) => (
     <motion.div
@@ -57,15 +58,19 @@ const AccordionItem = ({ question, answer, isOpen, onToggle }) => (
 const normalize = (s) => (s || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '')
 
 const Assistance = () => {
+    const { t, i18n } = useTranslation()
     const [openId, setOpenId] = useState(null)
     const [search, setSearch] = useState('')
     const [showBackTop, setShowBackTop] = useState(false)
     const categoryRefs = useRef({})
 
+    const faqCategoriesCurrent = i18n.language === 'en' ? faqCategoriesEn : faqCategories
+    const totalQuestions = faqCategoriesCurrent.reduce((acc, cat) => acc + cat.questions.length, 0)
+
     const filteredCategories = useMemo(() => {
         const q = normalize(search).trim()
-        if (!q) return faqCategories
-        return faqCategories
+        if (!q) return faqCategoriesCurrent
+        return faqCategoriesCurrent
             .map((cat) => ({
                 ...cat,
                 questions: cat.questions.filter(
@@ -74,7 +79,7 @@ const Assistance = () => {
                 ),
             }))
             .filter((cat) => cat.questions.length > 0)
-    }, [search])
+    }, [search, faqCategoriesCurrent])
 
     const toggle = (id) => {
         setOpenId((prev) => (prev === id ? null : id))
@@ -88,11 +93,11 @@ const Assistance = () => {
 
     const scrollToCategory = (id) => {
         const el = categoryRefs.current[id]
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        if (el) el.scrollIntoView({ block: 'start' })
     }
 
     const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+        window.scrollTo({ top: 0 })
     }
 
     return (
@@ -104,9 +109,9 @@ const Assistance = () => {
         >
             <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
                 <PageHeader
-                    tag="Assistance"
-                    title="FAQ &"
-                    subtitle="Aide."
+                    tag={t('assistance.tag')}
+                    title={t('assistance.title')}
+                    subtitle={t('assistance.subtitle')}
                     image="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=800"
                 />
             </div>
@@ -119,14 +124,14 @@ const Assistance = () => {
                     className="text-center mb-6"
                 >
                     <p className="text-slate-600 dark:text-slate-400 text-lg">
-                        Retrouvez les réponses aux questions les plus fréquentes. Vous ne trouvez pas ce que vous cherchez ?{' '}
+                        {t('assistance.intro')}{' '}
                         <Link to="/contact" className="text-shark-accent dark:text-sky-400 font-semibold hover:underline">
-                            Contactez-nous
+                            {t('common.contactUs')}
                         </Link>
                         .
                     </p>
                     <p className="text-slate-500 dark:text-slate-500 text-sm mt-1">
-                        {totalQuestions} questions • Réponse sous 24–48 h ouvrées
+                        {t('assistance.responseTime', { count: totalQuestions })}
                     </p>
                 </motion.div>
 
@@ -145,18 +150,18 @@ const Assistance = () => {
                         type="search"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Rechercher dans la FAQ (certification, paiement, examen…)"
+                        placeholder={t('assistance.searchPlaceholder')}
                         className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800/80 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-shark-accent/40 focus:border-shark-accent dark:focus:ring-sky-400/40 font-sora text-sm transition-shadow"
-                        aria-label="Rechercher dans la FAQ"
+                        aria-label={t('assistance.searchAria')}
                     />
                     {search && (
                         <button
                             type="button"
                             onClick={() => setSearch('')}
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-sm font-medium"
-                            aria-label="Effacer la recherche"
+                            aria-label={t('assistance.clearSearchAria')}
                         >
-                            Effacer
+                            {t('common.clear')}
                         </button>
                     )}
                 </motion.div>
@@ -168,9 +173,9 @@ const Assistance = () => {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.25 }}
                         className="flex flex-wrap justify-center gap-2 mb-12"
-                        aria-label="Catégories de la FAQ"
+                        aria-label={t('assistance.faqCategoriesAria')}
                     >
-                        {faqCategories.map((cat) => {
+                        {faqCategoriesCurrent.map((cat) => {
                             const Icon = iconMap[cat.icon] || HelpCircle
                             return (
                                 <button
@@ -192,7 +197,7 @@ const Assistance = () => {
                     const count = filteredCategories.reduce((a, c) => a + c.questions.length, 0)
                     return (
                         <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 text-center">
-                            {count} résultat{count !== 1 ? 's' : ''} trouvé{count !== 1 ? 's' : ''}
+                            {t('common.resultsCount', { count })}
                         </p>
                     )
                 })()}
@@ -206,17 +211,17 @@ const Assistance = () => {
                     >
                         <FileQuestion className="w-14 h-14 text-slate-400 dark:text-slate-500 mb-4" />
                         <h3 className="text-lg font-bold font-sora text-slate-800 dark:text-slate-200 mb-2">
-                            Aucun résultat pour « {search} »
+                            {t('common.noResults', { query: search })}
                         </h3>
                         <p className="text-slate-600 dark:text-slate-400 text-sm text-center max-w-sm mb-6">
-                            Essayez d'autres mots-clés ou contactez-nous directement pour une réponse personnalisée.
+                            {t('common.tryKeywords')}
                         </p>
                         <Link
                             to="/contact"
                             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-sora font-semibold bg-shark-accent text-white hover:bg-shark-accent/90 transition-colors"
                         >
                             <MessageCircle size={18} />
-                            Nous contacter
+                            {t('common.contactUs')}
                         </Link>
                     </motion.div>
                 ) : (
@@ -239,7 +244,7 @@ const Assistance = () => {
                                         {category.label}
                                     </h2>
                                     <span className="text-sm font-medium text-slate-400 dark:text-slate-500">
-                                        {category.questions.length} question{category.questions.length > 1 ? 's' : ''}
+                                        {category.questions.length} {category.questions.length > 1 ? t('assistance.questions') : t('assistance.question')}
                                     </span>
                                 </div>
                                 <div className="space-y-3">
@@ -268,7 +273,7 @@ const Assistance = () => {
                             exit={{ opacity: 0, scale: 0.9 }}
                             onClick={scrollToTop}
                             className="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full bg-shark-accent text-white shadow-lg hover:bg-shark-accent/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-shark-accent flex items-center justify-center"
-                            aria-label="Retour en haut de la page"
+                            aria-label={t('assistance.backToTopAria')}
                         >
                             <ArrowUp size={20} />
                         </motion.button>
@@ -291,9 +296,9 @@ const Assistance = () => {
                                     <Headphones className="text-white" size={28} />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-black font-sora text-white mb-1">Besoin d'aide personnalisée ?</h3>
+                                    <h3 className="text-xl font-black font-sora text-white mb-1">{t('assistance.needHelp')}</h3>
                                     <p className="text-slate-300 text-sm">
-                                        Notre équipe est là pour répondre à vos questions et vous accompagner dans votre projet de formation.
+                                        {t('assistance.needHelpDesc')}
                                     </p>
                                 </div>
                             </div>
@@ -303,7 +308,7 @@ const Assistance = () => {
                                     className="inline-flex items-center px-6 py-3 rounded-full font-bold bg-white text-slate-900 hover:bg-slate-100 transition-colors font-sora"
                                 >
                                     <MessageCircle size={18} className="mr-2" />
-                                    Nous contacter
+                                    {t('common.contactUs')}
                                 </Link>
                                 <a
                                     href="tel:+2250712624437"

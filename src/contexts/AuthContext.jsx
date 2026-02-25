@@ -57,17 +57,17 @@ export function AuthProvider({ children }) {
 
     const updateProfile = ({ email, newPassword, currentPassword }) => {
         const stored = localStorage.getItem(AUTH_KEY)
-        if (!stored || !user) return { ok: false, error: 'Non connecté' }
+        if (!stored || !user) return { ok: false, error: 'not_connected' }
         let data
         try {
             data = JSON.parse(stored)
         } catch (_) {
-            return { ok: false, error: 'Session invalide' }
+            return { ok: false, error: 'invalid_session' }
         }
-        if (!data?.user || data?.expiresAt <= Date.now()) return { ok: false, error: 'Session expirée' }
+        if (!data?.user || data?.expiresAt <= Date.now()) return { ok: false, error: 'session_expired' }
         const currentStoredPassword = data.password ?? 'admin123'
         if (currentPassword !== undefined && currentPassword !== currentStoredPassword) {
-            return { ok: false, error: 'Mot de passe actuel incorrect' }
+            return { ok: false, error: 'wrong_password' }
         }
         const newUser = { ...data.user }
         if (email != null && email.trim()) newUser.email = email.trim()

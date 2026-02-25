@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, useLocation, Outlet } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Preloader from './components/ui/Preloader'
+import ScrollToTop from './components/ui/ScrollToTop'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
-import ScrollToTop from './components/ui/ScrollToTop'
 import ProtectedRoute from './components/ProtectedRoute'
 import Home from './pages/Home'
 import Courses from './pages/Courses'
@@ -61,10 +61,10 @@ function SiteLayout() {
                             <Outlet />
                         </main>
                         <Footer />
-                        <ScrollToTop />
                     </motion.div>
                 )}
             </AnimatePresence>
+            {isLoaded && <ScrollToTop />}
         </div>
     )
 }

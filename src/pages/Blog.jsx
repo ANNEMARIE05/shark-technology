@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Calendar, User, ArrowUpRight, Search, BookOpen, Minus } from 'lucide-react'
 import PageHeader from '../components/ui/PageHeader'
 import Pagination from '../components/ui/Pagination'
@@ -10,10 +11,12 @@ const ARTICLES_PER_PAGE = 9
 
 const Blog = () => {
     const navigate = useNavigate()
+    const { t, i18n } = useTranslation()
     const [page, setPage] = useState(1)
-    const articles = getArticles()
+    const articles = getArticles(i18n.language)
 
-    const categories = ["Tous", "Technologie", "Carrière", "Cloud", "Sécurité"]
+    const categoryKeys = ['blog.all', 'blog.tech', 'blog.career', 'blog.cloud', 'blog.security']
+    const categories = categoryKeys.map((key) => ({ key, label: t(key) }))
     const featured = articles.find((a) => a.featured)
     const restAll = articles.filter((a) => !a.featured)
     const totalPages = Math.max(1, Math.ceil(restAll.length / ARTICLES_PER_PAGE))
@@ -28,13 +31,12 @@ const Blog = () => {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <PageHeader
-                    tag="Le Mag Shark"
-                    title="Journal d'un"
-                    subtitle="Initié."
+                    tag={t('blog.tag')}
+                    title={t('blog.title')}
+                    subtitle={t('blog.subtitle')}
                     image="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"
                 />
 
-                {/* Intro chic : ligne + texte */}
                 <motion.div
                     initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -44,7 +46,7 @@ const Blog = () => {
                     <div className="flex items-center gap-4 md:gap-6">
                         <Minus className="text-shark-accent shrink-0" strokeWidth={2} size={24} />
                         <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed">
-                            Actualités, tutoriels et retours d'expérience sur la cybersécurité, les réseaux et l'IT.
+                            {t('blog.intro')}
                         </p>
                     </div>
                     <div className="md:ml-auto flex flex-col sm:flex-row sm:items-center gap-4">
@@ -52,17 +54,17 @@ const Blog = () => {
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                             <input
                                 type="text"
-                                placeholder="Rechercher..."
+                                placeholder={t('blog.searchPlaceholder')}
                                 className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full pl-12 pr-5 py-3.5 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-shark-accent/20 focus:border-shark-accent transition-all font-outfit"
                             />
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {categories.map((cat) => (
+                            {categories.map((cat, idx) => (
                                 <button
-                                    key={cat}
-                                    className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all font-outfit ${cat === "Tous" ? "bg-shark-accent text-white shadow-[0_4px_14px_rgba(37,99,235,0.35)]" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-shark-accent/40 hover:text-shark-accent"}`}
+                                    key={cat.key}
+                                    className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all font-outfit ${idx === 0 ? "bg-shark-accent text-white shadow-[0_4px_14px_rgba(37,99,235,0.35)]" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-shark-accent/40 hover:text-shark-accent"}`}
                                 >
-                                    {cat}
+                                    {cat.label}
                                 </button>
                             ))}
                         </div>
@@ -110,7 +112,7 @@ const Blog = () => {
                                         {featured.excerpt}
                                     </p>
                                     <span className="inline-flex items-center gap-2 text-shark-accent font-bold text-sm uppercase tracking-wider group-hover:gap-3 transition-all font-outfit">
-                                        Lire l'article <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                        {t('common.readArticle')} <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                                     </span>
                                 </div>
                             </div>
@@ -129,7 +131,7 @@ const Blog = () => {
                     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-600 to-transparent" />
                     <div className="flex items-center gap-2 text-slate-400">
                         <BookOpen size={18} className="text-shark-accent shrink-0" />
-                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.25em] font-outfit">Dernières publications</span>
+                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.25em] font-outfit">{t('blog.latestPosts')}</span>
                     </div>
                     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-600 to-transparent" />
                 </motion.div>
@@ -174,7 +176,7 @@ const Blog = () => {
                                     {post.excerpt}
                                 </p>
                                 <span className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-shark-accent group-hover/card:gap-3 transition-all font-outfit mt-auto">
-                                    Lire <ArrowUpRight size={14} className="group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform" />
+                                    {t('common.read')} <ArrowUpRight size={14} className="group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform" />
                                 </span>
                             </div>
                         </motion.article>
@@ -193,7 +195,7 @@ const Blog = () => {
                     className="mt-12 md:mt-24 pt-10 md:pt-16 border-t border-slate-200 dark:border-slate-700 text-center"
                 >
                     <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-outfit max-w-lg mx-auto">
-                        Restez à jour avec les derniers articles de l'équipe Shark. Nouveaux contenus chaque semaine.
+                        {t('blog.stayUpdated')}
                     </p>
                 </motion.div>
             </div>

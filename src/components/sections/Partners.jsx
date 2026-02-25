@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { getPartners } from '../../data/partners'
 import logoPrincipal from '../../assets/img/logo principale.png'
 
 const Partners = () => {
+    const { t } = useTranslation()
     const partners = getPartners()
 
     return (
@@ -29,7 +31,7 @@ const Partners = () => {
                     viewport={{ once: true }}
                     className="text-shark-accent font-bold tracking-[0.25em] md:tracking-[0.3em] uppercase text-[9px] sm:text-[10px] mb-3 md:mb-4 block"
                 >
-                    Partenaires Technologiques
+                    {t('partners.techPartners')}
                 </motion.span>
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
@@ -38,7 +40,7 @@ const Partners = () => {
                     transition={{ delay: 0.1 }}
                     className="text-2xl sm:text-3xl md:text-5xl font-black font-sora text-slate-900 dark:text-white"
                 >
-                    Une alliance <span className="fluid-text">Stratégique.</span>
+                    {t('partners.alliance')} <span className="fluid-text">{t('partners.strategic')}</span>
                 </motion.h2>
             </div>
 

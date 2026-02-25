@@ -28,9 +28,9 @@ const AnimatedStat = ({ value, suffix }) => {
 
 const Home = () => {
     const navigate = useNavigate()
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
     const [activeTestimonial, setActiveTestimonial] = useState(0)
-    const testimonials = getTestimonials()
+    const testimonials = getTestimonials(i18n.language)
 
     useEffect(() => {
         const interval = setInterval(() => {

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Lock, Mail, ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../contexts/AuthContext'
 import logoPrincipale from '../assets/img/logo principale.png'
 
@@ -47,6 +48,7 @@ const CircuitPattern = () => (
 const Login = () => {
     const { login, isAuthenticated } = useAuth()
     const navigate = useNavigate()
+    const { t } = useTranslation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -59,7 +61,7 @@ const Login = () => {
         if (login(email, password)) {
             navigate('/dashboard', { replace: true })
         } else {
-            setError('Email ou mot de passe incorrect.')
+            setError(t('login.errorInvalidCredentials'))
         }
     }
 
@@ -94,10 +96,10 @@ const Login = () => {
                             className="h-14 w-auto object-contain mx-auto mb-5"
                         />
                         <h1 className="text-xl md:text-2xl font-bold text-white font-sora tracking-tight">
-                            Accès sécurisé
+                            {t('login.title')}
                         </h1>
                         <p className="text-slate-400 mt-2 text-sm">
-                            Administration Shark Technology · Connexion protégée
+                            {t('login.subtitle')}
                         </p>
                     </div>
 
@@ -114,7 +116,7 @@ const Login = () => {
                         )}
                         <div>
                             <label className="block text-sm font-medium text-slate-300 mb-2">
-                                Email
+                                {t('login.email')}
                             </label>
                             <div className="relative group">
                                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
@@ -130,7 +132,7 @@ const Login = () => {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-300 mb-2">
-                                Mot de passe
+                                {t('login.password')}
                             </label>
                             <div className="relative group">
                                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
@@ -150,13 +152,13 @@ const Login = () => {
                             whileTap={{ scale: 0.99 }}
                             className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-white font-semibold transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2"
                         >
-                            Se connecter
+                            {t('login.submit')}
                             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
                         </motion.button>
                     </form>
 
                     <p className="mt-6 text-center text-xs text-slate-500">
-                        Connexion chiffrée · Données protégées
+                        {t('login.footer')}
                     </p>
                 </div>
             </motion.div>

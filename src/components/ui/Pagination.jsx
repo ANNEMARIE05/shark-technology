@@ -1,6 +1,8 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const { t } = useTranslation()
     if (totalPages <= 1) return null
 
     const prev = currentPage > 1 ? currentPage - 1 : null
@@ -25,13 +27,13 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     }
 
     return (
-        <nav className="flex items-center justify-center gap-1 mt-6 md:mt-8" aria-label="Pagination">
+        <nav className="flex items-center justify-center gap-1 mt-6 md:mt-8" aria-label={t('common.paginationAria')}>
             <button
                 type="button"
                 onClick={() => prev && onPageChange(prev)}
                 disabled={!prev}
                 className="p-2 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
-                aria-label="Page précédente"
+                aria-label={t('common.prevPage')}
             >
                 <ChevronLeft className="w-5 h-5" />
             </button>
@@ -62,7 +64,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 onClick={() => next && onPageChange(next)}
                 disabled={!next}
                 className="p-2 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
-                aria-label="Page suivante"
+                aria-label={t('common.nextPage')}
             >
                 <ChevronRight className="w-5 h-5" />
             </button>

@@ -23,7 +23,7 @@ const Footer = () => {
                     <ul className="space-y-4 text-sm text-slate-600 dark:text-slate-400">
                         <li><Link to="/contact" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.contacts')}</Link></li>
                         <li><Link to="/formations" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.formations')}</Link></li>
-                        <li><Link to="/reservation-entretien" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">Réserver un entretien</Link></li>
+                        <li><Link to="/reservation-entretien" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('common.bookInterview')}</Link></li>
                         <li><Link to="/assistance" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.assistance')}</Link></li>
                         <li><Link to="/blog" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.publications')}</Link></li>
                         <li><Link to="/" className="hover:text-shark-accent dark:hover:text-sky-400 transition-colors">{t('footer.informations')}</Link></li>

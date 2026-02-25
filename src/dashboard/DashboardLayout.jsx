@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom'
-import { LayoutDashboard, MessageCircle, Users, FileText, User, CalendarCheck, BookOpen, LogOut, ChevronLeft, ChevronRight, ExternalLink, Menu, X } from 'lucide-react'
+import { LayoutDashboard, MessageCircle, Users, FileText, User, CalendarCheck, BookOpen, LogOut, ChevronLeft, ChevronRight, ExternalLink, Menu, X, Sun, Moon } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
+import { useTheme } from '../contexts/ThemeContext'
 import DashboardNavbar from './DashboardNavbar'
 import logoImg from '../assets/img/logo.png'
 import { motion } from 'framer-motion'
@@ -63,7 +64,8 @@ const NavContent = ({ sidebarCollapsed, onNavClick, onLogout, showLabels = true 
 )
 
 const DashboardLayout = () => {
-    const { logout, user } = useAuth()
+    const { logout } = useAuth()
+    const { theme, toggleTheme } = useTheme()
     const navigate = useNavigate()
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -99,9 +101,19 @@ const DashboardLayout = () => {
                     <img src={logoImg} alt="Shark" className="h-7 w-auto object-contain" />
                     <span className="font-bold text-slate-900 dark:text-white font-sora text-sm hidden sm:inline">Shark Admin</span>
                 </Link>
-                <Link to="/dashboard/profil" className="p-2 rounded-lg text-slate-600 dark:text-slate-400" onClick={closeMobileMenu} aria-label="Profil">
-                    <User className="w-5 h-5" />
-                </Link>
+                <div className="flex items-center gap-1">
+                    <button
+                        type="button"
+                        onClick={toggleTheme}
+                        className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50"
+                        aria-label={theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
+                    >
+                        {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                    </button>
+                    <Link to="/dashboard/profil" className="p-2 rounded-lg text-slate-600 dark:text-slate-400" onClick={closeMobileMenu} aria-label="Profil">
+                        <User className="w-5 h-5" />
+                    </Link>
+                </div>
             </header>
 
             {/* Overlay mobile */}

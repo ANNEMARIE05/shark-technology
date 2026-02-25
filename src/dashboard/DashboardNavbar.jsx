@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { User, Bell } from 'lucide-react'
+import { User, Bell, Sun, Moon } from 'lucide-react'
+import { useTheme } from '../contexts/ThemeContext'
 
 const DashboardNavbar = ({ sidebarCollapsed = false }) => {
+    const { theme, toggleTheme } = useTheme()
     const [notifOpen, setNotifOpen] = useState(false)
     const notifRef = useRef(null)
     const leftOffset = sidebarCollapsed ? '4.5rem' : '16rem'
@@ -21,6 +23,15 @@ const DashboardNavbar = ({ sidebarCollapsed = false }) => {
             style={{ left: leftOffset }}
         >
             <div className="flex h-full items-center justify-end gap-2 px-4 sm:px-6 lg:px-8 w-full">
+                <button
+                    type="button"
+                    onClick={toggleTheme}
+                    className="p-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition"
+                    aria-label={theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
+                    title={theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
+                >
+                    {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </button>
                 <div className="relative" ref={notifRef}>
                     <button
                         type="button"

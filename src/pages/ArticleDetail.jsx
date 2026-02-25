@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ChevronLeft, Calendar, User, ArrowLeft } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import Button from '../components/ui/Button'
 import { getArticleBySlug, getArticles } from '../data/articles'
 
@@ -9,19 +10,20 @@ const SAFE_SLUG_REGEX = /^[a-z0-9-]+$/
 const ArticleDetail = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
+    const { t, i18n } = useTranslation()
     const safeSlug = typeof slug === 'string' && SAFE_SLUG_REGEX.test(slug) ? slug : null
-    const article = safeSlug ? getArticleBySlug(safeSlug) : null
+    const article = safeSlug ? getArticleBySlug(safeSlug, i18n.language) : null
 
     if (!article) {
         return (
             <div className="pt-24 pb-20 min-h-screen flex flex-col items-center justify-center bg-shark-deep dark:bg-slate-900">
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Article introuvable</h1>
-                <Button onClick={() => navigate('/blog')}>Retour au blog</Button>
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{t('articleDetail.articleNotFound')}</h1>
+                <Button onClick={() => navigate('/blog')}>{t('articleDetail.backToBlog')}</Button>
             </div>
         )
     }
 
-    const others = getArticles().filter((a) => a.slug !== article.slug).slice(0, 3)
+    const others = getArticles(i18n.language).filter((a) => a.slug !== article.slug).slice(0, 3)
 
     return (
         <motion.div
@@ -46,7 +48,7 @@ const ArticleDetail = () => {
                             className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-shark-accent font-medium transition-colors text-sm w-fit"
                         >
                             <ChevronLeft size={18} />
-                            Retour au blog
+                            {t('articleDetail.backToBlog')}
                         </motion.button>
                         <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                             <span className="bg-shark-accent text-white px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest font-outfit">
@@ -101,8 +103,8 @@ const ArticleDetail = () => {
                     className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"
                 >
                     <div className="p-6 rounded-2xl bg-shark-accent/5 dark:bg-shark-accent/10 border border-shark-accent/20 dark:border-shark-accent/30 shadow-sm">
-                        <p className="text-xs font-bold uppercase tracking-wider text-shark-accent font-sora mb-3">Point clé</p>
-                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">Retrouvez chaque semaine de nouveaux contenus sur le blog Shark pour rester à jour sur la cybersécurité et les réseaux.</p>
+                        <p className="text-xs font-bold uppercase tracking-wider text-shark-accent font-sora mb-3">{t('articleDetail.keyPoint')}</p>
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{t('articleDetail.keyPointDesc')}</p>
                     </div>
                     <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md">
                         <img
@@ -126,12 +128,12 @@ const ArticleDetail = () => {
                         className="mb-8"
                     >
                         <span className="flex items-center gap-2">
-                            <ArrowLeft size={20} /> Tous les articles
+                            <ArrowLeft size={20} /> {t('articleDetail.allArticles')}
                         </span>
                     </Button>
                     {others.length > 0 && (
                         <div>
-                            <h2 className="text-xl font-bold font-sora text-slate-900 dark:text-white mb-5">Autres articles</h2>
+                            <h2 className="text-xl font-bold font-sora text-slate-900 dark:text-white mb-5">{t('articleDetail.otherArticles')}</h2>
                             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                                 {others.map((a, i) => (
                                     <motion.li

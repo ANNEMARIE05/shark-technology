@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUp } from 'lucide-react'
+import { ChevronUp } from 'lucide-react'
 
-const ScrollToTop = () => {
+const SCROLL_THRESHOLD = 120
+
+function getScrollY() {
+    if (typeof window === 'undefined') return 0
+    return window.scrollY ?? document.documentElement.scrollTop ?? document.body.scrollTop ?? 0
+}
+
+export default function ScrollToTop() {
     const [visible, setVisible] = useState(false)
 
     useEffect(() => {
-        const toggle = () => setVisible(window.scrollY > 300)
-        window.addEventListener('scroll', toggle, { passive: true })
-        return () => window.removeEventListener('scroll', toggle)
+        const handleScroll = () => setVisible(getScrollY() > SCROLL_THRESHOLD)
+        handleScroll()
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
     const scrollToTop = () => {
@@ -19,20 +27,42 @@ const ScrollToTop = () => {
         <AnimatePresence>
             {visible && (
                 <motion.button
-                    initial={{ opacity: 0, x: 20, scale: 0.9 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 20, scale: 0.9 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                    onClick={scrollToTop}
-                    className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] flex items-center gap-2 pl-3 pr-4 py-3 rounded-full bg-shark-accent text-white shadow-xl shadow-shark-accent/35 hover:bg-blue-600 hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-shark-accent focus:ring-offset-2 font-medium text-sm"
+                    type="button"
                     aria-label="Remonter en haut"
+                    onClick={scrollToTop}
+                    initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                    animate={{
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                    }}
+                    exit={{ opacity: 0, y: 12, scale: 0.9 }}
+                    transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 25,
+                    }}
+                    whileHover={{
+                        y: -3,
+                        scale: 1.05,
+                        transition: { duration: 0.2 },
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="fixed right-6 sm:right-8 bottom-20 sm:bottom-24 z-50 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-shark-accent text-white shadow-lg shadow-shark-accent/30 hover:shadow-xl hover:shadow-shark-accent/40 flex items-center justify-center border border-white/20 dark:border-sky-400/30 focus:outline-none focus:ring-2 focus:ring-shark-accent focus:ring-offset-2 focus:ring-offset-shark-deep dark:focus:ring-offset-slate-900"
                 >
-                    <ArrowUp size={20} />
-                    <span className="hidden sm:inline">Haut</span>
+                    <motion.span
+                        animate={{ y: [0, -3, 0] }}
+                        transition={{
+                            duration: 1.8,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                        }}
+                        className="inline-flex"
+                    >
+                        <ChevronUp size={22} strokeWidth={2.5} className="sm:w-6 sm:h-6" aria-hidden />
+                    </motion.span>
                 </motion.button>
             )}
         </AnimatePresence>
     )
 }
-
-export default ScrollToTop

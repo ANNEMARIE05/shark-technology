@@ -1,3 +1,5 @@
+import { articlesEn } from './articlesEn'
+
 export const articles = [
     {
         slug: "ia-cybersecurite-allie-ou-menace",
@@ -74,8 +76,12 @@ function getStoredArticles() {
     return null
 }
 
-export function getArticles() {
-    return getStoredArticles() ?? articles
+/** @param {'fr'|'en'} [lang] - Language; if not provided, uses French list (stored or default). */
+export function getArticles(lang) {
+    const stored = getStoredArticles()
+    if (stored) return stored
+    return lang === 'en' ? articlesEn : articles
 }
 
-export const getArticleBySlug = (slug) => getArticles().find((a) => a.slug === slug)
+/** @param {string} slug - Article slug. @param {'fr'|'en'} [lang] - Language for default lists. */
+export const getArticleBySlug = (slug, lang) => getArticles(lang).find((a) => a.slug === slug)

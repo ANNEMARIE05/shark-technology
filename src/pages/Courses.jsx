@@ -2,32 +2,36 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronRight, ChevronLeft, Award, Users, BookOpen, Briefcase } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Button from '../components/ui/Button'
 import PageHeader from '../components/ui/PageHeader'
 import Pagination from '../components/ui/Pagination'
 import { certifications } from '../data/certifications.jsx'
+import { certificationsEn } from '../data/certificationsEn.jsx'
 import formationImg from '../assets/img/formation.jpeg'
 
 const FORMATIONS_PER_PAGE = 6
 
 const Courses = () => {
     const navigate = useNavigate()
+    const { t, i18n } = useTranslation()
     const [page, setPage] = useState(1)
+    const certs = i18n.language === 'en' ? certificationsEn : certifications
 
     const whyUs = [
-        { icon: <Award className="text-shark-accent" size={28} />, title: "Certifications reconnues", desc: "Préparation aux certifications internationales (CompTIA, Cisco, Linux, Fortinet) reconnues par les employeurs." },
-        { icon: <Users className="text-shark-accent" size={28} />, title: "Formateurs experts", desc: "Des professionnels en activité qui partagent leur expérience terrain et les bonnes pratiques du secteur." },
-        { icon: <BookOpen className="text-shark-accent" size={28} />, title: "Pédagogie pratique", desc: "Théorie et travaux pratiques en lab pour maîtriser les outils et les environnements réels." },
-        { icon: <Briefcase className="text-shark-accent" size={28} />, title: "Accompagnement carrière", desc: "Conseils et suivi pour valoriser vos compétences et viser les postes qui recrutent." },
+        { icon: <Award className="text-shark-accent" size={28} />, titleKey: 'courses.certsRecognized', descKey: 'courses.certsRecognizedDesc' },
+        { icon: <Users className="text-shark-accent" size={28} />, titleKey: 'courses.expertTrainers', descKey: 'courses.expertTrainersDesc' },
+        { icon: <BookOpen className="text-shark-accent" size={28} />, titleKey: 'courses.practicalPedagogy', descKey: 'courses.practicalPedagogyDesc' },
+        { icon: <Briefcase className="text-shark-accent" size={28} />, titleKey: 'courses.careerSupport', descKey: 'courses.careerSupportDesc' },
     ]
 
     const keyFigures = [
-        { value: "6+", label: "Certifications proposées" },
-        { value: "95%", label: "Taux de satisfaction" },
-        { value: "30+", label: "Partenaires technologiques" },
+        { value: "6+", labelKey: "courses.keyCertifications" },
+        { value: "95%", labelKey: "courses.keySatisfaction" },
+        { value: "30+", labelKey: "courses.keyPartners" },
     ]
 
-    const formations = certifications
+    const formations = certs
     const totalPages = Math.max(1, Math.ceil(formations.length / FORMATIONS_PER_PAGE))
     const paginatedFormations = formations.slice((page - 1) * FORMATIONS_PER_PAGE, page * FORMATIONS_PER_PAGE)
 
@@ -40,9 +44,9 @@ const Courses = () => {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <PageHeader
-                    tag="Nos Formations"
-                    title="Forgez votre"
-                    subtitle="Expertise."
+                    tag={t('courses.tag')}
+                    title={t('courses.title')}
+                    subtitle={t('courses.subtitle')}
                     image={formationImg}
                 />
 
@@ -54,8 +58,7 @@ const Courses = () => {
                     className="max-w-3xl mb-8 md:mb-16"
                 >
                     <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base md:text-xl leading-relaxed">
-                        Des formations intensives en cybersécurité, réseaux et systèmes pour tous les niveaux. 
-                        Débutant ou déjà en poste, nos parcours certifiants vous permettent d'acquérir les compétences recherchées par les entreprises et d'évoluer dans l'IT.
+                        {t('courses.intro')}
                     </p>
                 </motion.div>
 
@@ -77,7 +80,7 @@ const Courses = () => {
                             className="text-center p-3 sm:p-4 md:p-6 rounded-xl md:rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-colors"
                         >
                             <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black font-sora text-shark-accent dark:text-sky-400 mb-0.5 md:mb-1">{item.value}</div>
-                            <div className="text-[10px] sm:text-xs md:text-sm font-medium text-slate-600 dark:text-slate-300 leading-tight">{item.label}</div>
+                            <div className="text-[10px] sm:text-xs md:text-sm font-medium text-slate-600 dark:text-slate-300 leading-tight">{t(item.labelKey)}</div>
                         </motion.div>
                     ))}
                 </motion.div>
@@ -89,13 +92,13 @@ const Courses = () => {
                     viewport={{ once: true }}
                     className="mb-12 md:mb-24"
                 >
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-sora text-slate-900 dark:text-white mb-3 md:mb-4">Pourquoi choisir nos formations ?</h2>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mb-8 md:mb-12 max-w-2xl">Une approche centrée sur la pratique et la certification pour une montée en compétences rapide et reconnue.</p>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-sora text-slate-900 dark:text-white mb-3 md:mb-4">{t('courses.whyTitle')}</h2>
+                    <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mb-8 md:mb-12 max-w-2xl">{t('courses.whyDesc')}</p>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
                         <div className="rounded-2xl md:rounded-3xl overflow-hidden border border-slate-200 shadow-sm">
                             <img
                                 src={formationImg}
-                                alt="Formations Shark Technologys - Cybersécurité et certifications"
+                                alt={t('courses.imageAlt')}
                                 className="w-full h-56 sm:h-72 md:h-80 object-cover hover:scale-105 transition-transform duration-700"
                             />
                         </div>
@@ -111,16 +114,16 @@ const Courses = () => {
                                     className="p-4 sm:p-5 rounded-xl md:rounded-2xl bg-white border border-slate-200 hover:border-shark-accent/30 transition-colors"
                                 >
                                     <div className="mb-2 md:mb-3">{item.icon}</div>
-                                    <h3 className="font-bold font-sora text-slate-900 text-sm sm:text-base mb-1 md:mb-2">{item.title}</h3>
-                                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+                                    <h3 className="font-bold font-sora text-slate-900 dark:text-white text-sm sm:text-base mb-1 md:mb-2">{t(item.titleKey)}</h3>
+                                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{t(item.descKey)}</p>
                                 </motion.div>
                             ))}
                         </div>
                     </div>
                 </motion.section>
 
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-sora text-slate-900 dark:text-white mb-4 md:mb-8">Nos certifications</h2>
-                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mb-6 md:mb-10 max-w-2xl">Parcourez les formations disponibles et trouvez celle qui correspond à votre niveau et à vos objectifs.</p>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black font-sora text-slate-900 dark:text-white mb-4 md:mb-8">{t('courses.ourCertifications')}</h2>
+                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mb-6 md:mb-10 max-w-2xl">{t('courses.ourCertificationsDesc')}</p>
 
                 <div className="relative group/carousel">
                     <motion.div
@@ -172,7 +175,7 @@ const Courses = () => {
                                             {course.subtitle}
                                         </p>
                                         <span className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-shark-accent dark:group-hover:text-sky-400 transition-colors flex items-center gap-2">
-                                            Consulter <ChevronRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                                            {t('courses.consult')} <ChevronRight size={13} className="group-hover:translate-x-1 transition-transform" />
                                         </span>
                                     </div>
                                 </motion.div>
@@ -188,7 +191,7 @@ const Courses = () => {
                         >
                             <ChevronLeft size={18} className="text-shark-accent" />
                         </motion.div>
-                        <span className="text-[10px] uppercase tracking-widest font-bold">Glissez pour explorer</span>
+                        <span className="text-[10px] uppercase tracking-widest font-bold">{t('courses.swipeHint')}</span>
                         <motion.div
                             animate={{ x: [0, 4, 0] }}
                             transition={{ repeat: Infinity, duration: 1.5 }}
@@ -214,12 +217,12 @@ const Courses = () => {
                     </div>
                     <div className="max-w-3xl mx-auto">
                         <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-black font-sora mb-4 md:mb-8 leading-tight text-slate-900 dark:text-white">
-                            Prêt à rejoindre la prochaine <span className="fluid-text">Cohorte ?</span>
+                            {t('courses.ctaTitle')} <span className="fluid-text">{t('courses.ctaCohort')}</span>
                         </h2>
                         <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base md:text-lg mb-8 md:mb-12 font-light">
-                            Nos sessions débutent chaque mois avec un nombre limité de places pour garantir un accompagnement personnalisé et une immersion totale.
+                            {t('courses.ctaDesc')}
                         </p>
-                        <Button onClick={() => navigate('/reservation-entretien')}>Réserver un entretien</Button>
+                        <Button onClick={() => navigate('/reservation-entretien')}>{t('common.bookInterview')}</Button>
                     </div>
                 </motion.div>
             </div>
