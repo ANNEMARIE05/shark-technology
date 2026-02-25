@@ -4,7 +4,7 @@ import { Shield, Cloud, Code, Users, Award, Zap, CheckCircle, ChevronRight } fro
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Partners from '../components/sections/Partners'
-import { useLanguage } from '../contexts/LanguageContext'
+import { useTranslation } from 'react-i18next'
 import quiSommeNousImg from '../assets/img/qui somme nous.jpeg'
 
 // Composant compteur animé chic
@@ -27,7 +27,7 @@ const AnimatedStat = ({ value, suffix }) => {
 
 const Home = () => {
     const navigate = useNavigate()
-    const { t } = useLanguage()
+    const { t } = useTranslation()
     const [activeTestimonial, setActiveTestimonial] = useState(0)
 
     useEffect(() => {

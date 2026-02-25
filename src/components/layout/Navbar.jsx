@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Sun, Moon, ChevronDown } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useTheme } from '../../contexts/ThemeContext'
-import { useLanguage } from '../../contexts/LanguageContext'
 import logoImg from '../../assets/img/logo.png'
 
 const LANGUAGES = [
@@ -17,7 +17,9 @@ const Navbar = () => {
     const [langMenuOpen, setLangMenuOpen] = useState(false)
     const location = useLocation()
     const { theme, toggleTheme } = useTheme()
-    const { language, setLanguage, t } = useLanguage()
+    const { t, i18n } = useTranslation()
+    const language = i18n.language || 'fr'
+    const setLanguage = (lng) => { if (lng === 'fr' || lng === 'en') i18n.changeLanguage(lng) }
 
     useEffect(() => {
         const handleScroll = () => {

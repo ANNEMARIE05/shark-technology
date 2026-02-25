@@ -23,7 +23,7 @@ export const translations = {
             informations: 'Informations',
             privacy: 'Confidentialité',
             legal: 'Mentions Légales',
-            copyright: '© Copyright © {year} Shark Technologys. Tous Droits Réservés.',
+            copyright: '© Copyright © {{year}} Shark Technologys. Tous Droits Réservés.',
             address: "Cocody Riviera 2, Rue D108\nAbidjan, Côte d'Ivoire",
         },
         home: {
@@ -88,7 +88,7 @@ export const translations = {
             informations: 'Information',
             privacy: 'Privacy',
             legal: 'Legal Notice',
-            copyright: '© Copyright © {year} Shark Technologys. All Rights Reserved.',
+            copyright: '© Copyright © {{year}} Shark Technologys. All Rights Reserved.',
             address: "Cocody Riviera 2, Rue D108\nAbidjan, Côte d'Ivoire",
         },
         home: {
@@ -129,14 +129,4 @@ export const translations = {
             language: 'Language',
         },
     },
-}
-
-export const getTranslation = (lang, key) => {
-    const keys = key.split('.')
-    let value = translations[lang] ?? translations.fr
-    for (const k of keys) {
-        value = value?.[k]
-        if (value === undefined) return translations.fr ? getTranslation('fr', key) : key
-    }
-    return typeof value === 'string' ? value : key
 }
