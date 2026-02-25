@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, Clock, BookOpen, Target, ListChecks, Award, Briefcase, FileCheck, Globe, TrendingUp, X } from 'lucide-react'
 import Button from '../components/ui/Button'
-import { getCertificationBySlug, certifications } from '../data/certifications'
+import { getCertificationBySlug, certifications } from '../data/certifications.jsx'
 
 const SAFE_SLUG_REGEX = /^[a-z0-9-]+$/
 
@@ -120,27 +120,27 @@ const CertificationDetail = () => {
                 </div>
             </motion.header>
 
-            <div className="max-w-5xl mx-auto px-6 mt-12 md:mt-16 pt-8 md:pt-12 relative z-20">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-8 md:mt-16 pt-6 md:pt-12 relative z-20">
 
                 {/* Objectifs */}
                 <motion.section
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="mb-16 mt-8 md:mt-12"
+                    className="mb-10 md:mb-16 mt-6 md:mt-12"
                 >
-                    <div className="flex items-center gap-3 mb-6">
-                        <Target className="text-shark-accent dark:text-sky-400" size={28} />
-                        <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">Objectifs</h2>
+                    <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                        <Target className="text-shark-accent dark:text-sky-400" size={24} />
+                        <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">Objectifs</h2>
                     </div>
-                    <ul className="space-y-3">
+                    <ul className="space-y-2 md:space-y-3">
                         {cert.objectives.map((obj, i) => (
                             <motion.li
                                 key={i}
                                 initial={{ opacity: 0, x: -12 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.35 + i * 0.06 }}
-                                className="flex items-start gap-3 text-slate-600 dark:text-slate-300"
+                                className="flex items-start gap-2 md:gap-3 text-slate-600 dark:text-slate-300 text-sm sm:text-base"
                             >
                                 <span className="w-2 h-2 rounded-full bg-shark-accent mt-2 shrink-0" />
                                 <span>{obj}</span>
@@ -154,22 +154,22 @@ const CertificationDetail = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-16"
+                    className="mb-10 md:mb-16"
                 >
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
                         {typeof stats.paysReconnus === 'number' && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-6 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
+                                className="rounded-xl md:rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm hover:shadow-md transition-shadow"
                             >
-                                <div className="w-12 h-12 rounded-xl bg-shark-accent/10 dark:bg-sky-400/20 flex items-center justify-center">
-                                    <Globe className="text-shark-accent dark:text-sky-400" size={24} />
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-shark-accent/10 dark:bg-sky-400/20 flex items-center justify-center shrink-0">
+                                    <Globe className="text-shark-accent dark:text-sky-400" size={20} />
                                 </div>
-                                <div>
-                                    <p className="text-2xl font-black font-sora text-slate-900 dark:text-white">{stats.paysReconnus}+</p>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">pays reconnaissent cette certification</p>
+                                <div className="min-w-0">
+                                    <p className="text-lg md:text-2xl font-black font-sora text-slate-900 dark:text-white">{stats.paysReconnus}+</p>
+                                    <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">pays reconnaissent cette certification</p>
                                 </div>
                             </motion.div>
                         )}
@@ -178,14 +178,14 @@ const CertificationDetail = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.05 }}
-                            className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-6 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
+                            className="rounded-xl md:rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm hover:shadow-md transition-shadow"
                         >
-                            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                                <TrendingUp className="text-emerald-600 dark:text-emerald-400" size={24} />
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0">
+                                <TrendingUp className="text-emerald-600 dark:text-emerald-400" size={20} />
                             </div>
-                            <div>
-                                <p className="text-2xl font-black font-sora text-slate-900 dark:text-white">{stats.tauxReussite}</p>
-                                <p className="text-sm text-slate-600 dark:text-slate-400">taux de réussite (nos stagiaires)</p>
+                            <div className="min-w-0">
+                                <p className="text-lg md:text-2xl font-black font-sora text-slate-900 dark:text-white">{stats.tauxReussite}</p>
+                                <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">taux de réussite (nos stagiaires)</p>
                             </div>
                         </motion.div>
                         <motion.div
@@ -193,14 +193,14 @@ const CertificationDetail = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-6 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
+                            className="rounded-xl md:rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm hover:shadow-md transition-shadow"
                         >
-                            <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                                <FileCheck className="text-amber-600 dark:text-amber-400" size={24} />
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
+                                <FileCheck className="text-amber-600 dark:text-amber-400" size={20} />
                             </div>
-                            <div>
-                                <p className="text-lg font-black font-sora text-slate-900 dark:text-white">{stats.anneesValide}</p>
-                                <p className="text-sm text-slate-600 dark:text-slate-400">validité certification</p>
+                            <div className="min-w-0">
+                                <p className="text-base md:text-lg font-black font-sora text-slate-900 dark:text-white">{stats.anneesValide}</p>
+                                <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400">validité certification</p>
                             </div>
                         </motion.div>
                     </div>
@@ -213,15 +213,15 @@ const CertificationDetail = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.5 }}
-                        className="mb-16"
+                        className="mb-10 md:mb-16"
                     >
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="w-10 h-10 rounded-xl bg-shark-accent/10 dark:bg-sky-400/20 flex items-center justify-center">
-                                <Target className="text-shark-accent dark:text-sky-400" size={20} />
+                        <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                            <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-shark-accent/10 dark:bg-sky-400/20 flex items-center justify-center">
+                                <Target className="text-shark-accent dark:text-sky-400" size={18} />
                             </div>
-                            <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">En images</h2>
+                            <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">En images</h2>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                             {gallery.map((img, i) => (
                                 <motion.div
                                     key={i}
@@ -239,7 +239,7 @@ const CertificationDetail = () => {
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                     </div>
-                                    <p className="p-4 text-sm text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 font-medium">{img.caption}</p>
+                                    <p className="p-3 md:p-4 text-xs md:text-sm text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 font-medium">{img.caption}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -284,11 +284,11 @@ const CertificationDetail = () => {
                     viewport={{ once: true }}
                     className="mb-16"
                 >
-                    <div className="rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-600 p-6 flex items-start gap-4">
-                        <FileCheck className="text-shark-accent dark:text-sky-400 shrink-0 mt-0.5" size={24} />
-                        <div>
-                            <h3 className="font-bold font-sora text-slate-900 dark:text-white mb-2">Modalités</h3>
-                            <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{modalite}</p>
+                    <div className="rounded-xl md:rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-600 p-4 md:p-6 flex items-start gap-3 md:gap-4">
+                        <FileCheck className="text-shark-accent dark:text-sky-400 shrink-0 mt-0.5" size={20} />
+                        <div className="min-w-0">
+                            <h3 className="font-bold font-sora text-slate-900 dark:text-white text-sm md:text-base mb-1 md:mb-2">Modalités</h3>
+                            <p className="text-slate-600 dark:text-slate-300 text-xs md:text-sm leading-relaxed">{modalite}</p>
                         </div>
                     </div>
                 </motion.section>
@@ -300,11 +300,11 @@ const CertificationDetail = () => {
                     viewport={{ once: true }}
                     className="mb-16"
                 >
-                    <div className="flex items-center gap-3 mb-6">
-                        <ListChecks className="text-shark-accent dark:text-sky-400" size={28} />
-                        <h2 className="text-2xl font-black font-sora text-slate-900 dark:text-white">Programme</h2>
+                    <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                        <ListChecks className="text-shark-accent dark:text-sky-400" size={24} />
+                        <h2 className="text-xl sm:text-2xl font-black font-sora text-slate-900 dark:text-white">Programme</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                         {cert.programme.map((item, i) => (
                             <motion.div
                                 key={i}
@@ -313,12 +313,12 @@ const CertificationDetail = () => {
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.05 }}
                                 whileHover={{ x: 4 }}
-                                className="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-colors"
+                                className="flex items-center gap-2 md:gap-3 p-3 md:p-4 rounded-lg md:rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-colors"
                             >
-                                <span className="w-8 h-8 rounded-lg bg-shark-accent/10 dark:bg-sky-400/20 text-shark-accent dark:text-sky-400 font-bold text-sm flex items-center justify-center">
+                                <span className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-shark-accent/10 dark:bg-sky-400/20 text-shark-accent dark:text-sky-400 font-bold text-xs md:text-sm flex items-center justify-center shrink-0">
                                     {i + 1}
                                 </span>
-                                <span className="text-slate-700 dark:text-slate-200 font-medium">{item}</span>
+                                <span className="text-slate-700 dark:text-slate-200 font-medium text-sm md:text-base">{item}</span>
                             </motion.div>
                         ))}
                     </div>

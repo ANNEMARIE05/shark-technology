@@ -36,7 +36,7 @@ const Navbar = () => {
 
     return (
         <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-4 backdrop-blur-md border-b ${scrolled ? 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-700/80 shadow-md' : 'bg-transparent border-transparent'}`}>
-            <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
                 <Link to="/" className="flex items-center gap-3 group">
                     <motion.div
                         className="w-10 h-10 bg-gradient-to-tr from-shark-accent to-premium-neon rounded-xl flex items-center justify-center shadow-lg"

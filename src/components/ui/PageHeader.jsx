@@ -2,16 +2,16 @@ import { motion } from 'framer-motion'
 
 const PageHeader = ({ title, subtitle, tag, image }) => {
     return (
-        <div className="relative mb-24 pt-10">
-            <div className="flex flex-col lg:flex-row items-center gap-12">
-                <div className="flex-grow">
+        <div className="relative mb-12 md:mb-20 lg:mb-24 pt-4 md:pt-10">
+            <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+                <div className="flex-grow w-full">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-4 text-shark-accent mb-6"
+                        className="flex items-center gap-3 md:gap-4 text-shark-accent mb-4 md:mb-6"
                     >
-                        <span className="h-px w-12 bg-shark-accent" />
-                        <span className="text-xs font-bold uppercase tracking-[0.3em] font-outfit">{tag}</span>
+                        <span className="h-px w-8 md:w-12 bg-shark-accent" />
+                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] md:tracking-[0.3em] font-outfit">{tag}</span>
                     </motion.div>
 
                     <div className="relative">
@@ -19,13 +19,13 @@ const PageHeader = ({ title, subtitle, tag, image }) => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: "circOut" }}
-                            className="text-5xl md:text-8xl font-black font-sora leading-tight text-slate-900 dark:text-white"
+                            className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black font-sora leading-tight text-slate-900 dark:text-white"
                         >
                             {title} <br />
                             <span className="fluid-text">{subtitle}</span>
                         </motion.h1>
 
-                        <div className="absolute -top-10 -left-10 text-[150px] font-black text-slate-300/40 pointer-events-none select-none whitespace-nowrap -z-10 uppercase">
+                        <div className="absolute -top-6 -left-4 md:-top-10 md:-left-10 text-[80px] sm:text-[100px] md:text-[130px] lg:text-[150px] font-black text-slate-300/40 pointer-events-none select-none whitespace-nowrap -z-10 uppercase">
                             {tag}
                         </div>
                     </div>

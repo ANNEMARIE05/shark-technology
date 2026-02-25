@@ -16,9 +16,9 @@ const Blog = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="pt-32 pb-28 bg-shark-deep dark:bg-slate-900 min-h-screen"
+            className="pt-20 sm:pt-28 md:pt-32 pb-16 md:pb-28 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <PageHeader
                     tag="Le Mag Shark"
                     title="Journal d'un"
@@ -31,11 +31,11 @@ const Blog = () => {
                     initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.15 }}
-                    className="flex flex-col md:flex-row md:items-end gap-8 mb-16"
+                    className="flex flex-col md:flex-row md:items-end gap-4 md:gap-8 mb-8 md:mb-16"
                 >
-                    <div className="flex items-center gap-6">
-                        <Minus className="text-shark-accent shrink-0" strokeWidth={2} size={32} />
-                        <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl leading-relaxed">
+                    <div className="flex items-center gap-4 md:gap-6">
+                        <Minus className="text-shark-accent shrink-0" strokeWidth={2} size={24} />
+                        <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed">
                             Actualités, tutoriels et retours d'expérience sur la cybersécurité, les réseaux et l'IT.
                         </p>
                     </div>
@@ -68,7 +68,7 @@ const Blog = () => {
                         whileInView={{ y: 0, opacity: 1 }}
                         viewport={{ once: true, amount: 0.15 }}
                         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        className="mb-24"
+                        className="mb-12 md:mb-24"
                     >
                         <article
                             role="button"
@@ -77,8 +77,8 @@ const Blog = () => {
                             onKeyDown={(e) => e.key === 'Enter' && navigate(`/blog/${featured.slug}`)}
                             className="group relative rounded-[32px] overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 cursor-pointer"
                         >
-                            <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[420px] lg:min-h-[480px]">
-                                <div className="relative h-72 lg:h-full min-h-[320px] overflow-hidden">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[320px] sm:min-h-[380px] lg:min-h-[480px]">
+                                <div className="relative h-56 sm:h-72 lg:h-full min-h-[240px] sm:min-h-[320px] overflow-hidden">
                                     <img
                                         src={featured.image}
                                         alt={featured.title}
@@ -94,11 +94,11 @@ const Blog = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="flex flex-col justify-center p-10 lg:p-14">
-                                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-black font-sora text-slate-900 dark:text-white mb-4 leading-tight">
+                                <div className="flex flex-col justify-center p-5 sm:p-8 md:p-10 lg:p-14">
+                                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black font-sora text-slate-900 dark:text-white mb-3 md:mb-4 leading-tight">
                                         {featured.title}
                                     </h2>
-                                    <p className="text-slate-600 dark:text-slate-300 text-base lg:text-lg leading-relaxed mb-8">
+                                    <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base lg:text-lg leading-relaxed mb-5 md:mb-8">
                                         {featured.excerpt}
                                     </p>
                                     <span className="inline-flex items-center gap-2 text-shark-accent font-bold text-sm uppercase tracking-wider group-hover:gap-3 transition-all font-outfit">
@@ -116,18 +116,18 @@ const Blog = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="flex items-center gap-6 mb-14"
+                    className="flex items-center gap-4 md:gap-6 mb-8 md:mb-14"
                 >
                     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-600 to-transparent" />
                     <div className="flex items-center gap-2 text-slate-400">
-                        <BookOpen size={20} className="text-shark-accent" />
-                        <span className="text-xs font-bold uppercase tracking-[0.25em] font-outfit">Dernières publications</span>
+                        <BookOpen size={18} className="text-shark-accent shrink-0" />
+                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.25em] font-outfit">Dernières publications</span>
                     </div>
                     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-600 to-transparent" />
                 </motion.div>
 
                 {/* Grille articles : cartes chic */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
                     {rest.map((post, i) => (
                         <motion.article
                             key={post.slug}
@@ -139,9 +139,9 @@ const Blog = () => {
                             whileInView={{ y: 0, opacity: 1 }}
                             viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                            className="group group/card h-full flex flex-col bg-white dark:bg-slate-800 rounded-[24px] overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-shark-accent/25 dark:hover:border-shark-accent/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-400 cursor-pointer"
+                            className="group group/card h-full flex flex-col bg-white dark:bg-slate-800 rounded-2xl md:rounded-[24px] overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-shark-accent/25 dark:hover:border-shark-accent/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-400 cursor-pointer"
                         >
-                            <div className="relative h-56 overflow-hidden">
+                            <div className="relative h-44 sm:h-52 md:h-56 overflow-hidden">
                                 <img
                                     src={post.image}
                                     alt={post.title}
@@ -154,18 +154,18 @@ const Blog = () => {
                                     </span>
                                 </div>
                             </div>
-                            <div className="p-6 lg:p-7 flex flex-col flex-grow">
-                                <div className="flex items-center gap-4 text-slate-500 dark:text-slate-400 text-xs mb-4 font-outfit">
-                                    <span className="flex items-center gap-1.5"><Calendar size={12} /> {post.date}</span>
-                                    <span className="flex items-center gap-1.5"><User size={12} /> Shark Tech</span>
+                            <div className="p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col flex-grow">
+                                <div className="flex items-center gap-3 md:gap-4 text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs mb-2 md:mb-4 font-outfit">
+                                    <span className="flex items-center gap-1.5"><Calendar size={11} /> {post.date}</span>
+                                    <span className="flex items-center gap-1.5"><User size={11} /> Shark Tech</span>
                                 </div>
-                                <h3 className="text-xl font-bold font-sora text-slate-900 dark:text-white mb-3 leading-snug group-hover/card:text-shark-accent transition-colors line-clamp-2">
+                                <h3 className="text-base sm:text-lg md:text-xl font-bold font-sora text-slate-900 dark:text-white mb-2 md:mb-3 leading-snug group-hover/card:text-shark-accent transition-colors line-clamp-2">
                                     {post.title}
                                 </h3>
-                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-5 line-clamp-2 flex-grow">
+                                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-3 md:mb-5 line-clamp-2 flex-grow">
                                     {post.excerpt}
                                 </p>
-                                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-shark-accent group-hover/card:gap-3 transition-all font-outfit mt-auto">
+                                <span className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-shark-accent group-hover/card:gap-3 transition-all font-outfit mt-auto">
                                     Lire <ArrowUpRight size={14} className="group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform" />
                                 </span>
                             </div>
@@ -178,9 +178,9 @@ const Blog = () => {
                     initial={{ y: 20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    className="mt-24 pt-16 border-t border-slate-200 dark:border-slate-700 text-center"
+                    className="mt-12 md:mt-24 pt-10 md:pt-16 border-t border-slate-200 dark:border-slate-700 text-center"
                 >
-                    <p className="text-slate-500 dark:text-slate-400 text-sm font-outfit max-w-lg mx-auto">
+                    <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-outfit max-w-lg mx-auto">
                         Restez à jour avec les derniers articles de l'équipe Shark. Nouveaux contenus chaque semaine.
                     </p>
                 </motion.div>
