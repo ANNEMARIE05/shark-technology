@@ -24,7 +24,7 @@ const Blog = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="pt-20 sm:pt-28 md:pt-32 pb-16 md:pb-28 bg-shark-deep dark:bg-slate-900 min-h-screen"
+            className="pt-20 sm:pt-24 md:pt-28 pb-16 md:pb-28 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <PageHeader

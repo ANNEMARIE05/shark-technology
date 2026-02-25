@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 const PageHeader = ({ title, subtitle, tag, image }) => {
     return (
-        <div className="relative mb-12 md:mb-20 lg:mb-24 pt-4 md:pt-10">
+        <div className="relative mb-8 md:mb-12 lg:mb-16 pt-0 md:pt-2">
             <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
                 <div className="flex-grow w-full">
                     <motion.div

@@ -67,7 +67,7 @@ const ReservationEntretien = () => {
                 animate={{ opacity: 1 }}
                 className="min-h-screen bg-shark-deep dark:bg-slate-900"
             >
-                <div className="max-w-7xl mx-auto px-6 pt-28 pb-20">
+                <div className="max-w-7xl mx-auto px-6 pt-24 pb-20">
                     <motion.div
                         initial={{ scale: 0.95, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}

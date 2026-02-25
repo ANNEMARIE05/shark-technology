@@ -15,7 +15,7 @@ const CertificationDetail = () => {
 
     if (!cert) {
         return (
-            <div className="pt-32 pb-24 min-h-screen flex flex-col items-center justify-center bg-shark-deep dark:bg-slate-900">
+            <div className="pt-28 pb-24 min-h-screen flex flex-col items-center justify-center bg-shark-deep dark:bg-slate-900">
                 <h1 className="text-2xl font-bold text-slate-800 dark:text-white mb-4">Certification introuvable</h1>
                 <Button onClick={() => navigate('/formations')}>Retour aux formations</Button>
             </div>
@@ -59,7 +59,7 @@ const CertificationDetail = () => {
                 </div>
 
                 {/* Zone haute : fil d'Ariane — fond légèrement opaque pour lisibilité */}
-                <div className="relative z-10 flex justify-between items-center max-w-5xl mx-auto w-full px-6 pt-28 pb-4">
+                <div className="relative z-10 flex justify-between items-center max-w-5xl mx-auto w-full px-6 pt-24 pb-4">
                     <motion.button
                         initial={{ opacity: 0, x: -12 }}
                         animate={{ opacity: 1, x: 0 }}

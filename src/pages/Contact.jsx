@@ -12,7 +12,7 @@ const Contact = () => {
             className="min-h-screen bg-shark-deep dark:bg-slate-900"
         >
             {/* Header avec image comme les autres pages */}
-            <div className="max-w-7xl mx-auto px-6 pt-28 pb-12">
+            <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
                 <PageHeader
                     tag="Entrons en contact"
                     title="Parlons de votre"

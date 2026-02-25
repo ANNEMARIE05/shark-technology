@@ -14,7 +14,7 @@ const ArticleDetail = () => {
 
     if (!article) {
         return (
-            <div className="pt-28 pb-20 min-h-screen flex flex-col items-center justify-center bg-shark-deep dark:bg-slate-900">
+            <div className="pt-24 pb-20 min-h-screen flex flex-col items-center justify-center bg-shark-deep dark:bg-slate-900">
                 <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Article introuvable</h1>
                 <Button onClick={() => navigate('/blog')}>Retour au blog</Button>
             </div>
