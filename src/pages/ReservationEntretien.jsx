@@ -132,8 +132,8 @@ const ReservationEntretien = () => {
             </section>
 
             {/* Avantages */}
-            <section className="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 -mt-8 sm:-mt-10 relative z-20 min-w-0">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
                     {benefits.map((item, i) => (
                         <motion.div
                             key={item.title}
@@ -141,14 +141,14 @@ const ReservationEntretien = () => {
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.12 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                            className="group bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-7 border border-slate-200/80 dark:border-slate-700 shadow-lg hover:shadow-xl hover:border-shark-accent/25 dark:hover:border-shark-accent/30 transition-all duration-300 flex gap-5"
+                            className="group bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-7 border border-slate-200/80 dark:border-slate-700 shadow-lg hover:shadow-xl hover:border-shark-accent/25 dark:hover:border-shark-accent/30 transition-all duration-300 flex gap-3 sm:gap-5"
                         >
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-shark-accent/20 to-shark-accent/10 flex items-center justify-center shrink-0 group-hover:from-shark-accent/25 group-hover:to-shark-accent/15 transition-colors duration-300">
-                                <item.icon className="text-shark-accent dark:text-sky-400" size={26} />
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-shark-accent/20 to-shark-accent/10 flex items-center justify-center shrink-0 group-hover:from-shark-accent/25 group-hover:to-shark-accent/15 transition-colors duration-300">
+                                <item.icon className="text-shark-accent dark:text-sky-400" size={22} />
                             </div>
                             <div className="min-w-0">
-                                <h3 className="font-bold font-sora text-slate-900 dark:text-white mb-1.5 text-lg">{t(item.titleKey)}</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{t(item.textKey)}</p>
+                                <h3 className="font-bold font-sora text-slate-900 dark:text-white mb-1 sm:mb-1.5 text-base sm:text-lg break-words">{t(item.titleKey)}</h3>
+                                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed break-words">{t(item.textKey)}</p>
                             </div>
                         </motion.div>
                     ))}
@@ -156,31 +156,31 @@ const ReservationEntretien = () => {
             </section>
 
             {/* Formulaire dans une carte dédiée */}
-            <section className="max-w-7xl mx-auto px-6 py-14 md:py-24">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 md:py-24 min-w-0">
                 <motion.div
                     initial={{ y: 32, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                     className="max-w-2xl mx-auto"
                 >
-                    <div className="bg-white dark:bg-slate-800 rounded-[1.75rem] border border-slate-200 dark:border-slate-700 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] overflow-hidden">
-                        <div className="bg-gradient-to-r from-slate-50 to-slate-100/80 dark:from-slate-700/40 dark:to-slate-800/60 px-6 py-6 border-b border-slate-200 dark:border-slate-700">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-2xl bg-shark-accent/15 dark:bg-shark-accent/20 flex items-center justify-center shadow-sm">
-                                    <Calendar className="text-shark-accent dark:text-sky-400" size={24} />
+                    <div className="bg-white dark:bg-slate-800 rounded-xl sm:rounded-2xl md:rounded-[1.75rem] border border-slate-200 dark:border-slate-700 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] overflow-hidden">
+                        <div className="bg-gradient-to-r from-slate-50 to-slate-100/80 dark:from-slate-700/40 dark:to-slate-800/60 px-4 sm:px-6 py-4 sm:py-6 border-b border-slate-200 dark:border-slate-700">
+                            <div className="flex items-center gap-3 sm:gap-4">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-shark-accent/15 dark:bg-shark-accent/20 flex items-center justify-center shadow-sm shrink-0">
+                                    <Calendar className="text-shark-accent dark:text-sky-400" size={20} />
                                 </div>
-                                <div>
-                                    <h2 className="text-xl font-bold font-sora text-slate-900 dark:text-white">
+                                <div className="min-w-0">
+                                    <h2 className="text-base sm:text-xl font-bold font-sora text-slate-900 dark:text-white break-words">
                                         {t('reservation.formTitle')}
                                     </h2>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5 break-words">
                                         {t('reservation.formDesc')}
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        <form className="p-6 md:p-8 space-y-6" onSubmit={handleSubmit} noValidate>
+                        <form className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6" onSubmit={handleSubmit} noValidate>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
                                     <label htmlFor="res-name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">

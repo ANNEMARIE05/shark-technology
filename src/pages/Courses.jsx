@@ -42,7 +42,7 @@ const Courses = () => {
             exit={{ opacity: 0 }}
             className="pt-20 sm:pt-24 md:pt-28 pb-16 md:pb-24 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 min-w-0">
                 <PageHeader
                     tag={t('courses.tag')}
                     title={t('courses.title')}
@@ -127,7 +127,7 @@ const Courses = () => {
 
                 <div className="relative group/carousel">
                     <motion.div
-                        className="flex gap-4 sm:gap-6 md:gap-8 overflow-x-auto pb-14 md:pb-20 no-scrollbar cursor-grab active:cursor-grabbing"
+                        className="flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 overflow-x-auto pb-10 sm:pb-14 md:pb-20 no-scrollbar cursor-grab active:cursor-grabbing"
                         drag="x"
                         dragConstraints={{ right: 0, left: -1000 }}
                     >
@@ -145,7 +145,7 @@ const Courses = () => {
                                     viewport={{ once: true }}
                                     whileHover={{ y: -6, scale: 1.02 }}
                                     transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                                    className="glass-card rounded-2xl md:rounded-[30px] overflow-hidden shrink-0 w-[260px] sm:w-[280px] md:w-[300px] group border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-all duration-500 cursor-pointer"
+                                    className="glass-card rounded-xl sm:rounded-2xl md:rounded-[30px] overflow-hidden shrink-0 w-[240px] sm:w-[280px] md:w-[300px] group border border-slate-200 dark:border-slate-600 hover:border-shark-accent/30 dark:hover:border-sky-400/50 transition-all duration-500 cursor-pointer"
                                 >
                                     {/* Image compacte */}
                                     <div className="h-36 sm:h-40 md:h-44 overflow-hidden relative">
@@ -167,11 +167,11 @@ const Courses = () => {
                                     </div>
 
                                     {/* Contenu compact */}
-                                    <div className="p-4 sm:p-5 md:p-6">
-                                        <h3 className="text-sm sm:text-base font-bold font-sora mb-1 md:mb-2 leading-snug text-slate-900 dark:text-white group-hover:text-shark-accent dark:group-hover:text-sky-400 transition-colors line-clamp-2">
+                                    <div className="p-3 sm:p-4 md:p-6 min-w-0">
+                                        <h3 className="text-xs sm:text-sm md:text-base font-bold font-sora mb-1 md:mb-2 leading-snug text-slate-900 dark:text-white group-hover:text-shark-accent dark:group-hover:text-sky-400 transition-colors line-clamp-2 break-words">
                                             {course.title}
                                         </h3>
-                                        <p className="text-slate-600 dark:text-slate-300 text-[11px] sm:text-xs font-light mb-3 md:mb-5 line-clamp-2">
+                                        <p className="text-slate-600 dark:text-slate-300 text-[10px] sm:text-[11px] md:text-xs font-light mb-2 sm:mb-3 md:mb-5 line-clamp-2 break-words">
                                             {course.subtitle}
                                         </p>
                                         <span className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 group-hover:text-shark-accent dark:group-hover:text-sky-400 transition-colors flex items-center gap-2">
@@ -210,16 +210,16 @@ const Courses = () => {
                     initial={{ y: 50, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
-                    className="mt-16 md:mt-24 lg:mt-32 glass-card p-6 sm:p-8 md:p-12 lg:p-20 rounded-2xl md:rounded-3xl lg:rounded-[60px] text-center border border-slate-200 dark:border-slate-600 border-shark-accent/20 dark:border-sky-400/20 bg-gradient-to-b from-white to-slate-50/50 dark:from-slate-800/80 dark:to-slate-900/80 overflow-hidden relative"
+                    className="mt-10 sm:mt-16 md:mt-24 lg:mt-32 glass-card p-4 sm:p-6 md:p-12 lg:p-20 rounded-xl sm:rounded-2xl md:rounded-3xl lg:rounded-[60px] text-center border border-slate-200 dark:border-slate-600 border-shark-accent/20 dark:border-sky-400/20 bg-gradient-to-b from-white to-slate-50/50 dark:from-slate-800/80 dark:to-slate-900/80 overflow-hidden relative min-w-0"
                 >
                     <div className="absolute inset-0 opacity-[0.06] -z-10">
                         <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1200" alt="Cohort" className="w-full h-full object-cover" />
                     </div>
                     <div className="max-w-3xl mx-auto">
-                        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-black font-sora mb-4 md:mb-8 leading-tight text-slate-900 dark:text-white">
+                        <h2 className="text-lg sm:text-xl md:text-3xl lg:text-5xl font-black font-sora mb-3 sm:mb-4 md:mb-8 leading-tight text-slate-900 dark:text-white break-words px-1">
                             {t('courses.ctaTitle')} <span className="fluid-text">{t('courses.ctaCohort')}</span>
                         </h2>
-                        <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base md:text-lg mb-8 md:mb-12 font-light">
+                        <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm md:text-lg mb-6 sm:mb-8 md:mb-12 font-light break-words">
                             {t('courses.ctaDesc')}
                         </p>
                         <Button onClick={() => navigate('/reservation-entretien')}>{t('common.bookInterview')}</Button>

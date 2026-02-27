@@ -23,10 +23,10 @@ const AccordionItem = ({ question, answer, isOpen, onToggle }) => (
         <button
             type="button"
             onClick={onToggle}
-            className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-sora font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-shark-accent/30 rounded-xl"
+            className="w-full flex items-center justify-between gap-3 sm:gap-4 px-4 sm:px-5 py-3 sm:py-4 text-left font-sora font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-shark-accent/30 rounded-xl text-sm sm:text-base"
             aria-expanded={isOpen}
         >
-            <span className="pr-4">{question}</span>
+            <span className="pr-2 sm:pr-4 break-words text-left flex-1 min-w-0">{question}</span>
             <motion.span
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.25 }}
@@ -44,8 +44,8 @@ const AccordionItem = ({ question, answer, isOpen, onToggle }) => (
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                 >
-                    <div className="px-5 pb-4 pt-0">
-                        <div className="pl-0 border-l-2 border-shark-accent/30 dark:border-sky-400/30 pl-4 text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                    <div className="px-4 sm:px-5 pb-4 pt-0">
+                        <div className="pl-0 border-l-2 border-shark-accent/30 dark:border-sky-400/30 pl-3 sm:pl-4 text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed break-words">
                             {answer}
                         </div>
                     </div>
@@ -107,7 +107,7 @@ const Assistance = () => {
             exit={{ opacity: 0 }}
             className="min-h-screen bg-shark-deep dark:bg-slate-900"
         >
-            <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 min-w-0">
                 <PageHeader
                     tag={t('assistance.tag')}
                     title={t('assistance.title')}
@@ -116,7 +116,7 @@ const Assistance = () => {
                 />
             </div>
 
-            <div className="max-w-4xl mx-auto px-6 pb-24">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24 min-w-0">
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -285,24 +285,24 @@ const Assistance = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-16 rounded-[28px] overflow-hidden border border-slate-200 dark:border-slate-600 shadow-xl"
+                    className="mt-10 sm:mt-16 rounded-xl sm:rounded-2xl md:rounded-[28px] overflow-hidden border border-slate-200 dark:border-slate-600 shadow-xl min-w-0"
                 >
-                    <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 p-10 md:p-14">
+                    <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 p-6 sm:p-8 md:p-14">
                         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(37,99,235,0.15),transparent_60%)]" />
                         <div className="absolute top-0 right-0 w-64 h-64 bg-shark-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                            <div className="flex items-center gap-4">
-                                <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center">
-                                    <Headphones className="text-white" size={28} />
+                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 md:gap-8">
+                            <div className="flex items-center gap-3 sm:gap-4 text-center md:text-left min-w-0">
+                                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center shrink-0">
+                                    <Headphones className="text-white" size={24} />
                                 </div>
-                                <div>
-                                    <h3 className="text-xl font-black font-sora text-white mb-1">{t('assistance.needHelp')}</h3>
-                                    <p className="text-slate-300 text-sm">
+                                <div className="min-w-0">
+                                    <h3 className="text-base sm:text-xl font-black font-sora text-white mb-0.5 sm:mb-1 break-words">{t('assistance.needHelp')}</h3>
+                                    <p className="text-slate-300 text-xs sm:text-sm break-words">
                                         {t('assistance.needHelpDesc')}
                                     </p>
                                 </div>
                             </div>
-                            <div className="flex flex-wrap justify-center gap-3 shrink-0">
+                            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 shrink-0">
                                 <Link
                                     to="/contact"
                                     className="inline-flex items-center px-6 py-3 rounded-full font-bold bg-white text-slate-900 hover:bg-slate-100 transition-colors font-sora"

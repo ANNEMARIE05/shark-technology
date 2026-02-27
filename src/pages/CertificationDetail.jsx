@@ -64,7 +64,7 @@ const CertificationDetail = () => {
                 </div>
 
                 {/* Zone haute : fil d'Ariane — fond légèrement opaque pour lisibilité */}
-                <div className="relative z-10 flex justify-between items-center max-w-5xl mx-auto w-full px-6 pt-24 pb-4">
+                <div className="relative z-10 flex justify-between items-center max-w-5xl mx-auto w-full px-4 sm:px-6 pt-20 sm:pt-24 pb-4 min-w-0">
                     <motion.button
                         initial={{ opacity: 0, x: -12 }}
                         animate={{ opacity: 1, x: 0 }}

@@ -17,7 +17,7 @@ const Button = ({ children, onClick, variant = 'primary', className = '', type =
             whileTap={isDisabled ? {} : { scale: 0.95 }}
             onClick={onClick}
             disabled={isDisabled}
-            className={`inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold transition-all duration-300 font-sora disabled:opacity-70 disabled:cursor-not-allowed ${variants[variant]} ${className}`}
+            className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold transition-all duration-300 font-sora disabled:opacity-70 disabled:cursor-not-allowed text-sm sm:text-base ${variants[variant]} ${className}`}
             {...props}
         >
             {loading ? (

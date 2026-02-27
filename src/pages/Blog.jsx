@@ -29,7 +29,7 @@ const Blog = () => {
             exit={{ opacity: 0 }}
             className="pt-20 sm:pt-24 md:pt-28 pb-16 md:pb-28 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 min-w-0">
                 <PageHeader
                     tag={t('blog.tag')}
                     title={t('blog.title')}
@@ -137,7 +137,7 @@ const Blog = () => {
                 </motion.div>
 
                 {/* Grille articles : cartes chic */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
                     {rest.map((post, i) => (
                         <motion.article
                             key={post.slug}
@@ -164,15 +164,15 @@ const Blog = () => {
                                     </span>
                                 </div>
                             </div>
-                            <div className="p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col flex-grow">
-                                <div className="flex items-center gap-3 md:gap-4 text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs mb-2 md:mb-4 font-outfit">
-                                    <span className="flex items-center gap-1.5"><Calendar size={11} /> {post.date}</span>
-                                    <span className="flex items-center gap-1.5"><User size={11} /> Shark Tech</span>
+                            <div className="p-3 sm:p-4 md:p-6 lg:p-7 flex flex-col flex-grow min-w-0">
+                                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-slate-500 dark:text-slate-400 text-[9px] sm:text-[10px] md:text-xs mb-1.5 sm:mb-2 md:mb-4 font-outfit flex-wrap">
+                                    <span className="flex items-center gap-1.5"><Calendar size={10} /> {post.date}</span>
+                                    <span className="flex items-center gap-1.5"><User size={10} /> Shark Tech</span>
                                 </div>
-                                <h3 className="text-base sm:text-lg md:text-xl font-bold font-sora text-slate-900 dark:text-white mb-2 md:mb-3 leading-snug group-hover/card:text-shark-accent transition-colors line-clamp-2">
+                                <h3 className="text-sm sm:text-base md:text-xl font-bold font-sora text-slate-900 dark:text-white mb-1.5 sm:mb-2 md:mb-3 leading-snug group-hover/card:text-shark-accent transition-colors line-clamp-2 break-words">
                                     {post.title}
                                 </h3>
-                                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-3 md:mb-5 line-clamp-2 flex-grow">
+                                <p className="text-slate-600 dark:text-slate-300 text-[11px] sm:text-xs md:text-sm leading-relaxed mb-2 sm:mb-3 md:mb-5 line-clamp-2 flex-grow break-words">
                                     {post.excerpt}
                                 </p>
                                 <span className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-shark-accent group-hover/card:gap-3 transition-all font-outfit mt-auto">

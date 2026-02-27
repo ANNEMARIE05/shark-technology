@@ -21,6 +21,28 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Responsive mobile : éviter débordements de texte */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, button {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+}
+
+/* Safe area pour encoches / barre dynamique (mobile) */
+@supports (padding: max(0px)) {
+  .safe-area-top { padding-top: max(0.5rem, env(safe-area-inset-top)); }
+  .safe-area-bottom { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+}
+
 html.dark body,
 html.dark #root {
   background: #0f172a;

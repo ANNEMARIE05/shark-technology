@@ -37,21 +37,21 @@ const Navbar = () => {
     ]
 
     return (
-        <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-2.5 sm:py-3 backdrop-blur-md border-b ${scrolled ? 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-700/80 shadow-md' : 'bg-transparent border-transparent'}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
-                <Link to="/" className="flex items-center gap-3 group">
+        <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-2 sm:py-2.5 sm:py-3 backdrop-blur-md border-b ${scrolled ? 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-700/80 shadow-md' : 'bg-transparent border-transparent'}`}>
+            <div className="max-w-7xl mx-auto px-3 sm:px-6 flex justify-between items-center min-w-0">
+                <Link to="/" className="flex items-center gap-2 sm:gap-3 group min-w-0 shrink">
                     <motion.div
-                        className="w-10 h-10 bg-gradient-to-tr from-shark-accent to-premium-neon rounded-xl flex items-center justify-center shadow-lg"
+                        className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-tr from-shark-accent to-premium-neon rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg shrink-0"
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.2 }}
                     >
                         <img
                             src={logoImg}
                             alt="SHARK TECHNOLOGYS"
-                            className="h-8 w-auto object-contain"
+                            className="h-6 sm:h-8 w-auto object-contain"
                         />
                     </motion.div>
-                    <span className="text-xl font-black tracking-tighter font-sora text-slate-900 dark:text-white group-hover:text-shark-accent transition-colors">
+                    <span className="text-base sm:text-xl font-black tracking-tighter font-sora text-slate-900 dark:text-white group-hover:text-shark-accent transition-colors truncate max-w-[140px] sm:max-w-none">
                         SHARK <span className="font-light text-shark-silver dark:text-slate-400">TECHNOLOGYS</span>
                     </span>
                 </Link>

@@ -32,7 +32,7 @@ const ArticleDetail = () => {
             exit={{ opacity: 0 }}
             className="pt-24 pb-20 md:pt-28 md:pb-24 bg-shark-deep dark:bg-slate-900 min-h-screen"
         >
-            <article className="w-full max-w-6xl xl:max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <article className="w-full max-w-6xl xl:max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 min-w-0">
                 {/* Barre supérieure : Retour + métadonnées */}
                 <motion.header
                     initial={{ opacity: 0, y: 12 }}
@@ -66,7 +66,7 @@ const ArticleDetail = () => {
                             </span>
                         </div>
                     </div>
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black font-sora text-slate-900 dark:text-white leading-[1.2] tracking-tight mt-5">
+                    <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black font-sora text-slate-900 dark:text-white leading-[1.2] tracking-tight mt-4 sm:mt-5 break-words">
                         {article.title}
                     </h1>
                 </motion.header>
