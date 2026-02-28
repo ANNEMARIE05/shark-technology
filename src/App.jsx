@@ -18,9 +18,16 @@ import Login from './dashboard/Login'
 import DashboardLayout from './dashboard/DashboardLayout'
 import DashboardHome from './dashboard/DashboardHome'
 import TestimonialsManage from './dashboard/pages/TestimonialsManage'
+import TestimonialCreate from './dashboard/pages/TestimonialCreate'
+import TestimonialEdit from './dashboard/pages/TestimonialEdit'
 import PartnersManage from './dashboard/pages/PartnersManage'
 import BlogsManage from './dashboard/pages/BlogsManage'
+import BlogCreate from './dashboard/pages/BlogCreate'
+import BlogEdit from './dashboard/pages/BlogEdit'
 import CertificationsManage from './dashboard/pages/CertificationsManage'
+import CertificationCreate from './dashboard/pages/CertificationCreate'
+import CertificationEdit from './dashboard/pages/CertificationEdit'
+import CertificationDetailDashboard from './dashboard/pages/CertificationDetailDashboard'
 import ReservationsManage from './dashboard/pages/ReservationsManage'
 import ProfilePage from './dashboard/pages/ProfilePage'
 
@@ -78,9 +85,16 @@ function App() {
             <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
                 <Route index element={<DashboardHome />} />
                 <Route path="temoignages" element={<TestimonialsManage />} />
+                <Route path="temoignages/create" element={<TestimonialCreate />} />
+                <Route path="temoignages/edit/:id" element={<TestimonialEdit />} />
                 <Route path="partenaires" element={<PartnersManage />} />
                 <Route path="blog" element={<BlogsManage />} />
+                <Route path="blog/create" element={<BlogCreate />} />
+                <Route path="blog/edit/:slug" element={<BlogEdit />} />
                 <Route path="certifications" element={<CertificationsManage />} />
+                <Route path="certifications/create" element={<CertificationCreate />} />
+                <Route path="certifications/edit/:slug" element={<CertificationEdit />} />
+                <Route path="certifications/:slug" element={<CertificationDetailDashboard />} />
                 <Route path="reservations" element={<ReservationsManage />} />
                 <Route path="profil" element={<ProfilePage />} />
             </Route>

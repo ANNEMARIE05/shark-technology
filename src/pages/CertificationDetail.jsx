@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, Clock, BookOpen, Target, ListChecks, Award, Briefcase, FileCheck, Globe, TrendingUp, X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import Button from '../components/ui/Button'
-import { getCertificationBySlug, certifications } from '../data/certifications.jsx'
-import { getCertificationBySlugEn, certificationsEn } from '../data/certificationsEn.jsx'
+import { useDashboardStore } from '../dashboard/store'
 
 const SAFE_SLUG_REGEX = /^[a-z0-9-]+$/
 
@@ -13,10 +12,11 @@ const CertificationDetail = () => {
     const { slug } = useParams()
     const navigate = useNavigate()
     const { t, i18n } = useTranslation()
+    const getCertificationBySlug = useDashboardStore((s) => s.getCertificationBySlug)
+    const lang = i18n.language === 'en' ? 'en' : 'fr'
     const safeSlug = typeof slug === 'string' && SAFE_SLUG_REGEX.test(slug) ? slug : null
-    const certsList = i18n.language === 'en' ? certificationsEn : certifications
-    const getBySlug = i18n.language === 'en' ? getCertificationBySlugEn : getCertificationBySlug
-    const cert = safeSlug ? getBySlug(safeSlug) : null
+    const cert = safeSlug ? getCertificationBySlug(safeSlug, lang) : null
+    const certsList = useDashboardStore((s) => s.getCertifications(lang))
 
     if (!cert) {
         return (
@@ -28,6 +28,7 @@ const CertificationDetail = () => {
     }
 
     const Icon = cert.icon
+    const hasCustomIcon = cert.iconImage
     const gallery = cert.gallery || []
     const stats = cert.stats || {}
     const aSavoir = cert.aSavoir || t('certDetail.defaultSavoir')
@@ -117,8 +118,12 @@ const CertificationDetail = () => {
                             </div>
                         </div>
                         <div className="shrink-0 flex md:flex-col items-center gap-4 md:pb-1">
-                            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/25 shadow-xl">
-                                <Icon className="text-white shrink-0" size={40} />
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/25 shadow-xl overflow-hidden">
+                                {hasCustomIcon ? (
+                                    <img src={cert.iconImage} alt="" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain" />
+                                ) : (
+                                    <Icon className="text-white shrink-0" size={40} />
+                                )}
                             </div>
                         </div>
                     </motion.div>

@@ -119,10 +119,10 @@ const PartnersManage = () => {
                         </div>
                         <div className="flex gap-2 shrink-0">
                             <button type="button" onClick={() => openEdit(p)} className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400">
-                                <Pencil className="w-4 h-4" />
+                                <Pencil className="w-5 h-5" />
                             </button>
                             <button type="button" onClick={() => remove(p.id)} className="p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600">
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="w-5 h-5" />
                             </button>
                         </div>
                     </div>

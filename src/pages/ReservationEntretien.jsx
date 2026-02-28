@@ -17,10 +17,11 @@ import {
 import { useTranslation } from 'react-i18next'
 import Button from '../components/ui/Button'
 import { addReservation } from '../data/reservations'
-import { certifications } from '../data/certifications'
+import { useDashboardStore } from '../dashboard/store'
 
 const ReservationEntretien = () => {
     const { t } = useTranslation()
+    const certifications = useDashboardStore((s) => s.getCertifications('fr'))
     const [sent, setSent] = useState(false)
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({

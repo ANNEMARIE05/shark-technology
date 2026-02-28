@@ -11,8 +11,31 @@ function getStored() {
     return []
 }
 
+/** Une réservation exemple pour voir le fonctionnement du tableau (utilisée au premier chargement si aucune donnée). */
+function getDefaultReservations() {
+    return [
+        {
+            id: crypto.randomUUID(),
+            name: 'Jean Dupont',
+            email: 'jean.dupont@exemple.com',
+            phone: '+225 07 00 00 00 00',
+            formation: 'CompTIA Security+',
+            dateSouhaitee: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+            message: 'Je souhaite un entretien pour discuter des prérequis et du planning.',
+            status: 'en_attente',
+            createdAt: new Date().toISOString(),
+        },
+    ]
+}
+
 export function getReservations() {
-    return getStored()
+    const stored = getStored()
+    if (stored.length === 0) {
+        const defaultList = getDefaultReservations()
+        setReservations(defaultList)
+        return defaultList
+    }
+    return stored
 }
 
 export function setReservations(list) {

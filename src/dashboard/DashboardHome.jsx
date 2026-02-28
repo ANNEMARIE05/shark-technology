@@ -23,7 +23,7 @@ const DashboardHome = () => {
         testimonials: s.getTestimonials().length,
         partners: s.getPartners().length,
         articles: s.getArticles().length,
-        certifications: s.getCertifications().length,
+        certifications: s.getCertifications('fr').length,
     }))
     const [reservations, setReservations] = useState([])
 

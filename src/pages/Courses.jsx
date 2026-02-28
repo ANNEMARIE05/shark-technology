@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next'
 import Button from '../components/ui/Button'
 import PageHeader from '../components/ui/PageHeader'
 import Pagination from '../components/ui/Pagination'
-import { certifications } from '../data/certifications.jsx'
-import { certificationsEn } from '../data/certificationsEn.jsx'
+import { useDashboardStore } from '../dashboard/store'
 import formationImg from '../assets/img/formation.jpeg'
 
 const FORMATIONS_PER_PAGE = 6
@@ -16,7 +15,7 @@ const Courses = () => {
     const navigate = useNavigate()
     const { t, i18n } = useTranslation()
     const [page, setPage] = useState(1)
-    const certs = i18n.language === 'en' ? certificationsEn : certifications
+    const certs = useDashboardStore((s) => s.getCertifications(i18n.language || 'fr'))
 
     const whyUs = [
         { icon: <Award className="text-shark-accent" size={28} />, titleKey: 'courses.certsRecognized', descKey: 'courses.certsRecognizedDesc' },
@@ -133,6 +132,7 @@ const Courses = () => {
                     >
                         {paginatedFormations.map((course, index) => {
                             const Icon = course.icon
+                            const hasCustomIcon = course.iconImage
                             return (
                                 <motion.div
                                     key={course.slug}
@@ -151,8 +151,12 @@ const Courses = () => {
                                     <div className="h-36 sm:h-40 md:h-44 overflow-hidden relative">
                                         <img src={course.image} alt={course.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                         <div className="absolute top-4 left-4 flex items-center gap-2">
-                                            <div className="w-8 h-8 bg-white/90 backdrop-blur-md rounded-lg flex items-center justify-center border border-slate-200">
-                                                <Icon className="text-shark-accent" size={24} />
+                                            <div className="w-8 h-8 bg-white/90 backdrop-blur-md rounded-lg flex items-center justify-center border border-slate-200 overflow-hidden">
+                                                {hasCustomIcon ? (
+                                                    <img src={course.iconImage} alt="" className="w-5 h-5 object-contain" />
+                                                ) : (
+                                                    <Icon className="text-shark-accent" size={24} />
+                                                )}
                                             </div>
                                             <span className="bg-white/90 backdrop-blur-md text-shark-accent px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border border-slate-200">
                                                 {course.level}
